@@ -39,6 +39,7 @@ Three main scripts communicate via Chrome's message passing:
 - Always create a new branch before starting any work. Never commit directly to `master`.
 - Branch names should describe the change (e.g. `fix-color-rendering`, `add-middle-button-support`).
 - When work is complete, create a PR targeting `master`.
+- Write PR titles, descriptions, and review comments in English (not Japanese), even if the conversation with the user is in Japanese.
 
 ## Changelog
 
