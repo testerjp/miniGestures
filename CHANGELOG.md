@@ -5,6 +5,9 @@ All notable changes to miniGestures will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- Gesture trail color robustness: normalize color values through a `toCssColor()` helper that handles hex codes with/without `#`, CSS color names, and missing storage values. Guards `myColor` against being overwritten with `undefined` when storage is empty.
+
+### Fixed
 - Gesture trail color always rendered as black; hex color codes were missing the `#` prefix when passed to canvas `strokeStyle`
 
 ### Added

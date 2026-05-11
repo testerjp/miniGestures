@@ -35,6 +35,15 @@ function invertHash(hash)
     return inv
 }
 
+function toCssColor(c)
+{
+    if(typeof c !== 'string' || c.length === 0) return 'red'
+    if(c.charAt(0) === '#') return c
+    if(/^[0-9a-fA-F]{6}$/.test(c)) return '#' + c
+    if(/^[0-9a-fA-F]{3}$/.test(c)) return '#' + c
+    return c
+}
+
 function createCanvas()
 {
     canvas = document.createElement('canvas');
@@ -52,7 +61,7 @@ function createCanvas()
 function draw(x,y){
     var ctx = document.getElementById('gestCanvas').getContext('2d');
     ctx.beginPath();
-    ctx.strokeStyle = myColor.length === 6 ? '#' + myColor : myColor
+    ctx.strokeStyle = toCssColor(myColor)
     ctx.lineWidth = myWidth
     ctx.moveTo(lx,ly);
     ctx.lineTo(x,y);
@@ -301,7 +310,7 @@ function loadOptions(name)
 {
     chrome.runtime.sendMessage({msg: "colorCode"},
         function(response) {
-            if(response){
+            if(response && response.resp){
                 myColor = response.resp
             }
         });
