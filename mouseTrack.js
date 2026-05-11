@@ -46,16 +46,23 @@ function toCssColor(c)
 
 function createCanvas()
 {
+    // Size the canvas to the viewport (not the full document) and pin it with
+    // position:fixed. On very long pages, scrollWidth*scrollHeight can exceed
+    // Chrome's max canvas area, causing the bitmap to fail to allocate and the
+    // overlay to render as an opaque white block that blanks the page.
+    var vw = window.innerWidth
+    var vh = window.innerHeight
     canvas = document.createElement('canvas');
     canvas.id = "gestCanvas"
-    canvas.style.width=document.body.scrollWidth
-    canvas.style.height=document.body.scrollHeight
-    canvas.width=window.document.body.scrollWidth
-    canvas.height=window.document.body.scrollHeight     
+    canvas.width = vw
+    canvas.height = vh
+    canvas.style.width = vw + "px"
+    canvas.style.height = vh + "px"
     canvas.style.left="0px";
     canvas.style.top="0px";
     canvas.style.overflow = 'visible';
-    canvas.style.position = 'absolute';
+    canvas.style.position = 'fixed';
+    canvas.style.pointerEvents = 'none';
     canvas.style.zIndex="10000"
 }
 function draw(x,y){
@@ -105,8 +112,8 @@ document.onmousedown = function(event){
             exeRock()
         }
         else{
-            my = event.pageX;
-            mx = event.pageY;
+            my = event.clientX;
+            mx = event.clientY;
             lx = my
             ly = mx
             move = ""
@@ -131,8 +138,8 @@ document.onmousemove = function(event)
     //track the mouse if we are holding the right button
     if(rmousedown)
     {
-        ny = event.pageX;
-        nx = event.pageY;
+        ny = event.clientX;
+        nx = event.clientY;
         var r = Math.sqrt(Math.pow(nx-mx,2)+Math.pow(ny-my,2))
         if(r > 16)
         {

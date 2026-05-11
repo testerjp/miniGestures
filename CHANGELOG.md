@@ -15,6 +15,7 @@ All notable changes to miniGestures will be documented in this file.
 - Gesture Width setting is now a slider (range 1–20) with a live value display, replacing the 1–5 dropdown.
 
 ### Fixed
+- Gesture overlay no longer blanks the page on very long documents (e.g. 5ch threads). The canvas is now sized to the viewport (`window.innerWidth × innerHeight`) with `position: fixed`, so `scrollWidth × scrollHeight` can no longer exceed Chrome's max canvas area and fail to allocate (which previously rendered the overlay as an opaque white block). Drawing/tracking coordinates switched from `pageX/Y` to `clientX/Y` to match the fixed canvas, and `pointer-events: none` was added so the overlay never intercepts clicks.
 - Middle-click on a link no longer fails to open the link in a new tab when the gesture button is set to "middle". The `auxclick` handler now only suppresses the browser default when a gesture was actually drawn (`moved === true`), so simple middle-clicks pass through to the browser.
 - Gesture trail color robustness: normalize color values through a `toCssColor()` helper that handles hex codes with/without `#`, CSS color names, and missing storage values. Guards `myColor` against being overwritten with `undefined` when storage is empty.
 
