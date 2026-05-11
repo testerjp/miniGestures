@@ -4,6 +4,9 @@ All notable changes to miniGestures will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- Gesture Width setting is now a slider (range 1–20) with a live value display, replacing the 1–5 dropdown.
+
 ### Fixed
 - Gesture trail color robustness: normalize color values through a `toCssColor()` helper that handles hex codes with/without `#`, CSS color names, and missing storage values. Guards `myColor` against being overwritten with `undefined` when storage is empty.
 

@@ -70,13 +70,13 @@ function save_options()
     select = document.getElementById("color");
     value = select.children[select.selectedIndex].value;
 
-    var width_select = document.getElementById("width");
+    var width_input = document.getElementById("width");
 
     var gb_select = document.getElementById("gestureButton");
 
     var data = {
         colorCode: colorCodes[value],
-        width: width_select.children[width_select.selectedIndex].value,
+        width: width_input.value,
         rocker: document.getElementById('rocker').checked,
         trail: document.getElementById('trail').checked,
         gestureButton: gb_select.children[gb_select.selectedIndex].value
@@ -121,16 +121,14 @@ function loadInfo()
             }
         }
 
-        select = document.getElementById("width");
+        var width_input = document.getElementById("width");
         value = items.width;
         if(!value) value = 3;
-        for(i = 0; i < select.children.length; i++) {
-            child = select.children[i];
-            if(child.value == value) {
-                child.selected = "true";
-                break;
-            }
-        }
+        width_input.value = value;
+        document.getElementById("widthValue").textContent = width_input.value;
+        width_input.addEventListener('input', function() {
+            document.getElementById("widthValue").textContent = width_input.value;
+        });
 
         document.getElementById('rocker').checked = (items.rocker !== false);
         document.getElementById('trail').checked = (items.trail !== false);
