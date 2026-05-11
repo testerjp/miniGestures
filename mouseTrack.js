@@ -302,7 +302,7 @@ document.oncontextmenu = function()
 };
 
 document.addEventListener('auxclick', function(event){
-    if(event.which == 2 && gestureButton === "middle"){
+    if(event.which == 2 && gestureButton === "middle" && moved){
         event.preventDefault()
     }
 }, true);
