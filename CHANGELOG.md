@@ -4,6 +4,9 @@ All notable changes to miniGestures will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- Gesture Opacity setting: slider (5%–100% in 5% steps) on the options page that applies `globalAlpha` to the trail stroke. Default 100% (fully opaque).
+
 ### Changed
 - Gesture Width setting is now a slider (range 1–20) with a live value display, replacing the 1–5 dropdown.
 

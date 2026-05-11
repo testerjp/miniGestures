@@ -35,7 +35,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 });
 
 
-var SYSTEM_KEYS = new Set(["colorCode", "width", "rocker", "trail", "lasturl", "gestureButton"]);
+var SYSTEM_KEYS = new Set(["colorCode", "width", "opacity", "rocker", "trail", "lasturl", "gestureButton"]);
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.msg == "newtab") {
@@ -57,6 +57,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     } else if (request.msg == "width") {
         chrome.storage.local.get("width", function(items) {
             sendResponse({resp: items.width});
+        });
+        return true;
+
+    } else if (request.msg == "opacity") {
+        chrome.storage.local.get("opacity", function(items) {
+            sendResponse({resp: items.opacity});
         });
         return true;
 

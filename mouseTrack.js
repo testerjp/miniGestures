@@ -22,7 +22,7 @@ var move="", omove=""
 var pi =3.14159
 var suppress=1
 var canvas, myGests, ginv
-var link, ls, myColor="red", myWidth=3
+var link, ls, myColor="red", myWidth=3, myOpacity=100
 var loaded=false
 var rocked=false
 var link=null
@@ -63,6 +63,7 @@ function draw(x,y){
     ctx.beginPath();
     ctx.strokeStyle = toCssColor(myColor)
     ctx.lineWidth = myWidth
+    ctx.globalAlpha = Math.max(0, Math.min(100, Number(myOpacity) || 100)) / 100
     ctx.moveTo(lx,ly);
     ctx.lineTo(x,y);
     ctx.stroke()
@@ -318,6 +319,12 @@ function loadOptions(name)
         function(response) {
             if(response){
                 myWidth = response.resp
+            }
+        });
+    chrome.runtime.sendMessage({msg: "opacity"},
+        function(response) {
+            if(response && response.resp){
+                myOpacity = response.resp
             }
         });
     chrome.runtime.sendMessage({msg: "gests"},
