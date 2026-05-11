@@ -5,6 +5,7 @@ All notable changes to miniGestures will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- `SECURITY_REVIEW.md`: documents a source-level review verifying that the extension does not transmit browsing history, URLs, keystrokes, or other personal data to external servers. Includes scope, methodology, per-area findings, and optional cleanup suggestions.
 - Gesture Opacity setting: slider (5%–100% in 5% steps) on the options page that applies `globalAlpha` to the trail stroke. Default 100% (fully opaque).
 
 ### Changed
