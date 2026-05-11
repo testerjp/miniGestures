@@ -15,10 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 colorCodes={"red":"ff3300","green":"008000","blue":"00008B",
-                            "yellow":"FFFF00"}
+                            "yellow":"FFFF00",
+                            "pastel pink":"FFB6C1","pastel blue":"AEC6CF",
+                            "pastel green":"B5EAD7","pastel yellow":"FDFD96",
+                            "pastel purple":"C3B1E1","pastel orange":"FFB347"}
 
 colorNames={"ff3300":"red","008000":"green","00008B":"blue",
-                            "FFFF00":"yellow"}
+                            "FFFF00":"yellow",
+                            "FFB6C1":"pastel pink","AEC6CF":"pastel blue",
+                            "B5EAD7":"pastel green","FDFD96":"pastel yellow",
+                            "C3B1E1":"pastel purple","FFB347":"pastel orange"}
 
 defaultGests={"U":"newtab","R":"forward","L":"back","UD":"closetab"}
 

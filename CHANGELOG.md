@@ -5,6 +5,7 @@ All notable changes to miniGestures will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- Pastel color options for the gesture trail: pastel pink (`#FFB6C1`), pastel blue (`#AEC6CF`), pastel green (`#B5EAD7`), pastel yellow (`#FDFD96`), pastel purple (`#C3B1E1`), and pastel orange (`#FFB347`).
 - Gesture Opacity setting: slider (5%–100% in 5% steps) on the options page that applies `globalAlpha` to the trail stroke. Default 100% (fully opaque).
 
 ### Changed
