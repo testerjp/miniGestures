@@ -203,7 +203,6 @@ document.onmouseup = function(event)
         }
         else if(gestureButton === "right"){
             --suppress
-            $('#target').rmousedown(which=3);
         }
     }
 };
