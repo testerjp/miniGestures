@@ -5,6 +5,7 @@ All notable changes to miniGestures will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- Firefox compatibility: added `browser_specific_settings.gecko` to `manifest.json` (id `minigestures@local`, `strict_min_version` 121.0) and added `background.scripts` alongside `background.service_worker` (Firefox uses `scripts` for its event-page background since `service_worker` is gated/disabled by default in many releases; Chrome uses `service_worker` and ignores `scripts`). No JavaScript changes required — the `chrome.*` namespace works as a compatibility alias in Firefox, and `background.js` has no DOM/`window` dependency so it runs in either context.
 - `SECURITY_REVIEW.md`: documents a source-level review verifying that the extension does not transmit browsing history, URLs, keystrokes, or other personal data to external servers. Includes scope, methodology, per-area findings, and optional cleanup suggestions.
 - Pastel color options for the gesture trail: pastel pink (`#FFB6C1`), pastel blue (`#AEC6CF`), pastel green (`#B5EAD7`), pastel yellow (`#FDFD96`), pastel purple (`#C3B1E1`), and pastel orange (`#FFB347`).
 - Gesture Opacity setting: slider (5%–100% in 5% steps) on the options page that applies `globalAlpha` to the trail stroke. Default 100% (fully opaque).

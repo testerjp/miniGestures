@@ -3,7 +3,8 @@
 "manifest_version": 3,
   "permissions": ["tabs","storage"],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
   },
   "content_scripts": [
     {
@@ -15,5 +16,11 @@
   ],
 "version": "1.4",
 "options_page": "options.html",
-"description": "a very simple mouse gestures program"
+"description": "a very simple mouse gestures program",
+"browser_specific_settings": {
+  "gecko": {
+    "id": "minigestures@local",
+    "strict_min_version": "121.0"
+  }
+}
 }
