@@ -34,6 +34,12 @@ Three main scripts communicate via Chrome's message passing:
 - **Settings storage:** All settings (`colorCode`, `width`, `rocker`, `trail`, gesture mappings) are stored in `chrome.storage.local`. `SYSTEM_KEYS` in both `background.js` and `options.js` identifies non-gesture keys so gesture mappings can be extracted from the flat storage object. Values are stored as their native types (booleans as `true`/`false`, not strings).
 - **`AGENTS.md`** in the repo root is unrelated to this project — it documents a different codebase and can be ignored.
 
+## Git Workflow
+
+- Always create a new branch before starting any work. Never commit directly to `master`.
+- Branch names should describe the change (e.g. `fix-color-rendering`, `add-middle-button-support`).
+- When work is complete, create a PR targeting `master`.
+
 ## Changelog
 
 - Always update `CHANGELOG.md` when making changes, in addition to any PR description.
