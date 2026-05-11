@@ -52,7 +52,7 @@ function createCanvas()
 function draw(x,y){
     var ctx = document.getElementById('gestCanvas').getContext('2d');
     ctx.beginPath();
-    ctx.strokeStyle = myColor
+    ctx.strokeStyle = myColor.length === 6 ? '#' + myColor : myColor
     ctx.lineWidth = myWidth
     ctx.moveTo(lx,ly);
     ctx.lineTo(x,y);

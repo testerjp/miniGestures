@@ -4,6 +4,9 @@ All notable changes to miniGestures will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- Gesture trail color always rendered as black; hex color codes were missing the `#` prefix when passed to canvas `strokeStyle`
+
 ### Added
 - Middle mouse button support for gesture activation; configurable in options (default: right button)
   - Middle button prevents browser auto-scroll and middle-click link-open behavior during gestures
