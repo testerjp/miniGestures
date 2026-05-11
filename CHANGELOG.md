@@ -4,6 +4,11 @@ All notable changes to miniGestures will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- Middle mouse button support for gesture activation; configurable in options (default: right button)
+  - Middle button prevents browser auto-scroll and middle-click link-open behavior during gestures
+  - Rocker gestures (left+right click) remain right-button based regardless of this setting
+
 ## [2026-05-11]
 
 ### Changed
