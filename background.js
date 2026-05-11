@@ -35,7 +35,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 });
 
 
-var SYSTEM_KEYS = new Set(["colorCode", "width", "rocker", "trail", "lasturl"]);
+var SYSTEM_KEYS = new Set(["colorCode", "width", "rocker", "trail", "lasturl", "gestureButton"]);
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.msg == "newtab") {
@@ -80,6 +80,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     } else if (request.msg == "trail") {
         chrome.storage.local.get("trail", function(items) {
             sendResponse({resp: items.trail});
+        });
+        return true;
+
+    } else if (request.msg == "gestureButton") {
+        chrome.storage.local.get("gestureButton", function(items) {
+            sendResponse({resp: items.gestureButton || "right"});
         });
         return true;
 

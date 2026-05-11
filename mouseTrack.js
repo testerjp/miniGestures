@@ -16,7 +16,7 @@
 */
 
 var rmousedown=false, moved=false, lmousedown=false
-var rocker=false, trail=false
+var rocker=false, trail=false, gestureButton="right"
 var mx,my,nx,ny,lx,ly,phi
 var move="", omove=""
 var pi =3.14159
@@ -62,40 +62,36 @@ function draw(x,y){
 }
 
 document.onmousedown = function(event){
+    var gestureWhich = gestureButton === "middle" ? 2 : 3;
+
     if(event.which == 1){
         lmousedown = true
     }
-    else if(event.which == 3){
+    else if(event.which == gestureWhich){
         rmousedown = true
+        if(gestureButton === "middle") event.preventDefault()
     }
 
-    //leftrock
-    if(event.which == 1 && rmousedown && suppress && rocker){
+    //leftrock (right+left only, regardless of gesture button setting)
+    if(event.which == 1 && rmousedown && suppress && rocker && gestureButton === "right"){
         if(! loaded){
             loadOptions()
             loaded=true
         }
         move = 'back'
         rocked = true
-        // console.log(rocked)
         exeRock()
     }
 
-    // console.log('rmousedown '+suppress)
-    //right mouse click
-    else if(event.which == 3 && suppress){
+    //gesture button click
+    else if(event.which == gestureWhich && (gestureButton === "right" ? suppress : true)){
         if(! loaded){
             loadOptions()
             loaded=true
         }
-        if(lmousedown && rocker){
-            if(! loaded){
-                loadOptions()
-                loaded=true
-            }
+        if(lmousedown && rocker && gestureButton === "right"){
             move = 'forward'
             rocked = true
-            // console.log(rocked)
             exeRock()
         }
         else{
@@ -168,19 +164,18 @@ document.onmousemove = function(event)
 
 document.onmouseup = function(event)
 {
-    // console.log('mouse is up '+suppress)
+    var gestureWhich = gestureButton === "middle" ? 2 : 3;
+
     if(event.which == 1)
         lmousedown = false
 
-    //right mouse release
-    if(event.which == 3){
-        // console.log('suppress is '+suppress)
+    //gesture button release
+    if(event.which == gestureWhich){
         rmousedown=false
         if(moved){
             cvs = document.getElementById('gestCanvas')
             if(cvs)
             {
-                // document.body.removeChild(link)
                 document.body.removeChild(canvas)
                 cvs.width = cvs.width;
             }
@@ -189,9 +184,8 @@ document.onmouseup = function(event)
         else if(rocked){
             rocked = false
         }
-        else{
+        else if(gestureButton === "right"){
             --suppress
-            // console.log('no move '+suppress)
             $('#target').rmousedown(which=3);
         }
     }
@@ -288,15 +282,20 @@ function exeFunc()
 
 document.oncontextmenu = function()
 {
-    // console.log('ctx menu suppress is '+suppress)
+    if(gestureButton !== "right") return true;
     if(suppress)
         return false
     else{
-        // console.log("open it");
         suppress++
         return true
     }
 };
+
+document.addEventListener('auxclick', function(event){
+    if(event.which == 2 && gestureButton === "middle"){
+        event.preventDefault()
+    }
+}, true);
 
 function loadOptions(name)
 {
@@ -330,6 +329,13 @@ function loadOptions(name)
         function(response)
         {
             trail = (response && response.resp === true);
+        });
+
+    chrome.runtime.sendMessage({msg: "gestureButton"},
+        function(response)
+        {
+            if(response && response.resp)
+                gestureButton = response.resp;
         });
 }
 
