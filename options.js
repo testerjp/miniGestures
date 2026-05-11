@@ -1,18 +1,18 @@
-/*   
+/*
  *  Copyright (C) 2013  AJ Ribeiro
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.   
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 colorCodes={"red":"ff3300","green":"008000","blue":"00008B",
                             "yellow":"FFFF00"}
@@ -32,6 +32,7 @@ commandTrans={"History Back":"back","History Forward":"forward",
                             "Re-open Last Closed Tab":"lasttab",
                             }
 
+var SYSTEM_KEYS = new Set(["colorCode", "width", "rocker", "trail", "lasturl"]);
 
 function invertHash(hash)
 {
@@ -41,19 +42,9 @@ function invertHash(hash)
     return inv
 }
 
-function fillMenu()
+function fillTableRows(gests)
 {
-    var key,div,tr,td,select,inp,img,a
-    gests = {}
-    for(key in localStorage)
-    {
-        if(key == "colorCode" || key == "width")
-            continue
-        gests[key]=localStorage[key]
-    }
-    if(Object.keys(gests).length == 0)
-        gests = invertHash(defaultGests)
-    // availG = invertHash(gests)
+    var key,div,tr,td,inp
     div = document.getElementById("optsTab");
     for(key in commandTrans)
     {
@@ -72,91 +63,84 @@ function fillMenu()
     }
 }
 
-
-// Saves options to localStorage.
-function save_options() 
+function save_options()
 {
     var select, value
-    
+
     select = document.getElementById("color");
     value = select.children[select.selectedIndex].value;
-    localStorage["colorCode"]=colorCodes[value];
 
-    select = document.getElementById("width");
-    localStorage["width"]=select.children[select.selectedIndex].value;
+    var width_select = document.getElementById("width");
 
-    var rocker = document.getElementById('rocker')
-    if(rocker.checked){
-        localStorage['rocker'] = true
-    }
-    else{
-        localStorage['rocker'] = false
-    }
+    var data = {
+        colorCode: colorCodes[value],
+        width: width_select.children[width_select.selectedIndex].value,
+        rocker: document.getElementById('rocker').checked,
+        trail: document.getElementById('trail').checked
+    };
 
-    var trail = document.getElementById('trail')
-    if(trail.checked){
-        localStorage['trail'] = true
-    }
-    else{
-        localStorage['trail'] = false
-    }
-
-    // Update status to let user know options were saved.
-    var status = document.getElementById("status");
-    status.innerHTML = "Configuration Saved";
-    setTimeout(
-        function()
-        {
-            status.innerHTML = "";
-        }, 750);
-
-    inputs = document.getElementsByTagName('input')
-    for(i=0;i<inputs.length;i++)
+    var toRemove = [];
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i < inputs.length; i++)
     {
-        s = inputs[i].parentElement.parentElement.children[0].textContent
+        var s = inputs[i].parentElement.parentElement.children[0].textContent;
+        var cmdKey = commandTrans[s];
+        if(!cmdKey) continue;
         if(inputs[i].value.length > 0)
-            localStorage.setItem(commandTrans[s],inputs[i].value)
+            data[cmdKey] = inputs[i].value;
         else
-            localStorage.removeItem(commandTrans[s])
+            toRemove.push(cmdKey);
     }
 
-}
+    chrome.storage.local.set(data, function() {
+        var status = document.getElementById("status");
+        status.innerHTML = "Configuration Saved";
+        setTimeout(function() { status.innerHTML = ""; }, 750);
+    });
 
-// Restores select box state to saved value from localStorage.
-function restore_options() 
-{
-    var select, value
-    select = document.getElementById("color");
-    value = colorNames[localStorage["colorCode"]]
-    if(!value) value = "red"
-    for (var i = 0; i < select.children.length; i++) 
-    {
-        var child = select.children[i];
-        if (child.value == value)
-        {
-            child.selected = "true";
-            break;
-        }
-    }
-
-    select = document.getElementById("width");
-    value = localStorage["width"]
-    if(! value) value = 3
-    for (var i = 0; i < select.children.length; i++) 
-    {
-        var child = select.children[i];
-        if (child.value == value) 
-        {
-            child.selected = "true";
-            break;
-        }
-    }
+    if(toRemove.length > 0)
+        chrome.storage.local.remove(toRemove);
 }
 
 function loadInfo()
 {
-    restore_options()
-    fillMenu()
+    chrome.storage.local.get(null, function(items) {
+        var select, value, i, child;
+
+        select = document.getElementById("color");
+        value = colorNames[items.colorCode];
+        if(!value) value = "red";
+        for(i = 0; i < select.children.length; i++) {
+            child = select.children[i];
+            if(child.value == value) {
+                child.selected = "true";
+                break;
+            }
+        }
+
+        select = document.getElementById("width");
+        value = items.width;
+        if(!value) value = 3;
+        for(i = 0; i < select.children.length; i++) {
+            child = select.children[i];
+            if(child.value == value) {
+                child.selected = "true";
+                break;
+            }
+        }
+
+        document.getElementById('rocker').checked = (items.rocker !== false);
+        document.getElementById('trail').checked = (items.trail !== false);
+
+        var gests = {};
+        for(var key in items) {
+            if(!SYSTEM_KEYS.has(key) && !/^\d+$/.test(key))
+                gests[key] = items[key];
+        }
+        if(Object.keys(gests).length == 0)
+            gests = invertHash(defaultGests);
+        fillTableRows(gests);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', loadInfo);

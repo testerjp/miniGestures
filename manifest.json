@@ -1,9 +1,9 @@
 {
 "name": "miniGestures",
-"manifest_version": 2,
+"manifest_version": 3,
   "permissions": ["tabs","storage"],
   "background": {
-    "scripts": ["background.js"]
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {

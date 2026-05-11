@@ -226,7 +226,7 @@ function exeFunc()
         else if(action == "newtab")
         {
             if(link == null){
-                chrome.extension.sendMessage({msg: "newtab"}, 
+                chrome.runtime.sendMessage({msg: "newtab"},
                     function(response)
                     {
                         if(response != null)
@@ -234,8 +234,8 @@ function exeFunc()
                         else
                         {
                             console.log('problem executing open tab')
-                            if(chrome.extension.lastError)
-                                console.log(chrome.extension.lastError.message)
+                            if(chrome.runtime.lastError)
+                                console.log(chrome.runtime.lastError.message)
                         }
                     });
             }
@@ -244,29 +244,29 @@ function exeFunc()
             }
         }
         else if(action == "closetab"){
-            chrome.extension.sendMessage({msg: "closetab"});
+            chrome.runtime.sendMessage({msg: "closetab"});
         }
         else if(action == "lasttab"){
-            chrome.extension.sendMessage({msg: "lasttab"});
+            chrome.runtime.sendMessage({msg: "lasttab"});
         }
         else if(action == "reloadall"){
-            chrome.extension.sendMessage({msg: "reloadall"});
+            chrome.runtime.sendMessage({msg: "reloadall"});
         }
 
         else if(action == "closeall"){
-            chrome.extension.sendMessage({msg: "closeall"});
+            chrome.runtime.sendMessage({msg: "closeall"});
         }
 
         else if(action == "nexttab") {
-            chrome.extension.sendMessage({msg: "nexttab"});
+            chrome.runtime.sendMessage({msg: "nexttab"});
         }
 
         else if(action == "prevtab"){
-            chrome.extension.sendMessage({msg: "prevtab"});
+            chrome.runtime.sendMessage({msg: "prevtab"});
         }
 
         else if(action == "closeback"){
-            chrome.extension.sendMessage({msg: "closeback"});
+            chrome.runtime.sendMessage({msg: "closeback"});
         }
 
 
@@ -300,48 +300,36 @@ document.oncontextmenu = function()
 
 function loadOptions(name)
 {
-    chrome.extension.sendMessage({msg: "colorCode"}, 
+    chrome.runtime.sendMessage({msg: "colorCode"},
         function(response) {
             if(response){
-                // console.log('color'+response.resp)
                 myColor = response.resp
             }
-            // else
-            //     console.log('error getting colorCode')
         });
-    chrome.extension.sendMessage({msg: "width"}, 
+    chrome.runtime.sendMessage({msg: "width"},
         function(response) {
             if(response){
                 myWidth = response.resp
-                // console.log('width '+myWidth)
             }
-            // else
-            //     console.log('error getting width')
         });
-    chrome.extension.sendMessage({msg: "gests"}, 
-        function(response) 
+    chrome.runtime.sendMessage({msg: "gests"},
+        function(response)
         {
             if(response)
                 myGests = response.resp
             ginv = invertHash(myGests)
         });
 
-    chrome.extension.sendMessage({msg: "rocker"}, 
-        function(response) 
+    chrome.runtime.sendMessage({msg: "rocker"},
+        function(response)
         {
-            if(response)
-                rocker = response.resp
-            if(rocker == 'true') rocker = true
-            else rocker = false
+            rocker = (response && response.resp === true);
         });
 
-    chrome.extension.sendMessage({msg: "trail"}, 
-        function(response) 
+    chrome.runtime.sendMessage({msg: "trail"},
+        function(response)
         {
-            if(response)
-                trail = response.resp
-            if(trail == 'true') trail = true
-            else trail = false
+            trail = (response && response.resp === true);
         });
 }
 
