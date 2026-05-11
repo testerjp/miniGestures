@@ -15,6 +15,7 @@ All notable changes to miniGestures will be documented in this file.
 - Gesture Width setting is now a slider (range 1–20) with a live value display, replacing the 1–5 dropdown.
 
 ### Fixed
+- Middle-click on a link no longer fails to open the link in a new tab when the gesture button is set to "middle". The `auxclick` handler now only suppresses the browser default when a gesture was actually drawn (`moved === true`), so simple middle-clicks pass through to the browser.
 - Gesture trail color robustness: normalize color values through a `toCssColor()` helper that handles hex codes with/without `#`, CSS color names, and missing storage values. Guards `myColor` against being overwritten with `undefined` when storage is empty.
 
 ### Fixed
