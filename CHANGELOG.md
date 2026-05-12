@@ -5,7 +5,7 @@ All notable changes to miniGestures, one entry per pull request (newest first). 
 ## 2026-05-12 — [#22](https://github.com/testerjp/miniGestures/pull/22) Refresh security review against HEAD
 - Re-ran the static security review against the current HEAD (commit `558e664`) and rewrote `SECURITY_REVIEW.md`.
 - Added a top-of-doc disclaimer that the audit was performed by Claude (Opus 4.7) via source reading and `grep`, and is not a formal or complete audit.
-- Verified every PR merged since the previous review (#10–#20) is security-neutral; conclusion unchanged — no exfiltration, minimal permissions, safe to use within the scope of the static review.
+- Conclusion unchanged: no exfiltration, minimal permissions, safe to use within the scope of the static review.
 
 ## 2026-05-12 — [#21](https://github.com/testerjp/miniGestures/pull/21) Reorganize CHANGELOG by PR
 - Restructured `CHANGELOG.md` so every entry is one pull request, sorted newest first, with a uniform `日付 — #PR 見出し` heading and 2–4 line body.

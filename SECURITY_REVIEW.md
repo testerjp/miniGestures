@@ -3,14 +3,13 @@
 - Target: miniGestures (Manifest V3 Chrome extension, with Firefox MV3 manifest entry)
 - Date: 2026-05-12
 - Commit reviewed: `558e664` (branch: `reorganize-changelog-by-pr`)
-- Previous review: `a6208f3` (2026-05-11); this revision re-verifies all findings against HEAD and covers the changes merged since then.
 - Focus: Spyware-like behavior — in particular, whether browsing history, URLs, or user input are silently transmitted to external servers.
 
 > **Reviewer disclaimer.** This audit was performed by Claude (Opus 4.7) via static source reading and `grep` only. It is **not** a complete or formal security audit — no dynamic analysis, fuzzing, runtime instrumentation, or human expert review was carried out. Findings should be treated as a best-effort code skim and independently re-verified before being relied on.
 
 ## Conclusion
 
-**No code that exfiltrates browsing history, URLs, keystrokes, or other personal data to any external server was found.** The indicators commonly seen in compromised gesture extensions (tracking SDKs, outbound POSTs, obfuscated beacons) are absent. All changes merged since the previous review are security-neutral. The current implementation can be considered safe, within the scope of this static review.
+**No code that exfiltrates browsing history, URLs, keystrokes, or other personal data to any external server was found.** The indicators commonly seen in compromised gesture extensions (tracking SDKs, outbound POSTs, obfuscated beacons) are absent. The current implementation can be considered safe, within the scope of this static review.
 
 ## Verification Steps and Findings
 
@@ -51,8 +50,7 @@ No usage of `eval(`, `new Function(`, string-form `setTimeout` / `setInterval`, 
 ### 5. Bundled jQuery 1.9.1 (`jquery.js`)
 
 - Verified to be the upstream original (jQuery Foundation, MIT)
-- The previous review noted a single call at `mouseTrack.js:199` (`$('#target').rmousedown(which=3)`). That call has since been removed (commit `5e2ac0c`, PR #16), so **jQuery is now entirely unreferenced from extension code**
-- `ajax`, `getJSON`, `load`, etc. are never invoked
+- **jQuery is entirely unreferenced from extension code.** `ajax`, `getJSON`, `load`, etc. are never invoked
 - The 2013 build still has known XSS issues (e.g. in `$.html()`), but they are not exercised
 - Removal of the unused `jquery.js` file is recommended for dependency hygiene, not because of an active exploit path
 
@@ -73,9 +71,9 @@ No usage of `eval(`, `new Function(`, string-form `setTimeout` / `setInterval`, 
 - `window.open(link)` at `mouseTrack.js:244` opens an `href` read from the element the user gestured on. The URL comes from the page DOM the user is already viewing and the navigation is user-initiated, so it is not a data-exfiltration path
 - No keylogging, no reading of form values, no access to `document.cookie` / `localStorage` / `sessionStorage`
 
-### 8. Custom hex color input (PR #19) — input validation
+### 8. Custom hex color input — input validation
 
-The options page now accepts an arbitrary hex code via a text input.
+The options page accepts an arbitrary hex code via a text input.
 
 - `options.js:51-60` `normalizeHex` strips an optional leading `#`, expands 3-digit shorthand, and accepts only values matching `/^[0-9a-fA-F]{6}$/`; everything else returns `null` and `save_options` refuses to persist
 - `options.js:67` writes `preview.style.backgroundColor = "#" + hex` only after that validation, so the value can never contain `;`, `url(…)`, or other CSS injection vectors
@@ -83,27 +81,12 @@ The options page now accepts an arbitrary hex code via a text input.
 
 The `innerHTML` writes in `options.js:98, 99, 130, 131` use only static literal strings (`"Invalid color code: use #rgb or #rrggbb"`, `"Configuration Saved"`, `""`) — no user-controlled data flows into them, so they do not introduce XSS.
 
-### 9. Changes reviewed since `a6208f3`
-
-The following PRs landed between the previous review commit and HEAD. Each has been re-read; all are security-neutral:
-
-| PR | Subject | Notes |
-| --- | --- | --- |
-| #10 | Firefox MV3 support | Manifest-only change; adds `browser_specific_settings.gecko`. No new capability. |
-| #14 | Canvas blank-on-long-pages fix | Sizes the overlay canvas to the viewport. Local DOM only. |
-| #15 | Manifest service_worker fix | Replaces the legacy `background.scripts` array with `background.service_worker`. No new permission. |
-| #16 | Stray jQuery call removed | Eliminates the only remaining jQuery invocation; reduces residual XSS surface from the bundled library. |
-| #17 | Middle-click X11 primary-paste fix | Adds `event.preventDefault()` and a targeted `blur()`. Does not read or transmit data. |
-| #18 | `safeSendMessage` guard | Wraps `chrome.runtime.sendMessage` in a try/catch and a context-validity check. Defensive only. |
-| #19 | Custom hex color input | Both write sites are protected by the `normalizeHex` / `toCssColor` regex (see §8). |
-| #20 | Remove rocker gestures | Pure deletion; removes code rather than adding capability. |
-
 ## Optional Cleanup Suggestions
 
 Not strictly required for security, but recommended for hygiene:
 
 1. Remove the PayPal 1×1 pixel `<img>` at `options.html:119` — eliminates the only external request triggered by opening the options page
-2. Delete the unused `jquery.js` and drop it from `content_scripts.js` in `manifest.json` — the last in-code call site was removed in PR #16, so the file is now dead weight that still carries 2013-era XSS issues in unreached sinks
+2. Delete the unused `jquery.js` and drop it from `content_scripts.js` in `manifest.json` — jQuery is no longer referenced from extension code, so the file is dead weight that still carries 2013-era XSS issues in unreached sinks
 3. Stop loading the unused `coin.js` from `options.html:23` — dead-code removal
 
 ## Overall Assessment
