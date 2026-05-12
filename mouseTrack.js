@@ -125,15 +125,13 @@ document.onmousedown = function(event){
     move = ""
     omove=""
     moved=false
-    if(event.target.href){
-        link = event.target.href
-    }
-    else if(event.target.parentElement.href){
-        link = event.target.parentElement.href
-    }
-    else{
-        link = null
-    }
+    // Walk up to the nearest ancestor <a href="…"> instead of only checking
+    // event.target and its direct parent. The old two-step check threw when
+    // event.target was <html> (parentElement === null) and also missed anchors
+    // whose click target was a deeply-nested child (e.g. <a><span><svg></svg></span></a>).
+    var t = event.target
+    var anchor = (t && t.closest) ? t.closest('a[href]') : null
+    link = anchor ? anchor.href : null
 };
 
 document.onmousemove = function(event)
