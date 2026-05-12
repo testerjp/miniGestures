@@ -2,6 +2,11 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-12 — [#26](https://github.com/testerjp/miniGestures/pull/26) Fix Firefox load error by splitting the manifest
+- Firefox no longer fails to load the extension with `background.service_worker is currently disabled. Add background.scripts.`.
+- Added a separate `manifest.firefox.json` that uses `background.scripts: ["background.js"]` instead of `background.service_worker`. Firefox users now `cp manifest.firefox.json manifest.json` before loading via `about:debugging`; `git restore manifest.json` reverts to the Chrome version.
+- Resolves the [#10](https://github.com/testerjp/miniGestures/pull/10) → [#15](https://github.com/testerjp/miniGestures/pull/15) pendulum: combining both fields breaks Chrome MV3 (rejects with `'background.scripts' requires manifest version of 2 or lower`), but Firefox 121+ keeps `service_worker` disabled by default behind the `extensions.backgroundServiceWorkerEnabled` pref. `browser_specific_settings.gecko` cannot override `background`, so a single shared manifest is not possible.
+
 ## 2026-05-12 — [#25](https://github.com/testerjp/miniGestures/pull/25) Remove unused leftover files
 - Deleted `recfib.py`, a Python 2 recursive Fibonacci script accidentally committed in 2014 alongside an unrelated extension change. Python is not executed by the browser; the file was pure dead weight.
 - Deleted `x_icon.png`, an unused PNG present since the 2013 first commit. Not referenced by `manifest.json` (no `icons` / `action` / `web_accessible_resources` field) or by any HTML/JS/CSS, and Chrome/Firefox do not auto-load extension files by filename, so removing it has no runtime effect.

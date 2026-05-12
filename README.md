@@ -24,13 +24,22 @@ The fork exists to migrate the extension to **Manifest V3** and to add a few sma
 
 ## Install on Firefox
 
-Slightly more involved because the build is not signed for AMO.
+Slightly more involved because the build is not signed for AMO, and Firefox needs a different `manifest.json` than Chrome (see [Why two manifests?](#why-two-manifests)).
 
 1. Use Firefox **121 or later**.
-2. Open `about:debugging#/runtime/this-firefox`.
-3. Click **Load Temporary Add-on...** and select `manifest.json` in the repository folder.
-4. The add-on persists only until Firefox restarts — re-load after each restart, or sign/publish on AMO for a permanent install.
-5. Usage is the same as on Chrome.
+2. From the repository folder, swap in the Firefox manifest:
+   ```sh
+   cp manifest.firefox.json manifest.json
+   ```
+   (To restore the Chrome manifest later: `git restore manifest.json`.)
+3. Open `about:debugging#/runtime/this-firefox`.
+4. Click **Load Temporary Add-on...** and select `manifest.json` in the repository folder.
+5. The add-on persists only until Firefox restarts — re-load after each restart, or sign/publish on AMO for a permanent install.
+6. Usage is the same as on Chrome.
+
+### Why two manifests?
+
+Chrome MV3 requires `background.service_worker` and **rejects** any manifest that also contains `background.scripts` (with `'background.scripts' requires manifest version of 2 or lower`). Firefox 121+ ships the `service_worker` field but it is gated behind the `extensions.backgroundServiceWorkerEnabled` preference (default `false`), so Firefox fails with `background.service_worker is currently disabled. Add background.scripts.` unless `background.scripts` is present. `browser_specific_settings.gecko` cannot override `background`, so a single shared `manifest.json` cannot satisfy both. Firefox's *Load Temporary Add-on* only reads a file literally named `manifest.json`, hence the in-place swap rather than a side-by-side file.
 
 ## Security
 
