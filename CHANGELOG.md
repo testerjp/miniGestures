@@ -1,103 +1,107 @@
 # Changelog
 
-All notable changes to miniGestures will be documented in this file.
+All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## [Unreleased]
+## 2026-05-12 — [#21](https://github.com/testerjp/miniGestures/pull/21) Reorganize CHANGELOG by PR
+- Restructured `CHANGELOG.md` so every entry is one pull request, sorted newest first, with a uniform `日付 — #PR 見出し` heading and 2–4 line body.
+- Dropped the `[Unreleased]` section (no versioned releases are cut for this project).
+- Preserved the 2013–2014 pre-PR history at the bottom; recorded the master-direct fix `049b461` as its own entry.
 
-### Added
-- Custom gesture trail color via hex input (`#rgb` / `#rrggbb`) on the options page, alongside the existing preset dropdown. Selecting a preset auto-fills the hex field; typing a hex value selects "custom" in the dropdown (or the matching preset). A small swatch shows a live preview. Invalid codes are rejected at save with an inline message.
-- `README.md`: documents fork status, Chrome/Firefox install steps, an Opus 4.7-performed security review summary, GPL v3 license, and credit to the original author.
-- Firefox compatibility: added `browser_specific_settings.gecko` to `manifest.json` (id `minigestures@local`, `strict_min_version` 121.0). No JavaScript changes required — the `chrome.*` namespace works as a compatibility alias in Firefox, and `background.js` has no DOM/`window` dependency so it runs in either context.
-- `SECURITY_REVIEW.md`: documents a source-level review verifying that the extension does not transmit browsing history, URLs, keystrokes, or other personal data to external servers. Includes scope, methodology, per-area findings, and optional cleanup suggestions.
-- Pastel color options for the gesture trail: pastel pink (`#FFB6C1`), pastel blue (`#AEC6CF`), pastel green (`#B5EAD7`), pastel yellow (`#FDFD96`), pastel purple (`#C3B1E1`), and pastel orange (`#FFB347`).
-- Gesture Opacity setting: slider (5%–100% in 5% steps) on the options page that applies `globalAlpha` to the trail stroke. Default 100% (fully opaque).
+## 2026-05-12 — [#20](https://github.com/testerjp/miniGestures/pull/20) Remove rocker gestures
+- Removed rocker gestures (right+left / left+right click combos) and the "Rocker Gestures On" checkbox on the options page.
+- Inherited from the Opera-era design; conflicts with modern web apps that repurpose right-click, and the checkbox did nothing when the trigger was set to "middle".
+- Cleared the `rocker` storage key from `SYSTEM_KEYS`; existing stored values become harmless dead data.
 
-### Changed
-- Gesture Width setting is now a slider (range 1–20) with a live value display, replacing the 1–5 dropdown.
+## 2026-05-12 — [#19](https://github.com/testerjp/miniGestures/pull/19) Add custom color code input
+- Added a hex color input (`#rgb` / `#rrggbb`) alongside the existing preset dropdown.
+- Selecting a preset auto-fills the hex field; typing a hex value selects "custom" (or the matching preset). A swatch shows a live preview.
+- Invalid hex codes are rejected at save with an inline error message.
 
-### Removed
-- Rocker gestures (right-button + left-click for back, left-button + right-click for forward) and the associated "Rocker Gestures On" checkbox on the options page. Inherited from the Opera-era design where the right mouse button was treated as a gesture trigger first and a context-menu trigger second; in modern web apps that repurpose the right-click menu, occupying both buttons for navigation is intrusive. The feature also only worked when the trigger button was set to "right", leaving users on the middle-button setting with a UI checkbox that did nothing. Removed `rocker` / `rocked` state in `mouseTrack.js`, the `exeRock()` function, the rocker message handler in `background.js`, the rocker checkbox in `options.html`, and `rocker` from `SYSTEM_KEYS` in both `background.js` and `options.js`. The `rocker` storage key is no longer read or written; existing stored values become harmless dead data.
+## 2026-05-12 — [#18](https://github.com/testerjp/miniGestures/pull/18) Fix "Extension context invalidated" errors
+- Suppressed `Extension context invalidated.` console spam in open tabs after the extension is reloaded, auto-updated, or disabled/re-enabled.
+- Routed every `chrome.runtime.sendMessage` through a `safeSendMessage` helper that checks `chrome.runtime.id` and swallows the synchronous throw.
+- Reloading the affected tab restores full functionality as before.
 
-### Fixed
-- "Extension context invalidated." console errors after the extension is reloaded, auto-updated, or disabled/re-enabled while pages are still open. The content script now routes every `chrome.runtime.sendMessage` through a `safeSendMessage` helper that checks `chrome.runtime.id` and swallows the synchronous throw. Gesture handlers stay quiet in invalidated tabs instead of spamming the console; reloading the affected tab restores full functionality as before.
-- Middle-click no longer leaks the X11 primary selection into the focused form on Linux Chrome when the gesture button is set to "middle". Two cases: (1) plain middle-click outside a focused editable now blurs that editable (replicating Chrome's natural behavior, which our `mousedown` `preventDefault()` had been suppressing), so the subsequent mouseup paste has no target; (2) middle-button release after a drawn gesture (`moved === true`) calls `event.preventDefault()` on `mouseup` to cancel the paste. Plain middle-clicks inside an editable still paste as Chrome would by default.
-- Right-click without a gesture no longer throws `TypeError: $(...).rmousedown is not a function` in the page console. Removed a stray `$('#target').rmousedown(which=3)` call in `mouseTrack.js` (`.rmousedown` is not a jQuery method — it was a typo/stub introduced with rocker gestures in 2014). The line was dead code: the preceding `--suppress` already lets the next `contextmenu` event through, so the browser's context menu still appears as expected.
-- `manifest.json` no longer fails to load in Chrome with `'background.scripts' requires manifest version of 2 or lower`. Removed the `background.scripts` field that had been added for Firefox; Chrome MV3 rejects the entire manifest when this field is present (it does not silently ignore it). Firefox 121+ supports `background.service_worker` in MV3, so the single-field form works for both browsers.
-- Gesture overlay no longer blanks the page on very long documents (e.g. 5ch threads). The canvas is now sized to the viewport (`window.innerWidth × innerHeight`) with `position: fixed`, so `scrollWidth × scrollHeight` can no longer exceed Chrome's max canvas area and fail to allocate (which previously rendered the overlay as an opaque white block). Drawing/tracking coordinates switched from `pageX/Y` to `clientX/Y` to match the fixed canvas, and `pointer-events: none` was added so the overlay never intercepts clicks.
-- Middle-click on a link no longer fails to open the link in a new tab when the gesture button is set to "middle". The `auxclick` handler now only suppresses the browser default when a gesture was actually drawn (`moved === true`), so simple middle-clicks pass through to the browser.
-- Gesture trail color robustness: normalize color values through a `toCssColor()` helper that handles hex codes with/without `#`, CSS color names, and missing storage values. Guards `myColor` against being overwritten with `undefined` when storage is empty.
+## 2026-05-12 — [#17](https://github.com/testerjp/miniGestures/pull/17) Fix middle-click X11 primary paste
+- Middle-click no longer leaks the X11 primary selection into the focused form on Linux Chrome when the gesture button is "middle".
+- Plain middle-click outside an editable now blurs the focused editable so the paste has no target; middle-button release after a gesture (`moved === true`) calls `preventDefault()` on `mouseup`.
+- Plain middle-clicks inside an editable still paste as Chrome would by default.
 
-### Fixed
-- Gesture trail color always rendered as black; hex color codes were missing the `#` prefix when passed to canvas `strokeStyle`
+## 2026-05-12 — [#16](https://github.com/testerjp/miniGestures/pull/16) Fix stray jQuery `rmousedown` TypeError
+- Right-click without a gesture no longer throws `TypeError: $(...).rmousedown is not a function`.
+- Removed a stray `$('#target').rmousedown(which=3)` call (`.rmousedown` was never a jQuery method — a typo/stub from the 2014 rocker code).
+- The line was dead code: the preceding `--suppress` already lets the next `contextmenu` through, so the browser menu still appears.
 
-### Added
-- Middle mouse button support for gesture activation; configurable in options (default: right button)
-  - Middle button prevents browser auto-scroll and middle-click link-open behavior during gestures
-  - Rocker gestures (left+right click) remain right-button based regardless of this setting
+## 2026-05-12 — [#15](https://github.com/testerjp/miniGestures/pull/15) Fix Chrome manifest load error
+- `manifest.json` no longer fails to load in Chrome with `'background.scripts' requires manifest version of 2 or lower`.
+- Removed the `background.scripts` field that had been added for Firefox; Chrome MV3 rejects the whole manifest when it is present.
+- Firefox 121+ supports `background.service_worker` in MV3, so the single-field form works for both browsers.
 
-## [2026-05-11]
+## 2026-05-12 — [#14](https://github.com/testerjp/miniGestures/pull/14) Fix overlay blanking long pages
+- Gesture overlay no longer blanks the page on very long documents (e.g. 5ch threads).
+- Canvas is now sized to the viewport (`window.innerWidth × innerHeight`) with `position: fixed`, so `scrollWidth × scrollHeight` can no longer exceed Chrome's max canvas area.
+- Drawing/tracking coordinates switched from `pageX/Y` to `clientX/Y`, and `pointer-events: none` was added so the overlay never intercepts clicks.
 
-### Changed
-- Migrated extension from Manifest V2 to Manifest V3
-  - Replaced `background.html` / persistent background page with a service worker (`background.js`)
-  - Replaced `chrome.extension` APIs with `chrome.tabs` and `chrome.runtime`
-  - Replaced `localStorage` with `chrome.storage.local` for settings persistence
-  - Updated `manifest.json` to `"manifest_version": 3`
-  - Updated message passing to use async responses with `return true`
-  - Updated `options.js` to read/write settings via `chrome.storage.local`
+## 2026-05-12 — [#13](https://github.com/testerjp/miniGestures/pull/13) Document PR/commit language rule
+- `CLAUDE.md`: PR titles, descriptions, commit messages, and review comments must be written in English even if the conversation is in Japanese.
 
-## [2014-03-19]
+## 2026-05-12 — [#12](https://github.com/testerjp/miniGestures/pull/12) Fix middle-click link open
+- Middle-click on a link now opens it in a new tab when the gesture button is set to "middle".
+- The `auxclick` handler now only suppresses the browser default when a gesture was actually drawn (`moved === true`); simple middle-clicks pass through to the browser.
 
-### Added
-- Open link in new tab gesture
+## 2026-05-11 — [#11](https://github.com/testerjp/miniGestures/pull/11) Add README
+- Added `README.md` documenting fork status, Chrome/Firefox install steps, a summary of the Opus 4.7-performed security review, GPL v3 licensing, and credit to the original author.
 
-## [2014-03-15]
+## 2026-05-11 — [#10](https://github.com/testerjp/miniGestures/pull/10) Add Firefox support
+- `manifest.json`: added `browser_specific_settings.gecko` (id `minigestures@local`, `strict_min_version` 121.0).
+- No JavaScript changes required — `chrome.*` works as a compatibility alias in Firefox, and `background.js` has no DOM/`window` dependency so it runs in either context.
 
-### Added
-- Rocker gestures (simultaneous left+right mouse button combinations)
+## 2026-05-11 — [#9](https://github.com/testerjp/miniGestures/pull/9) Add security review
+- Added `SECURITY_REVIEW.md` verifying that the extension does not transmit browsing history, URLs, keystrokes, or other personal data to external servers.
+- Includes scope, methodology, per-area findings, and optional cleanup suggestions.
 
-## [2014-03-14]
+## 2026-05-11 — [#8](https://github.com/testerjp/miniGestures/pull/8) Add pastel color options
+- Added six pastel trail colors: pink (`#FFB6C1`), blue (`#AEC6CF`), green (`#B5EAD7`), yellow (`#FDFD96`), purple (`#C3B1E1`), and orange (`#FFB347`).
 
-### Added
-- Reopen last closed tab functionality
+## 2026-05-11 — [#7](https://github.com/testerjp/miniGestures/pull/7) Add gesture opacity slider
+- Added a Gesture Opacity slider (5%–100% in 5% steps) on the options page.
+- Applies `globalAlpha` to the trail stroke. Default 100% (fully opaque).
 
-## [2013-11-17]
+## 2026-05-11 — [#6](https://github.com/testerjp/miniGestures/pull/6) Widen gesture width slider
+- Replaced the 1–5 Gesture Width dropdown with a 1–20 slider and live value display.
 
-### Fixed
-- Canvas overlay rendering issue
+## 2026-05-11 — [#5](https://github.com/testerjp/miniGestures/pull/5) Robust gesture trail color
+- Normalized color values through a new `toCssColor()` helper that handles hex codes with/without `#`, CSS color names, and missing storage values.
+- Guarded `myColor` against being overwritten with `undefined` when storage is empty.
+- Supersedes the earlier `049b461` direct fix.
 
-## [2013-03-04]
+## 2026-05-11 — `049b461` (direct commit to master)
+- Fix gesture trail color always rendering as black; hex color codes were missing the `#` prefix when passed to canvas `strokeStyle`.
+- Later replaced by the more general normalization in [#5](https://github.com/testerjp/miniGestures/pull/5).
 
-### Changed
-- General stability improvements and code cleanup
+## 2026-05-11 — [#4](https://github.com/testerjp/miniGestures/pull/4) Add Git workflow policy
+- `CLAUDE.md`: always create a new branch before starting work; never commit directly to `master`; open a PR when work is complete.
 
-## [2013-03-02]
+## 2026-05-11 — [#3](https://github.com/testerjp/miniGestures/pull/3) Add middle mouse button support
+- Added middle mouse button as a configurable gesture trigger (default: right button).
+- Middle button prevents browser auto-scroll and middle-click link-open behavior while a gesture is in progress.
 
-### Changed
-- Improved options page behavior
-- Removed unnecessary files
+## 2026-05-11 — [#2](https://github.com/testerjp/miniGestures/pull/2) Add changelog
+- Added `CHANGELOG.md` and the policy to update it on every change.
 
-## [2013-03-01]
+## 2026-05-11 — [#1](https://github.com/testerjp/miniGestures/pull/1) Migrate to Manifest V3
+- Replaced `background.html` / the persistent background page with a service worker (`background.js`).
+- Replaced `chrome.extension` APIs with `chrome.tabs` and `chrome.runtime`; replaced `localStorage` with `chrome.storage.local` for settings.
+- Updated `manifest.json` to `"manifest_version": 3`, and message passing to use async responses with `return true`.
 
-### Added
-- Configuration/settings persistence
-- Options page (`options.html` / `options.js`) for customizing trail color, width, and gesture mappings
+## Pre-PR history
 
-## [2013-02-28]
-
-### Added
-- MIT License (`LICENSE.txt`)
-- Reload page gesture
-
-### Changed
-- Smoother gesture trail drawing
-
-## [2013-02-27]
-
-### Added
-- Initial working implementation
-  - Mouse gesture recognition via `Math.atan2` direction bucketing
-  - Canvas overlay for gesture trail visualization
-  - Back / Forward / New tab / Close tab gestures
-  - Context menu suppression during gesture tracking
-  - Chrome extension manifest and background script
+- 2014-03-19 — Added "open link in new tab" gesture.
+- 2014-03-15 — Added rocker gestures (later removed in [#20](https://github.com/testerjp/miniGestures/pull/20)).
+- 2014-03-14 — Added "reopen last closed tab" functionality.
+- 2013-11-17 — Fixed canvas overlay rendering.
+- 2013-03-04 — General stability improvements and code cleanup.
+- 2013-03-02 — Improved options page behavior; removed unnecessary files.
+- 2013-03-01 — Added settings persistence and the options page (`options.html` / `options.js`).
+- 2013-02-28 — Added MIT License and "reload page" gesture; smoother gesture trail drawing.
+- 2013-02-27 — Initial working implementation: gesture recognition (`Math.atan2`), canvas overlay, back / forward / new tab / close tab, context menu suppression.
