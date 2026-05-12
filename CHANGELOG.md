@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-12 — [#25](https://github.com/testerjp/miniGestures/pull/25) Remove unused leftover files
+- Deleted `recfib.py`, a Python 2 recursive Fibonacci script accidentally committed in 2014 alongside an unrelated extension change. Python is not executed by the browser; the file was pure dead weight.
+- Deleted `x_icon.png`, an unused PNG present since the 2013 first commit. Not referenced by `manifest.json` (no `icons` / `action` / `web_accessible_resources` field) or by any HTML/JS/CSS, and Chrome/Firefox do not auto-load extension files by filename, so removing it has no runtime effect.
+
 ## 2026-05-12 — [#24](https://github.com/testerjp/miniGestures/pull/24) Re-anchor security review to post-cleanup HEAD
 - Re-anchored `SECURITY_REVIEW.md` to the post-cleanup HEAD (`554763b`): bumped the `Commit reviewed` line, removed the standalone jQuery section, dropped the PayPal pixel and `coin.js` rows from the external-resources table, fixed the §1 grep target list and the §6→§5 cross-reference, renumbered the remaining sections, and updated Overall Assessment to note that no passive external network activity remains on page load.
 
