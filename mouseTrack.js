@@ -44,6 +44,19 @@ function toCssColor(c)
     return c
 }
 
+// chrome.runtime becomes invalidated when the extension is reloaded, updated,
+// or disabled while content scripts are still alive in open tabs. Calls to
+// chrome.runtime.sendMessage then throw "Extension context invalidated."
+// Guard every send so the gesture handlers stay quiet in that state.
+function safeSendMessage(message, callback)
+{
+    try {
+        if(!chrome.runtime || !chrome.runtime.id) return
+        chrome.runtime.sendMessage(message, callback)
+    } catch(e) {
+    }
+}
+
 function createCanvas()
 {
     // Size the canvas to the viewport (not the full document) and pin it with
@@ -253,7 +266,7 @@ function exeFunc()
         else if(action == "newtab")
         {
             if(link == null){
-                chrome.runtime.sendMessage({msg: "newtab"},
+                safeSendMessage({msg: "newtab"},
                     function(response)
                     {
                         if(response != null)
@@ -261,7 +274,7 @@ function exeFunc()
                         else
                         {
                             console.log('problem executing open tab')
-                            if(chrome.runtime.lastError)
+                            if(chrome.runtime && chrome.runtime.lastError)
                                 console.log(chrome.runtime.lastError.message)
                         }
                     });
@@ -271,29 +284,29 @@ function exeFunc()
             }
         }
         else if(action == "closetab"){
-            chrome.runtime.sendMessage({msg: "closetab"});
+            safeSendMessage({msg: "closetab"});
         }
         else if(action == "lasttab"){
-            chrome.runtime.sendMessage({msg: "lasttab"});
+            safeSendMessage({msg: "lasttab"});
         }
         else if(action == "reloadall"){
-            chrome.runtime.sendMessage({msg: "reloadall"});
+            safeSendMessage({msg: "reloadall"});
         }
 
         else if(action == "closeall"){
-            chrome.runtime.sendMessage({msg: "closeall"});
+            safeSendMessage({msg: "closeall"});
         }
 
         else if(action == "nexttab") {
-            chrome.runtime.sendMessage({msg: "nexttab"});
+            safeSendMessage({msg: "nexttab"});
         }
 
         else if(action == "prevtab"){
-            chrome.runtime.sendMessage({msg: "prevtab"});
+            safeSendMessage({msg: "prevtab"});
         }
 
         else if(action == "closeback"){
-            chrome.runtime.sendMessage({msg: "closeback"});
+            safeSendMessage({msg: "closeback"});
         }
 
 
@@ -332,25 +345,25 @@ document.addEventListener('auxclick', function(event){
 
 function loadOptions(name)
 {
-    chrome.runtime.sendMessage({msg: "colorCode"},
+    safeSendMessage({msg: "colorCode"},
         function(response) {
             if(response && response.resp){
                 myColor = response.resp
             }
         });
-    chrome.runtime.sendMessage({msg: "width"},
+    safeSendMessage({msg: "width"},
         function(response) {
             if(response){
                 myWidth = response.resp
             }
         });
-    chrome.runtime.sendMessage({msg: "opacity"},
+    safeSendMessage({msg: "opacity"},
         function(response) {
             if(response && response.resp){
                 myOpacity = response.resp
             }
         });
-    chrome.runtime.sendMessage({msg: "gests"},
+    safeSendMessage({msg: "gests"},
         function(response)
         {
             if(response)
@@ -358,19 +371,19 @@ function loadOptions(name)
             ginv = invertHash(myGests)
         });
 
-    chrome.runtime.sendMessage({msg: "rocker"},
+    safeSendMessage({msg: "rocker"},
         function(response)
         {
             rocker = (response && response.resp === true);
         });
 
-    chrome.runtime.sendMessage({msg: "trail"},
+    safeSendMessage({msg: "trail"},
         function(response)
         {
             trail = (response && response.resp === true);
         });
 
-    chrome.runtime.sendMessage({msg: "gestureButton"},
+    safeSendMessage({msg: "gestureButton"},
         function(response)
         {
             if(response && response.resp)
