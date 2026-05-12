@@ -2,7 +2,7 @@
 
 - Target: miniGestures (Manifest V3 Chrome extension, with Firefox MV3 manifest entry)
 - Date: 2026-05-12
-- Commit reviewed: `558e664` (branch: `reorganize-changelog-by-pr`)
+- Commit reviewed: `554763b` (branch: `security-review-cleanup`, after the PR #23 cleanup that removed the unused `jquery.js`, `coin.js`, and the PayPal 1×1 tracking image)
 - Focus: Spyware-like behavior — in particular, whether browsing history, URLs, or user input are silently transmitted to external servers.
 
 > **Reviewer disclaimer.** This audit was performed by Claude (Opus 4.7) via static source reading and `grep` only. It is **not** a complete or formal security audit — no dynamic analysis, fuzzing, runtime instrumentation, or human expert review was carried out. Findings should be treated as a best-effort code skim and independently re-verified before being relied on.
@@ -21,7 +21,7 @@ The extension scripts were grepped with:
 fetch\(|XMLHttpRequest|WebSocket|sendBeacon|navigator\.|EventSource|importScripts
 ```
 
-No matches in `background.js`, `mouseTrack.js`, `options.js`, or `coin.js`. The only `http(s)://` literals are GNU GPL license URLs inside comments and the two PayPal URLs in `options.html` (see §6).
+No matches in `background.js`, `mouseTrack.js`, or `options.js`. The only `http(s)://` literals are GNU GPL license URLs inside comments and the PayPal donation form `action` URL in `options.html` (see §5).
 
 ### 2. manifest.json — minimal permissions
 
@@ -47,22 +47,15 @@ Note: `x[kk] += tab.url` evaluates to `"undefined" + URL`, and the prefix is lat
 
 No usage of `eval(`, `new Function(`, string-form `setTimeout` / `setInterval`, or `importScripts`. There is no path that could execute an obfuscated payload fetched at runtime.
 
-### 5. Bundled jQuery 1.9.1 (`jquery.js`)
-
-- Verified to be the upstream original (jQuery Foundation, MIT)
-- **jQuery is entirely unreferenced from extension code.** `ajax`, `getJSON`, `load`, etc. are never invoked
-- The 2013 build still has known XSS issues (e.g. in `$.html()`), but they are not exercised
-- Removal of the unused `jquery.js` file is recommended for dependency hygiene, not because of an active exploit path
-
-### 6. External resources in `options.html`
+### 5. External resources in `options.html`
 
 | Location | Content | Assessment |
 | --- | --- | --- |
-| `options.html:104` `<form action="https://www.paypal.com/cgi-bin/webscr">` | PayPal donation form | Only submitted when the user explicitly clicks the donate button |
-| `options.html:119` `<img src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">` | Standard PayPal 1×1 image | Fires a GET to PayPal **only when the options page is opened**. Not an ad/tracking pixel, but it is an external request |
-| `coin.js` (loaded via `<script src="coin.js">`) | Injects static CSS for Bitcoin donate buttons into a newly-created `<style>` via `innerHTML` | No `.bitcoinate` element exists on the page; effectively dead code. The `innerHTML` payload is a static literal string with no user-controlled data. No outbound network activity |
+| `options.html:103` `<form action="https://www.paypal.com/cgi-bin/webscr">` | PayPal donation form | Only submitted when the user explicitly clicks the donate button — no request is made on page load |
 
-### 7. Content script (`mouseTrack.js`) behavior
+No other external URLs are referenced from `options.html`. The unused jQuery bundle, the dead-code `coin.js` Bitcoin tip helper, and the PayPal 1×1 image that previously fired on page load were all removed in PR #23, eliminating every passive (non-user-initiated) outbound request from the options page.
+
+### 6. Content script (`mouseTrack.js`) behavior
 
 - Reads mouse coordinates (`event.clientX/Y`), converts movement vectors to U/D/L/R via `Math.atan2`, and forwards recognized gestures to the background script via `chrome.runtime.sendMessage`
 - `chrome.runtime` is an internal extension channel — it does not perform any network transmission
@@ -71,7 +64,7 @@ No usage of `eval(`, `new Function(`, string-form `setTimeout` / `setInterval`, 
 - `window.open(link)` at `mouseTrack.js:244` opens an `href` read from the element the user gestured on. The URL comes from the page DOM the user is already viewing and the navigation is user-initiated, so it is not a data-exfiltration path
 - No keylogging, no reading of form values, no access to `document.cookie` / `localStorage` / `sessionStorage`
 
-### 8. Custom hex color input — input validation
+### 7. Custom hex color input — input validation
 
 The options page accepts an arbitrary hex code via a text input.
 
@@ -85,6 +78,6 @@ The `innerHTML` writes in `options.js:98, 99, 130, 131` use only static literal 
 
 - No spyware-like behavior detected (no silent transmission of user data, no tracking, no obfuscated outbound traffic)
 - Requested permissions are minimal relative to the feature set
-- The only external network activity that can occur is the PayPal-hosted image load when a user voluntarily opens the options page, and it is not an identifier-bearing beacon
+- No passive external network activity occurs on page load anywhere in the extension. The only outbound request the extension can make is the user-initiated PayPal donation form submission, which fires only after the user explicitly clicks the donate button
 
 Within the scope of this static review, the extension is judged safe to use as-is. As noted in the disclaimer at the top, this is not a substitute for a formal audit.
