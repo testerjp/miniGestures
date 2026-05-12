@@ -48,6 +48,25 @@ function invertHash(hash)
     return inv
 }
 
+function normalizeHex(s)
+{
+    if(typeof s !== 'string') return null
+    var t = s.trim()
+    if(t.charAt(0) === '#') t = t.substring(1)
+    if(/^[0-9a-fA-F]{3}$/.test(t))
+        t = t.charAt(0)+t.charAt(0)+t.charAt(1)+t.charAt(1)+t.charAt(2)+t.charAt(2)
+    if(/^[0-9a-fA-F]{6}$/.test(t)) return t
+    return null
+}
+
+function updateColorPreview()
+{
+    var preview = document.getElementById("colorPreview")
+    if(!preview) return
+    var hex = normalizeHex(document.getElementById("colorCode").value)
+    preview.style.backgroundColor = hex ? "#"+hex : "transparent"
+}
+
 function fillTableRows(gests)
 {
     var key,div,tr,td,inp
@@ -71,10 +90,15 @@ function fillTableRows(gests)
 
 function save_options()
 {
-    var select, value
+    var status = document.getElementById("status");
 
-    select = document.getElementById("color");
-    value = select.children[select.selectedIndex].value;
+    var code_input = document.getElementById("colorCode");
+    var hex = normalizeHex(code_input.value);
+    if(!hex) {
+        status.innerHTML = "Invalid color code: use #rgb or #rrggbb";
+        setTimeout(function() { status.innerHTML = ""; }, 2000);
+        return;
+    }
 
     var width_input = document.getElementById("width");
     var opacity_input = document.getElementById("opacity");
@@ -82,7 +106,7 @@ function save_options()
     var gb_select = document.getElementById("gestureButton");
 
     var data = {
-        colorCode: colorCodes[value],
+        colorCode: hex,
         width: width_input.value,
         opacity: opacity_input.value,
         rocker: document.getElementById('rocker').checked,
@@ -104,7 +128,6 @@ function save_options()
     }
 
     chrome.storage.local.set(data, function() {
-        var status = document.getElementById("status");
         status.innerHTML = "Configuration Saved";
         setTimeout(function() { status.innerHTML = ""; }, 750);
     });
@@ -113,21 +136,61 @@ function save_options()
         chrome.storage.local.remove(toRemove);
 }
 
+function lookupColorName(hex)
+{
+    if(!hex) return null;
+    return colorNames[hex] || colorNames[hex.toLowerCase()] || colorNames[hex.toUpperCase()] || null;
+}
+
+function setSelectValue(select, value)
+{
+    for(var i = 0; i < select.options.length; i++) {
+        if(select.options[i].value == value) {
+            select.selectedIndex = i;
+            return true;
+        }
+    }
+    return false;
+}
+
+function wireColorControls()
+{
+    var select = document.getElementById("color");
+    var code_input = document.getElementById("colorCode");
+    if(!select || !code_input) return;
+
+    select.addEventListener('change', function() {
+        var v = select.value;
+        if(v !== "custom" && colorCodes[v]) {
+            code_input.value = "#" + colorCodes[v];
+            updateColorPreview();
+        }
+    });
+
+    code_input.addEventListener('input', function() {
+        var hex = normalizeHex(code_input.value);
+        var name = lookupColorName(hex);
+        setSelectValue(select, name || "custom");
+        updateColorPreview();
+    });
+}
+
 function loadInfo()
 {
+    wireColorControls();
+
     chrome.storage.local.get(null, function(items) {
         var select, value, i, child;
 
+        var code_input = document.getElementById("colorCode");
+        var storedHex = normalizeHex(items.colorCode);
+        if(!storedHex) storedHex = colorCodes["red"];
+        code_input.value = "#" + storedHex;
+        updateColorPreview();
+
         select = document.getElementById("color");
-        value = colorNames[items.colorCode];
-        if(!value) value = "red";
-        for(i = 0; i < select.children.length; i++) {
-            child = select.children[i];
-            if(child.value == value) {
-                child.selected = "true";
-                break;
-            }
-        }
+        value = lookupColorName(storedHex) || "custom";
+        setSelectValue(select, value);
 
         var width_input = document.getElementById("width");
         value = items.width;

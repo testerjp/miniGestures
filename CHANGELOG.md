@@ -5,6 +5,7 @@ All notable changes to miniGestures will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- Custom gesture trail color via hex input (`#rgb` / `#rrggbb`) on the options page, alongside the existing preset dropdown. Selecting a preset auto-fills the hex field; typing a hex value selects "custom" in the dropdown (or the matching preset). A small swatch shows a live preview. Invalid codes are rejected at save with an inline message.
 - `README.md`: documents fork status, Chrome/Firefox install steps, an Opus 4.7-performed security review summary, GPL v3 license, and credit to the original author.
 - Firefox compatibility: added `browser_specific_settings.gecko` to `manifest.json` (id `minigestures@local`, `strict_min_version` 121.0). No JavaScript changes required — the `chrome.*` namespace works as a compatibility alias in Firefox, and `background.js` has no DOM/`window` dependency so it runs in either context.
 - `SECURITY_REVIEW.md`: documents a source-level review verifying that the extension does not transmit browsing history, URLs, keystrokes, or other personal data to external servers. Includes scope, methodology, per-area findings, and optional cleanup suggestions.
