@@ -38,7 +38,7 @@ commandTrans={"History Back":"back","History Forward":"forward",
                             "Re-open Last Closed Tab":"lasttab",
                             }
 
-var SYSTEM_KEYS = new Set(["colorCode", "width", "opacity", "rocker", "trail", "lasturl", "gestureButton"]);
+var SYSTEM_KEYS = new Set(["colorCode", "width", "opacity", "trail", "lasturl", "gestureButton"]);
 
 function invertHash(hash)
 {
@@ -109,7 +109,6 @@ function save_options()
         colorCode: hex,
         width: width_input.value,
         opacity: opacity_input.value,
-        rocker: document.getElementById('rocker').checked,
         trail: document.getElementById('trail').checked,
         gestureButton: gb_select.children[gb_select.selectedIndex].value
     };
@@ -210,7 +209,6 @@ function loadInfo()
             document.getElementById("opacityValue").textContent = opacity_input.value;
         });
 
-        document.getElementById('rocker').checked = (items.rocker !== false);
         document.getElementById('trail').checked = (items.trail !== false);
 
         select = document.getElementById("gestureButton");

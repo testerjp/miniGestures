@@ -11,7 +11,7 @@ This is a google chrome extension which enables basic mouse gestures for navigat
 
 This repository is a fork of the original **miniGestures** — a wonderfully simple and useful browser extension that lets you navigate by drawing tiny mouse gestures.
 
-Hold the right (or middle) mouse button and draw a short stroke to trigger an action. Trail color/width/opacity, trigger button, rocker gestures, and gesture-to-action mappings are all configurable from the options page.
+Hold the right (or middle) mouse button and draw a short stroke to trigger an action. Trail color/width/opacity, trigger button, and gesture-to-action mappings are all configurable from the options page.
 
 The fork exists to migrate the extension to **Manifest V3** and to add a few small enhancements. Further small improvements may follow as needed.
 
