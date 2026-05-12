@@ -41,6 +41,13 @@ Slightly more involved because the build is not signed for AMO, and Firefox need
 
 Chrome MV3 requires `background.service_worker` and **rejects** any manifest that also contains `background.scripts` (with `'background.scripts' requires manifest version of 2 or lower`). Firefox 121+ ships the `service_worker` field but it is gated behind the `extensions.backgroundServiceWorkerEnabled` preference (default `false`), so Firefox fails with `background.service_worker is currently disabled. Add background.scripts.` unless `background.scripts` is present. `browser_specific_settings.gecko` cannot override `background`, so a single shared `manifest.json` cannot satisfy both. Firefox's *Load Temporary Add-on* only reads a file literally named `manifest.json`, hence the in-place swap rather than a side-by-side file.
 
+### Packaging
+
+The two manifests are convenient for local development, but only one is needed in a packaged build. The browser only reads `manifest.json`, so leaving the other file in place is harmless at runtime — it just bloats the artifact and can confuse anyone inspecting it. Remove the unused file before packaging:
+
+- **Chrome** (`chrome://extensions/` → *Pack extension* → produces `.crx`): delete `manifest.firefox.json` first so the `.crx` does not carry it.
+- **Firefox** (sign as `.xpi` for AMO): after `cp manifest.firefox.json manifest.json`, delete `manifest.firefox.json` so the `.xpi` does not carry an unused duplicate of the manifest.
+
 ## Security
 
 A source-level review (`SECURITY_REVIEW.md`) confirms that this extension does **not** transmit browsing history, URLs, keystrokes, or any other personal data to external servers. It uses only the `tabs` and `storage` permissions and makes no network calls. Note that this review was performed by Opus 4.7 and is provided as a best-effort audit, not a formal security certification.
