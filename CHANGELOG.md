@@ -2,6 +2,12 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-12 — [#23](https://github.com/testerjp/miniGestures/pull/23) Apply optional cleanup from security review
+- Deleted the unused `jquery.js` bundle and dropped it from `manifest.json` content_scripts. No jQuery callers remain in extension code, so the 2013-era XSS sinks are no longer shipped to every page.
+- Deleted the unused `coin.js` and its `<script>` include from `options.html`. The script injected CSS for `.bitcoinate` elements, but no such elements exist in the repo — it was dead code.
+- Removed the PayPal 1×1 tracking pixel `<img>` from the donate `<form>` in `options.html`. The donate button still submits to PayPal as before; this eliminates the only external network request triggered by opening the options page.
+- Dropped the now-obsolete "Optional Cleanup Suggestions" section from `SECURITY_REVIEW.md`.
+
 ## 2026-05-12 — [#22](https://github.com/testerjp/miniGestures/pull/22) Refresh security review against HEAD
 - Re-ran the static security review against the current HEAD (commit `558e664`) and rewrote `SECURITY_REVIEW.md`.
 - Added a top-of-doc disclaimer that the audit was performed by Claude (Opus 4.7) via source reading and `grep`, and is not a formal or complete audit.
