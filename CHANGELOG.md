@@ -2,6 +2,9 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-12 — [#24](https://github.com/testerjp/miniGestures/pull/24) Re-anchor security review to post-cleanup HEAD
+- Re-anchored `SECURITY_REVIEW.md` to the post-cleanup HEAD (`554763b`): bumped the `Commit reviewed` line, removed the standalone jQuery section, dropped the PayPal pixel and `coin.js` rows from the external-resources table, fixed the §1 grep target list and the §6→§5 cross-reference, renumbered the remaining sections, and updated Overall Assessment to note that no passive external network activity remains on page load.
+
 ## 2026-05-12 — [#23](https://github.com/testerjp/miniGestures/pull/23) Apply optional cleanup from security review
 - Deleted the unused `jquery.js` bundle and dropped it from `manifest.json` content_scripts. No jQuery callers remain in extension code, so the 2013-era XSS sinks are no longer shipped to every page.
 - Deleted the unused `coin.js` and its `<script>` include from `options.html`. The script injected CSS for `.bitcoinate` elements, but no such elements exist in the repo — it was dead code.
