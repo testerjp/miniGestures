@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.   
 */
 
-var rmousedown=false, moved=false, lmousedown=false
-var rocker=false, trail=false, gestureButton="right"
+var rmousedown=false, moved=false
+var trail=false, gestureButton="right"
 var mx,my,nx,ny,lx,ly,phi
 var move="", omove=""
 var pi =3.14159
@@ -24,7 +24,6 @@ var suppress=1
 var canvas, myGests, ginv
 var link, ls, myColor="red", myWidth=3, myOpacity=100
 var loaded=false
-var rocked=false
 var link=null
 
 function invertHash(hash)
@@ -94,67 +93,47 @@ function draw(x,y){
 document.onmousedown = function(event){
     var gestureWhich = gestureButton === "middle" ? 2 : 3;
 
-    if(event.which == 1){
-        lmousedown = true
-    }
-    else if(event.which == gestureWhich){
-        rmousedown = true
-        if(gestureButton === "middle"){
-            // Chrome on Linux normally blurs the focused editable when a middle-click
-            // lands outside it; that blur is what stops the X11 primary-selection paste
-            // on mouseup. The preventDefault() below would otherwise suppress that blur
-            // and leave the focused form to receive the paste, so reproduce it here.
-            var ae = document.activeElement
-            var aeEditable = ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA' || ae.isContentEditable)
-            if(aeEditable && ae !== event.target && !(ae.contains && ae.contains(event.target))){
-                ae.blur()
-            }
-            event.preventDefault()
+    if(event.which != gestureWhich) return;
+
+    rmousedown = true
+    if(gestureButton === "middle"){
+        // Chrome on Linux normally blurs the focused editable when a middle-click
+        // lands outside it; that blur is what stops the X11 primary-selection paste
+        // on mouseup. The preventDefault() below would otherwise suppress that blur
+        // and leave the focused form to receive the paste, so reproduce it here.
+        var ae = document.activeElement
+        var aeEditable = ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA' || ae.isContentEditable)
+        if(aeEditable && ae !== event.target && !(ae.contains && ae.contains(event.target))){
+            ae.blur()
         }
+        event.preventDefault()
     }
 
-    //leftrock (right+left only, regardless of gesture button setting)
-    if(event.which == 1 && rmousedown && suppress && rocker && gestureButton === "right"){
-        if(! loaded){
-            loadOptions()
-            loaded=true
-        }
-        move = 'back'
-        rocked = true
-        exeRock()
-    }
+    // For right-button mode, skip the gesture-init while the context menu is
+    // still scheduled to fire (suppress === 0); the contextmenu handler bumps
+    // suppress back to 1 so the next right-mousedown can start a fresh gesture.
+    if(gestureButton === "right" && !suppress) return;
 
-    //gesture button click
-    else if(event.which == gestureWhich && (gestureButton === "right" ? suppress : true)){
-        if(! loaded){
-            loadOptions()
-            loaded=true
-        }
-        if(lmousedown && rocker && gestureButton === "right"){
-            move = 'forward'
-            rocked = true
-            exeRock()
-        }
-        else{
-            my = event.clientX;
-            mx = event.clientY;
-            lx = my
-            ly = mx
-            move = ""
-            omove=""
-            moved=false
-            if(event.target.href){
-                link = event.target.href
-            }
-            else if(event.target.parentElement.href){
-                link = event.target.parentElement.href
-            }
-            else{
-                link = null
-            }
-        }
+    if(! loaded){
+        loadOptions()
+        loaded=true
     }
-
+    my = event.clientX;
+    mx = event.clientY;
+    lx = my
+    ly = mx
+    move = ""
+    omove=""
+    moved=false
+    if(event.target.href){
+        link = event.target.href
+    }
+    else if(event.target.parentElement.href){
+        link = event.target.parentElement.href
+    }
+    else{
+        link = null
+    }
 };
 
 document.onmousemove = function(event)
@@ -207,9 +186,6 @@ document.onmouseup = function(event)
 {
     var gestureWhich = gestureButton === "middle" ? 2 : 3;
 
-    if(event.which == 1)
-        lmousedown = false
-
     //gesture button release
     if(event.which == gestureWhich){
         if(gestureButton === "middle" && moved){
@@ -228,26 +204,11 @@ document.onmouseup = function(event)
             }
             exeFunc()
         }
-        else if(rocked){
-            rocked = false
-        }
         else if(gestureButton === "right"){
             --suppress
         }
     }
 };
-function exeRock()
-{
-    action = move
-    if(action == "back")
-    {
-        window.history.back()
-    }
-    else if(action == "forward")
-    {
-        window.history.forward()
-    }
-}
 
 function exeFunc()
 {
@@ -369,12 +330,6 @@ function loadOptions(name)
             if(response)
                 myGests = response.resp
             ginv = invertHash(myGests)
-        });
-
-    safeSendMessage({msg: "rocker"},
-        function(response)
-        {
-            rocker = (response && response.resp === true);
         });
 
     safeSendMessage({msg: "trail"},
