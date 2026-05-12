@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-12 — [#NN](https://github.com/testerjp/miniGestures/pull/NN) Fix null parentElement crash on right-click
+## 2026-05-12 — [#29](https://github.com/testerjp/miniGestures/pull/29) Fix null parentElement crash on right-click
 - Fixed `Uncaught TypeError: Cannot read properties of null (reading 'href')` thrown from `mouseTrack.js` `document.onmousedown` when right-clicking on `<html>` margin/padding (e.g. `github.com/.../tags` right rail). The old code reached `event.target.parentElement.href` even when `event.target` was the root element with no parent.
 - Replaced the two-step `event.target.href` / `event.target.parentElement.href` check with `event.target.closest('a[href]')`, which walks up to the nearest ancestor anchor. Side benefit: deeply nested click targets inside an `<a>` (such as GitHub's `<a><span><svg></svg></span></a>` icon links) now correctly resolve the anchor instead of silently missing it.
 
