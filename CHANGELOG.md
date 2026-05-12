@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-12 — [#TBD](https://github.com/testerjp/miniGestures/pull/TBD) Fix stale Manifest V2 mention in CLAUDE.md
+## 2026-05-12 — [#30](https://github.com/testerjp/miniGestures/pull/30) Fix stale Manifest V2 mention in CLAUDE.md
 - `CLAUDE.md` Project Overview said "Manifest V2", contradicting `manifest.json` (`manifest_version: 3`), the rest of the same file (the Architecture / Key Implementation Details sections already describe a service worker and MV3 message passing), and PR [#1](https://github.com/testerjp/miniGestures/pull/1) which migrated the extension to MV3. Corrected to "Manifest V3".
 - `CLAUDE.md` is read by humans as well as coding agents, so the stale line risked misleading both.
 
