@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-miniGestures is a Chrome browser extension (Manifest V2) that enables mouse gesture-based tab and browser navigation. Users hold right-click and draw gestures to trigger actions like back/forward, new tab, close tab, etc.
+miniGestures is a Chrome browser extension (Manifest V3) that enables mouse gesture-based tab and browser navigation. Users hold right-click and draw gestures to trigger actions like back/forward, new tab, close tab, etc.
 
 ## Loading the Extension
 
