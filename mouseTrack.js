@@ -86,7 +86,18 @@ document.onmousedown = function(event){
     }
     else if(event.which == gestureWhich){
         rmousedown = true
-        if(gestureButton === "middle") event.preventDefault()
+        if(gestureButton === "middle"){
+            // Chrome on Linux normally blurs the focused editable when a middle-click
+            // lands outside it; that blur is what stops the X11 primary-selection paste
+            // on mouseup. The preventDefault() below would otherwise suppress that blur
+            // and leave the focused form to receive the paste, so reproduce it here.
+            var ae = document.activeElement
+            var aeEditable = ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA' || ae.isContentEditable)
+            if(aeEditable && ae !== event.target && !(ae.contains && ae.contains(event.target))){
+                ae.blur()
+            }
+            event.preventDefault()
+        }
     }
 
     //leftrock (right+left only, regardless of gesture button setting)
@@ -188,6 +199,12 @@ document.onmouseup = function(event)
 
     //gesture button release
     if(event.which == gestureWhich){
+        if(gestureButton === "middle" && moved){
+            // Cancel Chrome's X11 primary-selection paste on mouseup when a gesture
+            // was drawn. Plain middle-clicks (moved===false) fall through so Chrome's
+            // default paste still fires inside editables.
+            event.preventDefault()
+        }
         rmousedown=false
         if(moved){
             cvs = document.getElementById('gestCanvas')
