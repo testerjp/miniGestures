@@ -81,14 +81,6 @@ The options page accepts an arbitrary hex code via a text input.
 
 The `innerHTML` writes in `options.js:98, 99, 130, 131` use only static literal strings (`"Invalid color code: use #rgb or #rrggbb"`, `"Configuration Saved"`, `""`) — no user-controlled data flows into them, so they do not introduce XSS.
 
-## Optional Cleanup Suggestions
-
-Not strictly required for security, but recommended for hygiene:
-
-1. Remove the PayPal 1×1 pixel `<img>` at `options.html:119` — eliminates the only external request triggered by opening the options page
-2. Delete the unused `jquery.js` and drop it from `content_scripts.js` in `manifest.json` — jQuery is no longer referenced from extension code, so the file is dead weight that still carries 2013-era XSS issues in unreached sinks
-3. Stop loading the unused `coin.js` from `options.html:23` — dead-code removal
-
 ## Overall Assessment
 
 - No spyware-like behavior detected (no silent transmission of user data, no tracking, no obfuscated outbound traffic)
