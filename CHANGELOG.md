@@ -2,9 +2,11 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-12 — [#30](https://github.com/testerjp/miniGestures/pull/30) Fix stale Manifest V2 mention in CLAUDE.md
+## 2026-05-12 — [#30](https://github.com/testerjp/miniGestures/pull/30) Refresh stale descriptions in CLAUDE.md
 - `CLAUDE.md` Project Overview said "Manifest V2", contradicting `manifest.json` (`manifest_version: 3`), the rest of the same file (the Architecture / Key Implementation Details sections already describe a service worker and MV3 message passing), and PR [#1](https://github.com/testerjp/miniGestures/pull/1) which migrated the extension to MV3. Corrected to "Manifest V3".
-- `CLAUDE.md` is read by humans as well as coding agents, so the stale line risked misleading both.
+- `CLAUDE.md` Architecture section described `background.js` as using `chrome.extension` APIs and persisting settings to `localStorage`, and `options.js` as saving to `localStorage`. PR [#1](https://github.com/testerjp/miniGestures/pull/1) replaced both with `chrome.runtime` and `chrome.storage.local`; the source is grep-clean of `chrome.extension` and `localStorage` today. Updated the descriptions to match.
+- `CLAUDE.md` Changelog section still instructed to add entries under `## [Unreleased]` and move them to a dated section on commit. PR [#21](https://github.com/testerjp/miniGestures/pull/21) dropped the `[Unreleased]` section in favor of a flat newest-first list of `## YYYY-MM-DD — [#PR](url) Title` entries. Rewrote the guidance to reflect the current format (and noted the "fill in PR number after PR creation" follow-up pattern used by recent PRs).
+- `CLAUDE.md` is read by humans as well as coding agents, so the stale lines risked misleading both.
 
 ## 2026-05-12 — [#29](https://github.com/testerjp/miniGestures/pull/29) Fix null parentElement crash on right-click
 - Fixed `Uncaught TypeError: Cannot read properties of null (reading 'href')` thrown from `mouseTrack.js` `document.onmousedown` when right-clicking on `<html>` margin/padding (e.g. `github.com/.../tags` right rail). The old code reached `event.target.parentElement.href` even when `event.target` was the root element with no parent.

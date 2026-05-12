@@ -21,9 +21,9 @@ Three main scripts communicate via Chrome's message passing:
 
 - **`mouseTrack.js`** — Content script injected into every page (`document_start`, `all_frames`). Handles right-click events, draws the gesture trail on a canvas overlay (z-index 10000), detects gesture direction sequences using `Math.atan2`, and sends recognized gestures to the background script.
 
-- **`background.js`** — Service worker that receives messages from `mouseTrack.js` and executes tab/browser actions (open tab, close tab, navigate back/forward, etc.) via the `chrome.tabs` and `chrome.extension` APIs. Also manages configuration persistence in `localStorage` and tracks the last closed tab URL for the "reopen closed tab" feature.
+- **`background.js`** — Service worker that receives messages from `mouseTrack.js` and executes tab/browser actions (open tab, close tab, navigate back/forward, etc.) via the `chrome.tabs` and `chrome.runtime` APIs. Also manages configuration persistence in `chrome.storage.local` and tracks the last closed tab URL for the "reopen closed tab" feature.
 
-- **`options.js` + `options.html`** — Settings page where users configure trail color/width, the trigger button, and customize gesture-to-action mappings. Settings are saved to `localStorage`.
+- **`options.js` + `options.html`** — Settings page where users configure trail color/width, the trigger button, and customize gesture-to-action mappings. Settings are saved to `chrome.storage.local`.
 
 ## Key Implementation Details
 
@@ -43,7 +43,7 @@ Three main scripts communicate via Chrome's message passing:
 ## Changelog
 
 - Always update `CHANGELOG.md` when making changes, in addition to any PR description.
-- Add entries under `## [Unreleased]` during development; move them to a dated section when the change is committed.
+- One entry per PR, newest first. Use the heading format `## YYYY-MM-DD — [#PR](url) Title`. No `[Unreleased]` section — entries are dated and PR-linked from the start (the PR number can be filled in with a follow-up commit after the PR is opened).
 
 ## Code Style
 
