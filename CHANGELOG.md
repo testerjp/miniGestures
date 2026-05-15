@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-15 — [#PR](url) Bump version to 1.5.1
+- Bumped `manifest.json` from `1.5.0` to `1.5.1` to mark a patch release bundling the post-`v1.5.0` documentation and bug-fix batch (PRs [#28](https://github.com/testerjp/miniGestures/pull/28)–[#33](https://github.com/testerjp/miniGestures/pull/33)): null-`parentElement` crash fix on right-click (#29); single cross-browser `manifest.json` (#31); README minimum-supported-version note, Chrome `background.scripts` warning note, and Firefox packaging simplification (#31, #32, #33); CLAUDE.md / CHANGELOG cleanup (#28, #30).
+- Tagged on GitHub as [`v1.5.1`](https://github.com/testerjp/miniGestures/releases/tag/v1.5.1) and published as a GitHub Release.
+
 ## 2026-05-15 — [#33](https://github.com/testerjp/miniGestures/pull/33) Simplify README "Package for Firefox" section
 - The previous "Package for Firefox" section walked through producing an `.xpi` (zip-and-rename or `web-ext build`) and mentioned submitting it to AMO, but skipped the prerequisites that actually gate the process: Mozilla must sign the build for permanent installs, and signing requires a Mozilla add-on developer account. Without those, the steps lead nowhere.
 - Trimmed the section to state that requirement and point to the [Firefox Add-on Developer Hub](https://addons.mozilla.org/developers/) as the entry point; the hub itself documents the submission and signing flow.
