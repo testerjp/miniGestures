@@ -2,6 +2,12 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-15 — [#PR](https://github.com/testerjp/miniGestures/pull/PR) Consolidate Chrome and Firefox into a single manifest.json
+- Combined `manifest.json` and `manifest.firefox.json` into one `manifest.json` that loads cleanly on both Chrome and Firefox. `background` now lists both `service_worker` (used by Chrome) and `scripts` (used by Firefox), the [pattern documented by MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/background) as the recommended cross-browser MV3 form.
+- This reverses the split introduced by [#26](https://github.com/testerjp/miniGestures/pull/26). At the time, Chrome MV3 rejected any manifest that contained `background.scripts` (`'background.scripts' requires manifest version of 2 or lower`), so the workaround was to keep a separate `manifest.firefox.json` and `cp` it over before loading in Firefox. Current Chrome (verified on Chrome 121+) accepts the combined form and silently uses `service_worker`, so the workaround is no longer needed.
+- Added `minimum_chrome_version: "121"` to mirror the existing `browser_specific_settings.gecko.strict_min_version: "121.0"`, so the supported floor is consistent across both browsers.
+- Deleted `manifest.firefox.json` and the README "Why two manifests?" / Packaging guidance. Firefox install instructions now simply load `manifest.json` directly via `about:debugging` — no `cp` step.
+
 ## 2026-05-12 — [#30](https://github.com/testerjp/miniGestures/pull/30) Refresh stale descriptions in CLAUDE.md
 - `CLAUDE.md` Project Overview said "Manifest V2", contradicting `manifest.json` (`manifest_version: 3`), the rest of the same file (the Architecture / Key Implementation Details sections already describe a service worker and MV3 message passing), and PR [#1](https://github.com/testerjp/miniGestures/pull/1) which migrated the extension to MV3. Corrected to "Manifest V3".
 - `CLAUDE.md` Architecture section described `background.js` as using `chrome.extension` APIs and persisting settings to `localStorage`, and `options.js` as saving to `localStorage`. PR [#1](https://github.com/testerjp/miniGestures/pull/1) replaced both with `chrome.runtime` and `chrome.storage.local`; the source is grep-clean of `chrome.extension` and `localStorage` today. Updated the descriptions to match.
