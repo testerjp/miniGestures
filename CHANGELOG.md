@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-15 — [#PR](url) Document Chrome warning about `background.scripts`
+## 2026-05-15 — [#32](https://github.com/testerjp/miniGestures/pull/32) Document Chrome warning about `background.scripts`
 - Added a short note under README "Install on Chrome": after loading, `chrome://extensions/` shows a warning about the `background.scripts` key in `manifest.json` (kept for Firefox compatibility, ignored by Chrome at runtime). To silence it, delete the `"scripts": ["background.js"]` line.
 
 ## 2026-05-15 — [#31](https://github.com/testerjp/miniGestures/pull/31) Consolidate Chrome and Firefox into a single manifest.json
