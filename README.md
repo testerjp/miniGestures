@@ -15,6 +15,8 @@ Hold the right (or middle) mouse button and draw a short stroke to trigger an ac
 
 The fork exists to migrate the extension to **Manifest V3** and to add a few small enhancements. Further small improvements may follow as needed.
 
+Minimum supported browser versions: **Chrome 121+** and **Firefox 121+**. These floors are enforced by `minimum_chrome_version` and `browser_specific_settings.gecko.strict_min_version` in `manifest.json`.
+
 ## Install on Chrome
 
 1. Clone or download this repository.
@@ -30,11 +32,10 @@ Open `chrome://extensions/`, enable **Developer mode**, and click **Pack extensi
 
 Slightly more involved because the build is not signed for AMO.
 
-1. Use Firefox **121 or later**.
-2. Open `about:debugging#/runtime/this-firefox`.
-3. Click **Load Temporary Add-on...** and select `manifest.json` in the repository folder.
-4. The add-on persists only until Firefox restarts — re-load after each restart, or sign/publish on AMO for a permanent install.
-5. Usage is the same as on Chrome.
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on...** and select `manifest.json` in the repository folder.
+3. The add-on persists only until Firefox restarts — re-load after each restart, or sign/publish on AMO for a permanent install.
+4. Usage is the same as on Chrome.
 
 ## Package for Firefox
 
