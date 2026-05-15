@@ -41,7 +41,7 @@ Slightly more involved because the build is not signed for AMO.
 
 ## Package for Firefox
 
-Produce an `.xpi` from the repository folder — either by zipping its contents (`manifest.json` at the archive root, not nested in a parent directory) and renaming the result to `.xpi`, or by running [`web-ext build`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/#web-ext-build). Submit the `.xpi` to [addons.mozilla.org](https://addons.mozilla.org/) to have Mozilla sign it for permanent installs; an unsigned `.xpi` can only be loaded temporarily via `about:debugging`.
+A permanent-install `.xpi` must be signed by Mozilla, which requires a Mozilla add-on developer account. Start from the [Firefox Add-on Developer Hub](https://addons.mozilla.org/developers/) and follow the submission flow from there.
 
 ## Security
 
