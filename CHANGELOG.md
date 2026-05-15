@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-15 — [#PR](url) Bump version to 1.5.1
+## 2026-05-15 — [#34](https://github.com/testerjp/miniGestures/pull/34) Bump version to 1.5.1
 - Bumped `manifest.json` from `1.5.0` to `1.5.1` to mark a patch release bundling the post-`v1.5.0` documentation and bug-fix batch (PRs [#28](https://github.com/testerjp/miniGestures/pull/28)–[#33](https://github.com/testerjp/miniGestures/pull/33)): null-`parentElement` crash fix on right-click (#29); single cross-browser `manifest.json` (#31); README minimum-supported-version note, Chrome `background.scripts` warning note, and Firefox packaging simplification (#31, #32, #33); CLAUDE.md / CHANGELOG cleanup (#28, #30).
 - Tagged on GitHub as [`v1.5.1`](https://github.com/testerjp/miniGestures/releases/tag/v1.5.1) and published as a GitHub Release.
 
