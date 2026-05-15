@@ -15,6 +15,8 @@ Hold the right (or middle) mouse button and draw a short stroke to trigger an ac
 
 The fork exists to migrate the extension to **Manifest V3** and to add a few small enhancements. Further small improvements may follow as needed.
 
+Minimum supported browser versions: **Chrome 121+** and **Firefox 121+**. These floors are enforced by `minimum_chrome_version` and `browser_specific_settings.gecko.strict_min_version` in `manifest.json`.
+
 ## Install on Chrome
 
 1. Clone or download this repository.
@@ -22,31 +24,22 @@ The fork exists to migrate the extension to **Manifest V3** and to add a few sma
 3. Click **Load unpacked** and select the repository folder.
 4. Right-click-drag on any page to draw a gesture. Adjust colors, width, opacity, trigger button, and mappings from the options page.
 
+## Package for Chrome
+
+Open `chrome://extensions/`, enable **Developer mode**, and click **Pack extension**. Point it at the repository folder; Chrome writes a `.crx` (and a `.pem` signing key on the first pack) next to the folder. Keep the `.pem` to repack updates under the same extension ID.
+
 ## Install on Firefox
 
-Slightly more involved because the build is not signed for AMO, and Firefox needs a different `manifest.json` than Chrome (see [Why two manifests?](#why-two-manifests)).
+Slightly more involved because the build is not signed for AMO.
 
-1. Use Firefox **121 or later**.
-2. From the repository folder, swap in the Firefox manifest:
-   ```sh
-   cp manifest.firefox.json manifest.json
-   ```
-   (To restore the Chrome manifest later: `git restore manifest.json`.)
-3. Open `about:debugging#/runtime/this-firefox`.
-4. Click **Load Temporary Add-on...** and select `manifest.json` in the repository folder.
-5. The add-on persists only until Firefox restarts — re-load after each restart, or sign/publish on AMO for a permanent install.
-6. Usage is the same as on Chrome.
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on...** and select `manifest.json` in the repository folder.
+3. The add-on persists only until Firefox restarts — re-load after each restart, or sign/publish on AMO for a permanent install.
+4. Usage is the same as on Chrome.
 
-### Why two manifests?
+## Package for Firefox
 
-Chrome MV3 requires `background.service_worker` and **rejects** any manifest that also contains `background.scripts` (with `'background.scripts' requires manifest version of 2 or lower`). Firefox 121+ ships the `service_worker` field but it is gated behind the `extensions.backgroundServiceWorkerEnabled` preference (default `false`), so Firefox fails with `background.service_worker is currently disabled. Add background.scripts.` unless `background.scripts` is present. `browser_specific_settings.gecko` cannot override `background`, so a single shared `manifest.json` cannot satisfy both. Firefox's *Load Temporary Add-on* only reads a file literally named `manifest.json`, hence the in-place swap rather than a side-by-side file.
-
-### Packaging
-
-The two manifests are convenient for local development, but only one is needed in a packaged build. The browser only reads `manifest.json`, so leaving the other file in place is harmless at runtime — it just bloats the artifact and can confuse anyone inspecting it. Remove the unused file before packaging:
-
-- **Chrome** (`chrome://extensions/` → *Pack extension* → produces `.crx`): delete `manifest.firefox.json` first so the `.crx` does not carry it.
-- **Firefox** (sign as `.xpi` for AMO): after `cp manifest.firefox.json manifest.json`, delete `manifest.firefox.json` so the `.xpi` does not carry an unused duplicate of the manifest.
+Produce an `.xpi` from the repository folder — either by zipping its contents (`manifest.json` at the archive root, not nested in a parent directory) and renaming the result to `.xpi`, or by running [`web-ext build`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/#web-ext-build). Submit the `.xpi` to [addons.mozilla.org](https://addons.mozilla.org/) to have Mozilla sign it for permanent installs; an unsigned `.xpi` can only be loaded temporarily via `about:debugging`.
 
 ## Security
 
