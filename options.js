@@ -210,6 +210,22 @@ function wireColorControls()
     });
 }
 
+// Enable or disable the trail-appearance subsection (color, width, opacity) to
+// match the "Show Gesture Trails" checkbox. With trails off these controls have
+// no visible effect, so they are disabled and their rows dimmed via CSS.
+function updateTrailControls()
+{
+    var enabled = document.getElementById("trail").checked;
+    var ids = ["color", "colorCode", "width", "opacity"];
+    for(var i = 0; i < ids.length; i++) {
+        var el = document.getElementById(ids[i]);
+        if(el) el.disabled = !enabled;
+    }
+    var rows = document.querySelectorAll("tr.trailSub");
+    for(var j = 0; j < rows.length; j++)
+        rows[j].classList.toggle("disabled", !enabled);
+}
+
 function loadInfo()
 {
     localizeHtml();
@@ -247,6 +263,8 @@ function loadInfo()
         });
 
         document.getElementById('trail').checked = (items.trail !== false);
+        document.getElementById('trail').addEventListener('change', updateTrailControls);
+        updateTrailControls();
 
         select = document.getElementById("gestureButton");
         value = items.gestureButton || "right";

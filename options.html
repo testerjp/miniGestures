@@ -20,6 +20,15 @@
 <html>
 <head>
     <title data-i18n="optionsTitle">miniGestures Options</title>
+    <style>
+        /* Color/width/opacity sit under "Show Gesture Trails": indent their
+           labels so they read as a subsection. */
+        th.trailSub { padding-left: 2.5em; font-weight: normal; }
+        /* When trails are off the subsection controls have no effect, so the
+           whole row is dimmed (the inputs are also disabled from options.js). */
+        tr.trailSub.disabled th,
+        tr.trailSub.disabled td { opacity: 0.4; }
+    </style>
 </head>
 
 <h1 data-i18n="pageHeading">Configuration page for miniGestures</h1>
@@ -28,13 +37,6 @@
 
 <body>
 <table id="optsTab" border="3">
-    <tr>
-        <th colspan=1 data-i18n="showTrails">Show Gesture Trails:</th>
-        <td>
-            <input type='checkbox' id='trail' checked='true'></input>
-        </td>
-    </tr>
-
     <tr>
         <th colspan=1 data-i18n="gestureButtonLabel">Gesture Button:</th>
         <td>
@@ -47,7 +49,14 @@
     </tr>
 
     <tr>
-        <th colspan=1 data-i18n="gestureColor">Gesture Color:</th>
+        <th colspan=1 data-i18n="showTrails">Show Gesture Trails:</th>
+        <td>
+            <input type='checkbox' id='trail' checked='true'></input>
+        </td>
+    </tr>
+
+    <tr class="trailSub">
+        <th colspan=1 class="trailSub" data-i18n="gestureColor">Gesture Color:</th>
         <td>
             <select id="color">
                 <option value="red" selected data-i18n="colorRed">red</option>
@@ -66,15 +75,15 @@
             <span id="colorPreview" style="display:inline-block;width:1em;height:1em;border:1px solid #888;vertical-align:middle;"></span>
         </td>
     </tr>
-    <tr>
-        <th colspan=1 data-i18n="gestureWidth">Gesture Width:</th>
+    <tr class="trailSub">
+        <th colspan=1 class="trailSub" data-i18n="gestureWidth">Gesture Width:</th>
         <td>
             <input type="range" id="width" min="1" max="20" value="3">
             <span id="widthValue">3</span>
         </td>
     </tr>
-    <tr>
-        <th colspan=1 data-i18n="gestureOpacity">Gesture Opacity:</th>
+    <tr class="trailSub">
+        <th colspan=1 class="trailSub" data-i18n="gestureOpacity">Gesture Opacity:</th>
         <td>
             <input type="range" id="opacity" min="5" max="100" step="5" value="100">
             <span id="opacityValue">100</span>%

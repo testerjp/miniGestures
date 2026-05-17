@@ -2,6 +2,11 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#42](https://github.com/testerjp/miniGestures/pull/42) Group the trail appearance settings under "Show Gesture Trails"
+- Moved the "Gesture Button" row to the top of the options table, since the trigger button is the most fundamental setting and is independent of the trail.
+- "Gesture Color", "Gesture Width", and "Gesture Opacity" are now a subsection of "Show Gesture Trails": their labels are indented (`th.trailSub`) so the grouping is visible.
+- When "Show Gesture Trails" is unchecked the subsection controls (color, width, opacity) have no effect, so they are now disabled and their rows dimmed. `options.js` adds `updateTrailControls()`, called on load and on every change of the checkbox.
+
 ## 2026-05-17 — [#41](https://github.com/testerjp/miniGestures/pull/41) Clarify the gesture instructions on the options page
 - The options page stated only that valid gestures are `U`/`D`/`L`/`R` and never showed how to enter one. Added a worked-examples line: enter `D` for "Scroll to Bottom" to trigger it with a single downward swipe, and `DR` for "Close Current Tab" to use a down-then-right combination.
 - Reworded the gesture note — dropped the "Note:" prefix and now explain that a gesture is a combination of directions before listing `U`/`D`/`L`/`R`.
