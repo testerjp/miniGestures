@@ -102,7 +102,7 @@ function updateColorPreview()
 
 function fillTableRows(gests)
 {
-    var div = document.getElementById("optsTab")
+    var div = document.getElementById("gestureTab")
     for(var i = 0; i < GESTURE_ACTIONS.length; i++)
     {
         var action = GESTURE_ACTIONS[i]
