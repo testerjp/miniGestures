@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#43](https://github.com/testerjp/miniGestures/pull/43) Split the options page into a settings table and a gestures table
+- The options page previously rendered everything in one table: the gesture button, the trail-display settings, and the gesture-to-action mappings. The button and trail settings are a different category from the gesture mappings, so they are now two separate tables.
+- `optsTab` now holds only the "Gesture Button" and "Show Gesture Trails" settings (with the color/width/opacity subsection). The "Gestures" heading and the Action/Gesture mapping rows move to a new `gestureTab` table; `options.js` `fillTableRows()` appends the gesture rows to `gestureTab` instead of `optsTab`.
+
 ## 2026-05-17 — [#42](https://github.com/testerjp/miniGestures/pull/42) Group the trail appearance settings under "Show Gesture Trails"
 - Moved the "Gesture Button" row to the top of the options table, since the trigger button is the most fundamental setting and is independent of the trail.
 - "Gesture Color", "Gesture Width", and "Gesture Opacity" are now a subsection of "Show Gesture Trails": their labels are indented (`th.trailSub`) so the grouping is visible.
