@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-17 — [#PR](url) Make `manifest.json` Chrome-clean by default
+## 2026-05-17 — [#35](https://github.com/testerjp/miniGestures/pull/35) Make `manifest.json` Chrome-clean by default
 - `manifest.json` (unified for both browsers by [#31](https://github.com/testerjp/miniGestures/pull/31)) listed both `background.service_worker` and `background.scripts`. Chrome uses `service_worker` and ignores `scripts`, but flags `background.scripts` with an "unrecognized manifest key" warning at `chrome://extensions/`.
 - [#32](https://github.com/testerjp/miniGestures/pull/32) handled this by telling Chrome users to delete the `scripts` line. Since Chrome has by far the larger user base, the workaround is now flipped: `manifest.json` ships Chrome-only (`background.service_worker` alone) and loads warning-free out of the box.
 - Firefox does not support `background.service_worker`, so the README "Install on Firefox" section now instructs Firefox users to replace `service_worker` with `scripts` before loading. JSON has no comment syntax and any placeholder key would itself trigger a Chrome warning, so the Firefox-only form is documented in the README rather than kept in the file.
