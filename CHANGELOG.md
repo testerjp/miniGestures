@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-17 — [#NN](https://github.com/testerjp/miniGestures/pull/NN) Fix stuck right-button gesture after the context menu on Linux
+## 2026-05-17 — [#37](https://github.com/testerjp/miniGestures/pull/37) Fix stuck right-button gesture after the context menu on Linux
 - In right-button gesture mode on Linux, dismissing the native context menu (e.g. with a left-click) left the gesture "live": moving the mouse afterwards kept drawing the trail. The `contextmenu` event fires on `mousedown` on Linux but after `mouseup` on Windows, and the menu opening swallows the gesture-button `mouseup`, so `mouseTrack.js` could be left with `rmousedown` stuck `true` and the trail canvas attached.
 - The old `suppress` counter assumed the Windows event order, so on Linux it desynced — the native menu only appeared on every other right-click and the stale-state cleanup never ran.
 - Replaced the `suppress` counter with a `cancelGesture()` helper and a `menuArmed` flag. `oncontextmenu` now infers the event order from `rmousedown`: on Windows it shows the menu only when no gesture was drawn; on Linux it suppresses the press, and a plain right-click arms the *next* one so a second right-click still brings up the menu. When the menu is allowed to open, `cancelGesture()` resets the gesture state up front so it can never get stuck.
