@@ -31,7 +31,6 @@ Three main scripts communicate via Chrome's message passing:
 - **Context menu suppression:** A `suppress` counter prevents the right-click context menu from appearing during gesture tracking.
 - **Message passing:** Uses `chrome.runtime.sendMessage` / `chrome.runtime.onMessage` (Manifest V3). Async responses (colorCode, width, gests, trail) require `return true` in the listener to keep the channel open.
 - **Settings storage:** All settings (`colorCode`, `width`, `trail`, gesture mappings) are stored in `chrome.storage.local`. `SYSTEM_KEYS` in both `background.js` and `options.js` identifies non-gesture keys so gesture mappings can be extracted from the flat storage object. Values are stored as their native types (booleans as `true`/`false`, not strings).
-- **`AGENTS.md`** in the repo root is unrelated to this project — it documents a different codebase and can be ignored.
 
 ## Git Workflow
 

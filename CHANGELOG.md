@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#36](https://github.com/testerjp/miniGestures/pull/36) Remove stale `AGENTS.md` note from CLAUDE.md
+- `CLAUDE.md` "Key Implementation Details" ended with a bullet stating that `AGENTS.md` in the repo root "is unrelated to this project — it documents a different codebase and can be ignored." No `AGENTS.md` has ever existed in the repository (`git log --all --full-history` for the path is empty), so the bullet pointed at a non-existent file from the first commit that added `CLAUDE.md` ([#1](https://github.com/testerjp/miniGestures/pull/1)).
+- The note misled readers into believing an `AGENTS.md` was present and had to be reasoned about. Removed it; same intent as the earlier `CLAUDE.md` cleanups in [#28](https://github.com/testerjp/miniGestures/pull/28) and [#30](https://github.com/testerjp/miniGestures/pull/30).
+
 ## 2026-05-17 — [#35](https://github.com/testerjp/miniGestures/pull/35) Make `manifest.json` Chrome-clean by default
 - `manifest.json` (unified for both browsers by [#31](https://github.com/testerjp/miniGestures/pull/31)) listed both `background.service_worker` and `background.scripts`. Chrome uses `service_worker` and ignores `scripts`, but flags `background.scripts` with an "unrecognized manifest key" warning at `chrome://extensions/`.
 - [#32](https://github.com/testerjp/miniGestures/pull/32) handled this by telling Chrome users to delete the `scripts` line. Since Chrome has by far the larger user base, the workaround is now flipped: `manifest.json` ships Chrome-only (`background.service_worker` alone) and loads warning-free out of the box.
