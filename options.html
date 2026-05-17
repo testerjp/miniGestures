@@ -32,9 +32,9 @@
         /* The first column of the settings table holds row labels: left-align
            them instead of the default centered <th> alignment. */
         #optsTab th { text-align: left; }
-        /* Color/width/opacity sit under "Show Gesture Trails": indent their
-           labels so they read as a subsection. */
-        #optsTab th.trailSub { padding-left: 2.5em; font-weight: normal; }
+        /* Color/width/opacity sit under "Show Gesture Trails": their labels
+           use a normal (non-bold) weight so they read as a subsection. */
+        #optsTab th.trailSub { font-weight: normal; }
         /* When trails are off the subsection controls have no effect, so the
            whole row is dimmed (the inputs are also disabled from options.js). */
         tr.trailSub.disabled th,
