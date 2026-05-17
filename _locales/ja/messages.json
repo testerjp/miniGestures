@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "一番上までスクロール" },
   "actionScrollbottom": { "message": "一番下までスクロール" },
   "actionLasttab": { "message": "最後に閉じたタブを再度開く" },
-  "donateHeading": { "message": "気に入っていただけたら、ぜひ寄付をお願いします！" },
-  "donationLevels": { "message": "寄付の金額" },
-  "donationSmall": { "message": "少額の寄付 $1.00 USD" },
-  "donationMedium": { "message": "中額の寄付 $5.00 USD" },
-  "donationLarge": { "message": "高額の寄付 $10.00 USD" }
+  "donateHeading": { "message": "気に入っていただけたら、ぜひ寄付をお願いします！" }
 }

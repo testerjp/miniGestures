@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Nach oben scrollen" },
   "actionScrollbottom": { "message": "Nach unten scrollen" },
   "actionLasttab": { "message": "Zuletzt geschlossenen Tab erneut öffnen" },
-  "donateHeading": { "message": "Wenn es Ihnen gefällt, freuen wir uns über eine Spende!" },
-  "donationLevels": { "message": "Spendenstufen" },
-  "donationSmall": { "message": "Kleine Spende $1.00 USD" },
-  "donationMedium": { "message": "Mittlere Spende $5.00 USD" },
-  "donationLarge": { "message": "Große Spende $10.00 USD" }
+  "donateHeading": { "message": "Wenn es Ihnen gefällt, freuen wir uns über eine Spende!" }
 }

@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "맨 위로 스크롤" },
   "actionScrollbottom": { "message": "맨 아래로 스크롤" },
   "actionLasttab": { "message": "마지막으로 닫은 탭 다시 열기" },
-  "donateHeading": { "message": "마음에 드신다면 후원해 주세요!" },
-  "donationLevels": { "message": "후원 금액" },
-  "donationSmall": { "message": "소액 후원 $1.00 USD" },
-  "donationMedium": { "message": "중간 후원 $5.00 USD" },
-  "donationLarge": { "message": "고액 후원 $10.00 USD" }
+  "donateHeading": { "message": "마음에 드신다면 후원해 주세요!" }
 }

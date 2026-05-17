@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Bläddra högst upp" },
   "actionScrollbottom": { "message": "Bläddra längst ner" },
   "actionLasttab": { "message": "Öppna senast stängda fliken igen" },
-  "donateHeading": { "message": "Om du gillar det får du gärna donera!" },
-  "donationLevels": { "message": "Donationsnivåer" },
-  "donationSmall": { "message": "Liten donation $1.00 USD" },
-  "donationMedium": { "message": "Medelstor donation $5.00 USD" },
-  "donationLarge": { "message": "Stor donation $10.00 USD" }
+  "donateHeading": { "message": "Om du gillar det får du gärna donera!" }
 }

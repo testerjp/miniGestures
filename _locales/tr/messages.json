@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "En üste kaydır" },
   "actionScrollbottom": { "message": "En alta kaydır" },
   "actionLasttab": { "message": "Son kapatılan sekmeyi yeniden aç" },
-  "donateHeading": { "message": "Beğendiyseniz, bağış yapmaktan çekinmeyin!" },
-  "donationLevels": { "message": "Bağış düzeyleri" },
-  "donationSmall": { "message": "Küçük bağış $1.00 USD" },
-  "donationMedium": { "message": "Orta bağış $5.00 USD" },
-  "donationLarge": { "message": "Büyük bağış $10.00 USD" }
+  "donateHeading": { "message": "Beğendiyseniz, bağış yapmaktan çekinmeyin!" }
 }

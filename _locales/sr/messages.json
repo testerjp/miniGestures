@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Помери на врх" },
   "actionScrollbottom": { "message": "Помери на дно" },
   "actionLasttab": { "message": "Поново отвори последње затворену картицу" },
-  "donateHeading": { "message": "Ако вам се свиђа, слободно донирајте!" },
-  "donationLevels": { "message": "Нивои донације" },
-  "donationSmall": { "message": "Мала донација $1.00 USD" },
-  "donationMedium": { "message": "Средња донација $5.00 USD" },
-  "donationLarge": { "message": "Велика донација $10.00 USD" }
+  "donateHeading": { "message": "Ако вам се свиђа, слободно донирајте!" }
 }

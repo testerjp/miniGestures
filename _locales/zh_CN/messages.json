@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "滚动到顶部" },
   "actionScrollbottom": { "message": "滚动到底部" },
   "actionLasttab": { "message": "重新打开上次关闭的标签页" },
-  "donateHeading": { "message": "如果您喜欢，欢迎捐赠！" },
-  "donationLevels": { "message": "捐赠金额" },
-  "donationSmall": { "message": "小额捐赠 $1.00 USD" },
-  "donationMedium": { "message": "中额捐赠 $5.00 USD" },
-  "donationLarge": { "message": "大额捐赠 $10.00 USD" }
+  "donateHeading": { "message": "如果您喜欢，欢迎捐赠！" }
 }

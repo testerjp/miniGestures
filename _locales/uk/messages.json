@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Прокрутити вгору" },
   "actionScrollbottom": { "message": "Прокрутити вниз" },
   "actionLasttab": { "message": "Знову відкрити останню закриту вкладку" },
-  "donateHeading": { "message": "Якщо вам подобається, не соромтеся зробити пожертву!" },
-  "donationLevels": { "message": "Рівні пожертви" },
-  "donationSmall": { "message": "Невелика пожертва $1.00 USD" },
-  "donationMedium": { "message": "Середня пожертва $5.00 USD" },
-  "donationLarge": { "message": "Велика пожертва $10.00 USD" }
+  "donateHeading": { "message": "Якщо вам подобається, не соромтеся зробити пожертву!" }
 }

@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "捲動至頂端" },
   "actionScrollbottom": { "message": "捲動至底端" },
   "actionLasttab": { "message": "重新開啟上次關閉的分頁" },
-  "donateHeading": { "message": "如果您喜歡，歡迎捐款！" },
-  "donationLevels": { "message": "捐款金額" },
-  "donationSmall": { "message": "小額捐款 $1.00 USD" },
-  "donationMedium": { "message": "中額捐款 $5.00 USD" },
-  "donationLarge": { "message": "大額捐款 $10.00 USD" }
+  "donateHeading": { "message": "如果您喜歡，歡迎捐款！" }
 }

@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Gulir ke atas" },
   "actionScrollbottom": { "message": "Gulir ke bawah" },
   "actionLasttab": { "message": "Buka kembali tab yang terakhir ditutup" },
-  "donateHeading": { "message": "Jika Anda menyukainya, jangan ragu untuk berdonasi!" },
-  "donationLevels": { "message": "Tingkat donasi" },
-  "donationSmall": { "message": "Donasi kecil $1.00 USD" },
-  "donationMedium": { "message": "Donasi sedang $5.00 USD" },
-  "donationLarge": { "message": "Donasi besar $10.00 USD" }
+  "donateHeading": { "message": "Jika Anda menyukainya, jangan ragu untuk berdonasi!" }
 }

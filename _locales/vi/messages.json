@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Cuộn lên đầu" },
   "actionScrollbottom": { "message": "Cuộn xuống cuối" },
   "actionLasttab": { "message": "Mở lại tab vừa đóng" },
-  "donateHeading": { "message": "Nếu bạn thích, hãy thoải mái đóng góp!" },
-  "donationLevels": { "message": "Các mức đóng góp" },
-  "donationSmall": { "message": "Đóng góp nhỏ $1.00 USD" },
-  "donationMedium": { "message": "Đóng góp vừa $5.00 USD" },
-  "donationLarge": { "message": "Đóng góp lớn $10.00 USD" }
+  "donateHeading": { "message": "Nếu bạn thích, hãy thoải mái đóng góp!" }
 }

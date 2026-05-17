@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Scroll to Top" },
   "actionScrollbottom": { "message": "Scroll to Bottom" },
   "actionLasttab": { "message": "Re-open Last Closed Tab" },
-  "donateHeading": { "message": "If you like this, feel free to donate!" },
-  "donationLevels": { "message": "Donation Levels" },
-  "donationSmall": { "message": "Small Donation $1.00 USD" },
-  "donationMedium": { "message": "Medium Donation $5.00 USD" },
-  "donationLarge": { "message": "Large Donation $10.00 USD" }
+  "donateHeading": { "message": "If you like this, feel free to donate!" }
 }

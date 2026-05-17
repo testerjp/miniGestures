@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Mag-scroll sa itaas" },
   "actionScrollbottom": { "message": "Mag-scroll sa ibaba" },
   "actionLasttab": { "message": "Buksang muli ang huling isinarang tab" },
-  "donateHeading": { "message": "Kung nagustuhan mo ito, malaya kang mag-donate!" },
-  "donationLevels": { "message": "Mga antas ng donasyon" },
-  "donationSmall": { "message": "Maliit na donasyon $1.00 USD" },
-  "donationMedium": { "message": "Katamtamang donasyon $5.00 USD" },
-  "donationLarge": { "message": "Malaking donasyon $10.00 USD" }
+  "donateHeading": { "message": "Kung nagustuhan mo ito, malaya kang mag-donate!" }
 }

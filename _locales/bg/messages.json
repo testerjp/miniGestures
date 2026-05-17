@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Превъртане до началото" },
   "actionScrollbottom": { "message": "Превъртане до края" },
   "actionLasttab": { "message": "Повторно отваряне на последния затворен раздел" },
-  "donateHeading": { "message": "Ако ви харесва, не се колебайте да дарите!" },
-  "donationLevels": { "message": "Нива на дарение" },
-  "donationSmall": { "message": "Малко дарение $1.00 USD" },
-  "donationMedium": { "message": "Средно дарение $5.00 USD" },
-  "donationLarge": { "message": "Голямо дарение $10.00 USD" }
+  "donateHeading": { "message": "Ако ви харесва, не се колебайте да дарите!" }
 }

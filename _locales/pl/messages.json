@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Przewiń do góry" },
   "actionScrollbottom": { "message": "Przewiń do dołu" },
   "actionLasttab": { "message": "Otwórz ponownie ostatnio zamkniętą kartę" },
-  "donateHeading": { "message": "Jeśli Ci się podoba, możesz przekazać darowiznę!" },
-  "donationLevels": { "message": "Poziomy darowizny" },
-  "donationSmall": { "message": "Mała darowizna $1.00 USD" },
-  "donationMedium": { "message": "Średnia darowizna $5.00 USD" },
-  "donationLarge": { "message": "Duża darowizna $10.00 USD" }
+  "donateHeading": { "message": "Jeśli Ci się podoba, możesz przekazać darowiznę!" }
 }

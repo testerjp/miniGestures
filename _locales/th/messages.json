@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "เลื่อนไปด้านบนสุด" },
   "actionScrollbottom": { "message": "เลื่อนไปด้านล่างสุด" },
   "actionLasttab": { "message": "เปิดแท็บที่ปิดล่าสุดอีกครั้ง" },
-  "donateHeading": { "message": "หากคุณชอบ ยินดีรับการบริจาค!" },
-  "donationLevels": { "message": "ระดับการบริจาค" },
-  "donationSmall": { "message": "บริจาคเล็กน้อย $1.00 USD" },
-  "donationMedium": { "message": "บริจาคปานกลาง $5.00 USD" },
-  "donationLarge": { "message": "บริจาคจำนวนมาก $10.00 USD" }
+  "donateHeading": { "message": "หากคุณชอบ ยินดีรับการบริจาค!" }
 }

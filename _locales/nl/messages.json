@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Naar boven scrollen" },
   "actionScrollbottom": { "message": "Naar beneden scrollen" },
   "actionLasttab": { "message": "Laatst gesloten tabblad heropenen" },
-  "donateHeading": { "message": "Als je dit waardeert, doneer gerust!" },
-  "donationLevels": { "message": "Donatieniveaus" },
-  "donationSmall": { "message": "Kleine donatie $1.00 USD" },
-  "donationMedium": { "message": "Gemiddelde donatie $5.00 USD" },
-  "donationLarge": { "message": "Grote donatie $10.00 USD" }
+  "donateHeading": { "message": "Als je dit waardeert, doneer gerust!" }
 }

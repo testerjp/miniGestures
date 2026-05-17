@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Прокрутить вверх" },
   "actionScrollbottom": { "message": "Прокрутить вниз" },
   "actionLasttab": { "message": "Снова открыть последнюю закрытую вкладку" },
-  "donateHeading": { "message": "Если вам нравится, не стесняйтесь сделать пожертвование!" },
-  "donationLevels": { "message": "Уровни пожертвования" },
-  "donationSmall": { "message": "Небольшое пожертвование $1.00 USD" },
-  "donationMedium": { "message": "Среднее пожертвование $5.00 USD" },
-  "donationLarge": { "message": "Крупное пожертвование $10.00 USD" }
+  "donateHeading": { "message": "Если вам нравится, не стесняйтесь сделать пожертвование!" }
 }

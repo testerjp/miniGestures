@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Desplazar arriba" },
   "actionScrollbottom": { "message": "Desplazar abajo" },
   "actionLasttab": { "message": "Reabrir la última pestaña cerrada" },
-  "donateHeading": { "message": "Si te gusta, ¡no dudes en donar!" },
-  "donationLevels": { "message": "Niveles de donación" },
-  "donationSmall": { "message": "Donación pequeña $1.00 USD" },
-  "donationMedium": { "message": "Donación mediana $5.00 USD" },
-  "donationLarge": { "message": "Donación grande $10.00 USD" }
+  "donateHeading": { "message": "Si te gusta, ¡no dudes en donar!" }
 }

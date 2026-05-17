@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Sogeza hadi juu" },
   "actionScrollbottom": { "message": "Sogeza hadi chini" },
   "actionLasttab": { "message": "Fungua tena kichupo kilichofungwa mwisho" },
-  "donateHeading": { "message": "Ukiipenda, jisikie huru kuchangia!" },
-  "donationLevels": { "message": "Viwango vya mchango" },
-  "donationSmall": { "message": "Mchango mdogo $1.00 USD" },
-  "donationMedium": { "message": "Mchango wa wastani $5.00 USD" },
-  "donationLarge": { "message": "Mchango mkubwa $10.00 USD" }
+  "donateHeading": { "message": "Ukiipenda, jisikie huru kuchangia!" }
 }

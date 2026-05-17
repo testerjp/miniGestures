@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Défiler vers le haut" },
   "actionScrollbottom": { "message": "Défiler vers le bas" },
   "actionLasttab": { "message": "Rouvrir le dernier onglet fermé" },
-  "donateHeading": { "message": "Si vous aimez, n'hésitez pas à faire un don !" },
-  "donationLevels": { "message": "Niveaux de don" },
-  "donationSmall": { "message": "Petit don $1.00 USD" },
-  "donationMedium": { "message": "Don moyen $5.00 USD" },
-  "donationLarge": { "message": "Grand don $10.00 USD" }
+  "donateHeading": { "message": "Si vous aimez, n'hésitez pas à faire un don !" }
 }

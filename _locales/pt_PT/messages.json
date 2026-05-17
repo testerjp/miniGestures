@@ -43,9 +43,5 @@
   "actionScrolltop": { "message": "Deslocar para o topo" },
   "actionScrollbottom": { "message": "Deslocar para o fundo" },
   "actionLasttab": { "message": "Reabrir o último separador fechado" },
-  "donateHeading": { "message": "Se gostar, esteja à vontade para doar!" },
-  "donationLevels": { "message": "Níveis de donativo" },
-  "donationSmall": { "message": "Donativo pequeno $1.00 USD" },
-  "donationMedium": { "message": "Donativo médio $5.00 USD" },
-  "donationLarge": { "message": "Donativo grande $10.00 USD" }
+  "donateHeading": { "message": "Se gostar, esteja à vontade para doar!" }
 }
