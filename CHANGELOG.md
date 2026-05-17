@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#45](https://github.com/testerjp/miniGestures/pull/45) Darken the options table cell borders
+- The cell borders on both options tables (`optsTab`, `gestureTab`) used `#d9d9d9`, which was too faint to clearly separate the cells.
+- Darkened the border color to `#888888` so the grid lines read more distinctly.
+
 ## 2026-05-17 — [#44](https://github.com/testerjp/miniGestures/pull/44) Modernize the options page tables
 - Both options tables (`optsTab`, `gestureTab`) used the `border="3"` attribute, which renders the dated, beveled, doubled per-cell borders of an unstyled table.
 - Removed the `border="3"` attributes and added scoped CSS: `border-collapse: collapse` plus a single `1px solid #d9d9d9` border on every cell, so each cell is separated by one thin flat line. Cell padding (`4px 8px`) was added for a compact but readable layout.
