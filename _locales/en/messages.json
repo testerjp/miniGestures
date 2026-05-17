@@ -4,6 +4,7 @@
   "pageHeading": { "message": "Configuration page for miniGestures" },
   "noteGestures": { "message": "A gesture is a combination of directions. The available directions are U (up), D (down), L (left), R (right)." },
   "noteGestureExamples": { "message": "For example, enter D as the gesture for \"Scroll to Bottom\" to trigger it with a downward swipe, or DR for \"Close Current Tab\" to use a down-then-right swipe." },
+  "noteSave": { "message": "After changing a setting, click the \"Save Configuration\" button below to apply it." },
   "noteDonation": { "message": "miniGestures is free and ad-free, the PayPal button below is for optional donations" },
   "showTrails": { "message": "Show Gesture Trails" },
   "gestureButtonLabel": { "message": "Gesture Button" },

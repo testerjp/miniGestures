@@ -4,6 +4,7 @@
   "pageHeading": { "message": "Página de configuração do miniGestures" },
   "noteGestures": { "message": "Um gesto é uma combinação de direções. As direções disponíveis são U (cima), D (baixo), L (esquerda), R (direita)." },
   "noteGestureExamples": { "message": "Por exemplo, escreva D como gesto para \"Deslocar para o fundo\" para o acionar com um movimento para baixo, ou DR para \"Fechar separador atual\" para usar um movimento para baixo e depois para a direita." },
+  "noteSave": { "message": "Depois de alterar uma definição, clique no botão “Guardar configuração” abaixo para a aplicar." },
   "noteDonation": { "message": "O miniGestures é gratuito e sem anúncios; o botão do PayPal abaixo destina-se a donativos opcionais" },
   "showTrails": { "message": "Mostrar rastos dos gestos" },
   "gestureButtonLabel": { "message": "Botão do gesto" },

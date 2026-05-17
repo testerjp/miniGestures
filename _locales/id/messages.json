@@ -4,6 +4,7 @@
   "pageHeading": { "message": "Halaman konfigurasi miniGestures" },
   "noteGestures": { "message": "Gerakan adalah kombinasi arah. Arah yang tersedia adalah U (atas), D (bawah), L (kiri), R (kanan)." },
   "noteGestureExamples": { "message": "Misalnya, masukkan D sebagai gerakan untuk \"Gulir ke bawah\" agar dipicu dengan gerakan ke bawah, atau DR untuk \"Tutup tab saat ini\" agar menggunakan gerakan ke bawah lalu ke kanan." },
+  "noteSave": { "message": "Setelah mengubah pengaturan, klik tombol “Simpan konfigurasi” di bawah untuk menerapkannya." },
   "noteDonation": { "message": "miniGestures gratis dan bebas iklan; tombol PayPal di bawah untuk donasi opsional" },
   "showTrails": { "message": "Tampilkan jejak gerakan" },
   "gestureButtonLabel": { "message": "Tombol gerakan" },
