@@ -24,8 +24,6 @@ Minimum supported browser versions: **Chrome 121+** and **Firefox 121+**. These 
 3. Click **Load unpacked** and select the repository folder.
 4. Right-click-drag on any page to draw a gesture. Adjust colors, width, opacity, trigger button, and mappings from the options page.
 
-`manifest.json` ships configured for Chrome, so it loads without warnings.
-
 ## Package for Chrome
 
 Open `chrome://extensions/`, enable **Developer mode**, and click **Pack extension**. Point it at the repository folder; Chrome writes a `.crx` (and a `.pem` signing key on the first pack) next to the folder. Keep the `.pem` to repack updates under the same extension ID.
