@@ -4,7 +4,7 @@ All notable changes to miniGestures, one entry per pull request (newest first). 
 
 ## 2026-05-17 — [#44](https://github.com/testerjp/miniGestures/pull/44) Modernize the options page tables
 - Both options tables (`optsTab`, `gestureTab`) used the `border="3"` attribute, which renders the dated, beveled, doubled per-cell borders of an unstyled table.
-- Removed the `border="3"` attributes and added scoped CSS: `border-collapse: collapse` plus a single `1px solid #d9d9d9` border on every cell, so each cell is separated by one thin flat line. Cell padding (`8px 12px`) was added for breathing room.
+- Removed the `border="3"` attributes and added scoped CSS: `border-collapse: collapse` plus a single `1px solid #d9d9d9` border on every cell, so each cell is separated by one thin flat line. Cell padding (`4px 8px`) was added for a compact but readable layout.
 - The `th.trailSub` indentation rule was re-scoped to `#optsTab th.trailSub` so it keeps higher specificity than the new `#optsTab th` padding rule and the subsection labels stay indented.
 
 ## 2026-05-17 — [#43](https://github.com/testerjp/miniGestures/pull/43) Split the options page into a settings table and a gestures table
