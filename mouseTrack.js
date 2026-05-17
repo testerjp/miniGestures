@@ -20,7 +20,11 @@ var trail=false, gestureButton="right"
 var mx,my,nx,ny,lx,ly,phi
 var move="", omove=""
 var pi =3.14159
-var suppress=1
+// Right-button mode on Linux: contextmenu fires on mousedown (before we know
+// whether this press is a gesture), so the first right-press is suppressed and
+// a plain right-click arms this flag to let the *next* right-click show the
+// native menu.
+var menuArmed=false
 var canvas, myGests, ginv
 var link, ls, myColor="red", myWidth=3, myOpacity=100
 var loaded=false
@@ -90,6 +94,21 @@ function draw(x,y){
     ly=y
 }
 
+// Reset all in-progress gesture state and remove the trail overlay. Called when
+// a gesture is interrupted before its mouseup arrives — e.g. on Linux the
+// native context menu opens on mousedown and swallows the matching mouseup,
+// which would otherwise leave rmousedown stuck true and keep drawing the trail.
+function cancelGesture()
+{
+    rmousedown = false
+    moved = false
+    move = ""
+    omove = ""
+    var cvs = document.getElementById('gestCanvas')
+    if(cvs && cvs.parentNode)
+        cvs.parentNode.removeChild(cvs)
+}
+
 document.onmousedown = function(event){
     var gestureWhich = gestureButton === "middle" ? 2 : 3;
 
@@ -108,11 +127,6 @@ document.onmousedown = function(event){
         }
         event.preventDefault()
     }
-
-    // For right-button mode, skip the gesture-init while the context menu is
-    // still scheduled to fire (suppress === 0); the contextmenu handler bumps
-    // suppress back to 1 so the next right-mousedown can start a fresh gesture.
-    if(gestureButton === "right" && !suppress) return;
 
     if(! loaded){
         loadOptions()
@@ -192,6 +206,9 @@ document.onmouseup = function(event)
             // default paste still fires inside editables.
             event.preventDefault()
         }
+        // rmousedown is already false here if the gesture was cancelled —
+        // e.g. the context menu opened and consumed this press's mouseup.
+        var gestureWasLive = rmousedown
         rmousedown=false
         if(moved){
             cvs = document.getElementById('gestCanvas')
@@ -202,8 +219,10 @@ document.onmouseup = function(event)
             }
             exeFunc()
         }
-        else if(gestureButton === "right"){
-            --suppress
+        else if(gestureButton === "right" && gestureWasLive){
+            // Plain right-click whose menu we suppressed: arm the next
+            // contextmenu so a second right-click brings the menu up (Linux).
+            menuArmed = true
         }
     }
 };
@@ -288,12 +307,25 @@ function exeFunc()
 document.oncontextmenu = function()
 {
     if(gestureButton !== "right") return true;
-    if(suppress)
-        return false
-    else{
-        suppress++
+
+    // Windows fires contextmenu after mouseup, so rmousedown is already false
+    // and `moved` reliably tells a gesture from a plain click: show the native
+    // menu only when no gesture was drawn. (menuArmed is unused on Windows.)
+    if(!rmousedown)
+        return !moved;
+
+    // Linux fires contextmenu on mousedown, before we know whether this press
+    // will become a gesture, so we cannot decide from `moved`. Suppress this
+    // press; a plain right-click arms menuArmed on mouseup so the *next*
+    // right-click brings the menu up.
+    if(menuArmed){
+        menuArmed = false
+        // The native menu is about to open and will swallow this press's
+        // mouseup; drop the gesture state now so the trail can't get stuck.
+        cancelGesture()
         return true
     }
+    return false
 };
 
 document.addEventListener('auxclick', function(event){
