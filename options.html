@@ -21,9 +21,17 @@
 <head>
     <title data-i18n="optionsTitle">miniGestures Options</title>
     <style>
+        /* Tables: collapse the default beveled per-cell borders into a
+           single thin line between cells for a flatter, modern look. */
+        #optsTab, #gestureTab { border-collapse: collapse; }
+        #optsTab th, #optsTab td,
+        #gestureTab th, #gestureTab td {
+            border: 1px solid #d9d9d9;
+            padding: 8px 12px;
+        }
         /* Color/width/opacity sit under "Show Gesture Trails": indent their
            labels so they read as a subsection. */
-        th.trailSub { padding-left: 2.5em; font-weight: normal; }
+        #optsTab th.trailSub { padding-left: 2.5em; font-weight: normal; }
         /* When trails are off the subsection controls have no effect, so the
            whole row is dimmed (the inputs are also disabled from options.js). */
         tr.trailSub.disabled th,
@@ -36,7 +44,7 @@
 <h2 data-i18n="noteGestureExamples">For example, enter D as the gesture for "Scroll to Bottom" to trigger it with a downward swipe, or DR for "Close Current Tab" to use a down-then-right swipe.</h2>
 
 <body>
-<table id="optsTab" border="3">
+<table id="optsTab">
     <tr>
         <th colspan=1 data-i18n="gestureButtonLabel">Gesture Button:</th>
         <td>
@@ -93,7 +101,7 @@
 
 <br>
 
-<table id="gestureTab" border="3">
+<table id="gestureTab">
     <tr><th colspan=2 align='center' data-i18n="gesturesHeading">Gestures</th></tr>
     <tr>
         <th data-i18n="columnAction">Action</th>
