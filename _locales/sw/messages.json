@@ -4,6 +4,7 @@
   "pageHeading": { "message": "Ukurasa wa usanidi wa miniGestures" },
   "noteGestures": { "message": "Ishara ni mchanganyiko wa pande. Pande zinazopatikana ni U (juu), D (chini), L (kushoto), R (kulia)." },
   "noteGestureExamples": { "message": "Kwa mfano, weka D kama ishara ya \"Sogeza hadi chini\" ili kuiwasha kwa mwendo wa kushuka chini, au DR kwa \"Funga kichupo cha sasa\" ili kutumia mwendo wa kushuka chini kisha kulia." },
+  "noteSave": { "message": "Baada ya kubadilisha mpangilio, bofya kitufe cha “Hifadhi usanidi” hapa chini ili kuutumia." },
   "noteDonation": { "message": "miniGestures ni bure na haina matangazo; kitufe cha PayPal kilicho hapa chini ni kwa michango ya hiari" },
   "showTrails": { "message": "Onyesha mikia ya ishara" },
   "gestureButtonLabel": { "message": "Kitufe cha ishara" },

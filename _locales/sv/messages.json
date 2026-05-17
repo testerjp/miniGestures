@@ -4,6 +4,7 @@
   "pageHeading": { "message": "Konfigurationssida för miniGestures" },
   "noteGestures": { "message": "En gest är en kombination av riktningar. Tillgängliga riktningar är U (upp), D (ner), L (vänster), R (höger)." },
   "noteGestureExamples": { "message": "Ange till exempel D som gest för \"Bläddra längst ner\" för att utlösa den med en nedåtrörelse, eller DR för \"Stäng aktuell flik\" för att använda en rörelse nedåt och sedan åt höger." },
+  "noteSave": { "message": "När du har ändrat en inställning klickar du på knappen ”Spara konfiguration” nedan för att tillämpa den." },
   "noteDonation": { "message": "miniGestures är gratis och annonsfritt; PayPal-knappen nedan är för frivilliga donationer" },
   "showTrails": { "message": "Visa gestspår" },
   "gestureButtonLabel": { "message": "Gestknapp" },

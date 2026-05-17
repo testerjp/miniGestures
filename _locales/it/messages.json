@@ -4,6 +4,7 @@
   "pageHeading": { "message": "Pagina di configurazione di miniGestures" },
   "noteGestures": { "message": "Un gesto è una combinazione di direzioni. Le direzioni disponibili sono U (su), D (giù), L (sinistra), R (destra)." },
   "noteGestureExamples": { "message": "Ad esempio, inserisci D come gesto per \"Scorri in basso\" per attivarlo con un movimento verso il basso, oppure DR per \"Chiudi scheda corrente\" per usare un movimento verso il basso e poi verso destra." },
+  "noteSave": { "message": "Dopo aver modificato un’impostazione, fai clic sul pulsante «Salva configurazione» qui sotto per applicarla." },
   "noteDonation": { "message": "miniGestures è gratuito e senza pubblicità; il pulsante PayPal qui sotto serve per donazioni facoltative" },
   "showTrails": { "message": "Mostra le tracce dei gesti" },
   "gestureButtonLabel": { "message": "Pulsante del gesto" },

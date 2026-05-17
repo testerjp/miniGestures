@@ -4,6 +4,7 @@
   "pageHeading": { "message": "Konfigurasiebladsy vir miniGestures" },
   "noteGestures": { "message": "'n Gebaar is 'n kombinasie van rigtings. Die beskikbare rigtings is U (op), D (af), L (links), R (regs)." },
   "noteGestureExamples": { "message": "Byvoorbeeld: tik D as die gebaar vir \"Rol na onder\" in om dit met 'n afwaartse beweging te aktiveer, of DR vir \"Sluit huidige oortjie\" om 'n af-dan-regs-beweging te gebruik." },
+  "noteSave": { "message": "Nadat jy ’n instelling verander het, klik op die “Stoor konfigurasie”-knoppie hieronder om dit toe te pas." },
   "noteDonation": { "message": "miniGestures is gratis en advertensievry; die PayPal-knoppie hieronder is vir opsionele skenkings" },
   "showTrails": { "message": "Wys gebaarspore" },
   "gestureButtonLabel": { "message": "Gebaarknoppie" },

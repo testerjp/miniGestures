@@ -4,6 +4,7 @@
   "pageHeading": { "message": "Strona konfiguracji miniGestures" },
   "noteGestures": { "message": "Gest to kombinacja kierunków. Dostępne kierunki to U (góra), D (dół), L (lewo), R (prawo)." },
   "noteGestureExamples": { "message": "Na przykład wpisz D jako gest dla \"Przewiń do dołu\", aby uruchomić go ruchem w dół, lub DR dla \"Zamknij bieżącą kartę\", aby użyć ruchu w dół, a następnie w prawo." },
+  "noteSave": { "message": "Po zmianie ustawienia kliknij przycisk „Zapisz konfigurację” poniżej, aby je zastosować." },
   "noteDonation": { "message": "miniGestures jest darmowe i bez reklam; przycisk PayPal poniżej służy do opcjonalnych darowizn" },
   "showTrails": { "message": "Pokaż ślady gestów" },
   "gestureButtonLabel": { "message": "Przycisk gestu" },

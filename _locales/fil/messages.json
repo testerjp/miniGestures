@@ -4,6 +4,7 @@
   "pageHeading": { "message": "Pahina ng pagsasaayos para sa miniGestures" },
   "noteGestures": { "message": "Ang galaw ay kombinasyon ng mga direksyon. Ang mga magagamit na direksyon ay U (pataas), D (pababa), L (kaliwa), R (kanan)." },
   "noteGestureExamples": { "message": "Halimbawa, ilagay ang D bilang galaw para sa \"Mag-scroll sa ibaba\" para ma-trigger ito gamit ang pababang galaw, o DR para sa \"Isara ang kasalukuyang tab\" para gumamit ng pababa-tapos-pakanang galaw." },
+  "noteSave": { "message": "Pagkatapos baguhin ang isang setting, i-click ang button na “I-save ang pagsasaayos” sa ibaba para mailapat ito." },
   "noteDonation": { "message": "Ang miniGestures ay libre at walang ad; ang PayPal na button sa ibaba ay para sa opsyonal na donasyon" },
   "showTrails": { "message": "Ipakita ang mga bakas ng galaw" },
   "gestureButtonLabel": { "message": "Button para sa galaw" },
