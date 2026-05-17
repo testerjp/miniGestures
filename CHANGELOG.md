@@ -2,6 +2,9 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#52](https://github.com/testerjp/miniGestures/pull/52) Drop the localization claim from the README
+- The "About this fork" section claimed the options page is "localized into 27 languages and follows the browser's language setting, falling back to English where no translation exists." Removed the sentence, since the translation coverage is not something the fork should advertise.
+
 ## 2026-05-17 — [#51](https://github.com/testerjp/miniGestures/pull/51) Release 1.5.3
 - Bumped `manifest.json` `version` from `1.5.2` to `1.5.3`.
 - Release covering the 11 PRs merged since v1.5.2 ([#40](https://github.com/testerjp/miniGestures/pull/40)–[#50](https://github.com/testerjp/miniGestures/pull/50)): options-page localization (27 locales), left/middle trigger-button support, trail opacity, new default gestures and trail style, and the `CLAUDE.md` / `SECURITY_REVIEW.md` documentation refresh.
