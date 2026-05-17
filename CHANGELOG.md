@@ -2,6 +2,12 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#50](https://github.com/testerjp/miniGestures/pull/50) Re-anchor the security review to current HEAD
+- `SECURITY_REVIEW.md` was still anchored to commit `554763b` (2026-05-12, just after the PR [#23](https://github.com/testerjp/miniGestures/pull/23) cleanup); PRs [#24](https://github.com/testerjp/miniGestures/pull/24)–[#48](https://github.com/testerjp/miniGestures/pull/48) had since shifted every code line reference it cites.
+- Re-anchored the `Commit reviewed` / `Date` header to `master` HEAD `10aac4f`, and corrected the `mouseTrack.js`, `options.js`, and `options.html` line numbers in §5, §6, and §7.
+- Rewrote the §7 XSS note: the status-message `innerHTML` writes no longer use static literal strings — since [#40](https://github.com/testerjp/miniGestures/pull/40) they resolve through `msg()` / `chrome.i18n.getMessage` from the `_locales` catalogs (developer-authored bundled resources, still not user input).
+- Added a §6 bullet for the left-button `selectstart`/`dragstart`/`click` handlers introduced in [#38](https://github.com/testerjp/miniGestures/pull/38), and noted the `default_locale` manifest key in §2. Conclusion unchanged: no data exfiltration, minimal permissions, safe within the scope of the static review.
+
 ## 2026-05-17 — [#48](https://github.com/testerjp/miniGestures/pull/48) Change the default trail color, width, and opacity
 - The default gesture trail was red, width 3, opacity 100%.
 - Changed the defaults to pastel blue (`#AEC6CF`), width 7, opacity 75%. Updated the fallbacks in `options.js` `loadInfo()` and `mouseTrack.js` (`myColor`/`myWidth`/`myOpacity`), and the matching static `value`/`selected` attributes and display labels in `options.html`.
