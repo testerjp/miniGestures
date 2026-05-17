@@ -2,6 +2,12 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#41](https://github.com/testerjp/miniGestures/pull/41) Clarify the gesture instructions on the options page
+- The options page stated only that valid gestures are `U`/`D`/`L`/`R` and never showed how to enter one. Added a worked-examples line: enter `D` for "Scroll to Bottom" to trigger it with a single downward swipe, and `DR` for "Close Current Tab" to use a down-then-right combination.
+- Reworded the gesture note — dropped the "Note:" prefix and now explain that a gesture is a combination of directions before listing `U`/`D`/`L`/`R`.
+- Moved the "free and ad-free / optional donation" note from the top of the page down next to the "If you like this, feel free to donate!" heading, dropped its "Note:" prefix, and changed "at the bottom" to "below" since it now sits right above the PayPal button.
+- Added the `noteGestureExamples` message and reworded `noteGestures` and `noteDonation` across all 27 `_locales/<locale>/messages.json` files; `options.html` carries the matching `data-i18n` `<h2>` elements.
+
 ## 2026-05-17 — [#40](https://github.com/testerjp/miniGestures/pull/40) Localize the options page
 - The options page is now translated and follows the browser's language setting via Chrome's built-in i18n (`_locales/<locale>/messages.json`). Added `default_locale: "en"` to `manifest.json`, so any locale without a translation falls back to English.
 - Ships 27 locales: English, Japanese, Korean, Simplified and Traditional Chinese, German, French, Spanish, Italian, European and Brazilian Portuguese, Dutch, Polish, Swedish, Russian, Ukrainian, Bulgarian, Serbian, Turkish, Arabic, Thai, Vietnamese, Indonesian, Filipino, Hindi, Swahili, and Afrikaans.
