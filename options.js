@@ -28,17 +28,50 @@ colorNames={"ff3300":"red","008000":"green","00008B":"blue",
 
 defaultGests={"U":"newtab","R":"forward","L":"back","UD":"closetab"}
 
-commandTrans={"History Back":"back","History Forward":"forward",
-                            "Reload":"reload","Stop Loading":"stop",
-                            "Open New Tab":"newtab","Close Current Tab":"closetab",
-                            "Close Background Tabs":"closeback","Close Window":"closeall",
-                            "Reload All Tabs":"reloadall",
-                            "Next Tab":"nexttab","Previous Tab":"prevtab",
-                            "Scroll to Top":"scrolltop", "Scroll to Bottom":"scrollbottom",
-                            "Re-open Last Closed Tab":"lasttab",
-                            }
+// Ordered list of gesture actions. `cmd` is the stable storage/message key
+// used by background.js; `msg` is the i18n key for the displayed label.
+// The display order matches the gesture table on the options page.
+var GESTURE_ACTIONS = [
+    {cmd:"back",         msg:"actionBack"},
+    {cmd:"forward",      msg:"actionForward"},
+    {cmd:"reload",       msg:"actionReload"},
+    {cmd:"stop",         msg:"actionStop"},
+    {cmd:"newtab",       msg:"actionNewtab"},
+    {cmd:"closetab",     msg:"actionClosetab"},
+    {cmd:"closeback",    msg:"actionCloseback"},
+    {cmd:"closeall",     msg:"actionCloseall"},
+    {cmd:"reloadall",    msg:"actionReloadall"},
+    {cmd:"nexttab",      msg:"actionNexttab"},
+    {cmd:"prevtab",      msg:"actionPrevtab"},
+    {cmd:"scrolltop",    msg:"actionScrolltop"},
+    {cmd:"scrollbottom", msg:"actionScrollbottom"},
+    {cmd:"lasttab",      msg:"actionLasttab"},
+]
 
 var SYSTEM_KEYS = new Set(["colorCode", "width", "opacity", "trail", "lasturl", "gestureButton"]);
+
+// Look up a localized string; fall back to the supplied English text (or the
+// key itself) so the page stays usable even if a message is missing.
+function msg(key, fallback)
+{
+    var s = chrome.i18n.getMessage(key)
+    return s ? s : (fallback != null ? fallback : key)
+}
+
+// Replace the text of every [data-i18n] element in the static HTML with its
+// localized string, and set the document language/direction for the locale.
+function localizeHtml()
+{
+    var nodes = document.querySelectorAll('[data-i18n]')
+    for(var i = 0; i < nodes.length; i++) {
+        var text = chrome.i18n.getMessage(nodes[i].getAttribute('data-i18n'))
+        if(text) nodes[i].textContent = text
+    }
+    var dir = chrome.i18n.getMessage('@@bidi_dir')
+    if(dir) document.documentElement.setAttribute('dir', dir)
+    var locale = chrome.i18n.getMessage('@@ui_locale')
+    if(locale) document.documentElement.setAttribute('lang', locale.replace('_', '-'))
+}
 
 function invertHash(hash)
 {
@@ -69,20 +102,23 @@ function updateColorPreview()
 
 function fillTableRows(gests)
 {
-    var key,div,tr,td,inp
-    div = document.getElementById("optsTab");
-    for(key in commandTrans)
+    var div = document.getElementById("optsTab")
+    for(var i = 0; i < GESTURE_ACTIONS.length; i++)
     {
-        tr=div.insertRow(div.rows.length)
-        td=document.createElement('td')
-        td.appendChild(document.createTextNode(key))
+        var action = GESTURE_ACTIONS[i]
+        var tr = div.insertRow(div.rows.length)
+        // The command code is stored on the row so save_options() can recover
+        // it without depending on the (now localized) label text.
+        tr.dataset.cmd = action.cmd
+        var td = document.createElement('td')
+        td.appendChild(document.createTextNode(msg(action.msg)))
         tr.appendChild(td)
-        td=document.createElement('td')
-        inp=document.createElement('input')
-        inp.type='text'
-        if(gests[commandTrans[key]])
-            inp.value=gests[commandTrans[key]]
-        td.align='center'
+        td = document.createElement('td')
+        var inp = document.createElement('input')
+        inp.type = 'text'
+        if(gests[action.cmd])
+            inp.value = gests[action.cmd]
+        td.align = 'center'
         tr.appendChild(td)
         td.appendChild(inp)
     }
@@ -95,7 +131,7 @@ function save_options()
     var code_input = document.getElementById("colorCode");
     var hex = normalizeHex(code_input.value);
     if(!hex) {
-        status.innerHTML = "Invalid color code: use #rgb or #rrggbb";
+        status.innerHTML = msg("statusInvalidColor");
         setTimeout(function() { status.innerHTML = ""; }, 2000);
         return;
     }
@@ -117,8 +153,8 @@ function save_options()
     var inputs = document.getElementsByTagName('input');
     for(var i = 0; i < inputs.length; i++)
     {
-        var s = inputs[i].parentElement.parentElement.children[0].textContent;
-        var cmdKey = commandTrans[s];
+        var row = inputs[i].parentElement ? inputs[i].parentElement.parentElement : null;
+        var cmdKey = (row && row.dataset) ? row.dataset.cmd : null;
         if(!cmdKey) continue;
         if(inputs[i].value.length > 0)
             data[cmdKey] = inputs[i].value;
@@ -127,7 +163,7 @@ function save_options()
     }
 
     chrome.storage.local.set(data, function() {
-        status.innerHTML = "Configuration Saved";
+        status.innerHTML = msg("statusSaved");
         setTimeout(function() { status.innerHTML = ""; }, 750);
     });
 
@@ -176,6 +212,7 @@ function wireColorControls()
 
 function loadInfo()
 {
+    localizeHtml();
     wireColorControls();
 
     chrome.storage.local.get(null, function(items) {

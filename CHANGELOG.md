@@ -2,6 +2,13 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#40](https://github.com/testerjp/miniGestures/pull/40) Localize the options page
+- The options page is now translated and follows the browser's language setting via Chrome's built-in i18n (`_locales/<locale>/messages.json`). Added `default_locale: "en"` to `manifest.json`, so any locale without a translation falls back to English.
+- Ships 27 locales: English, Japanese, Korean, Simplified and Traditional Chinese, German, French, Spanish, Italian, European and Brazilian Portuguese, Dutch, Polish, Swedish, Russian, Ukrainian, Bulgarian, Serbian, Turkish, Arabic, Thai, Vietnamese, Indonesian, Filipino, Hindi, Swahili, and Afrikaans.
+- `options.html` static text carries `data-i18n` keys; `options.js` swaps them in on load via `chrome.i18n.getMessage`, sets `<html lang>`/`dir` for the locale (so Arabic renders right-to-left), and builds the gesture-action labels and status messages from translated strings.
+- Gesture-table rows now store their command code in a `data-cmd` attribute instead of being matched by the (previously English-only) label text, so saving still works once the labels are localized. The PayPal form's field `value`s and the color/button `<option>` `value`s are unchanged — only the visible text is translated — so saved settings and donations are unaffected.
+- The `manifest.json` `description` is also localized through `__MSG_appDesc__`.
+
 ## 2026-05-17 — [#39](https://github.com/testerjp/miniGestures/pull/39) Bump version to 1.5.2
 - Bumped `manifest.json` from `1.5.1` to `1.5.2` to mark a patch release bundling the post-`v1.5.1` batch (PRs [#35](https://github.com/testerjp/miniGestures/pull/35)–[#38](https://github.com/testerjp/miniGestures/pull/38)): a single Chrome-clean `manifest.json` that loads warning-free (#35); a fix for the stuck right-button gesture after the native context menu on Linux (#37); a new "Left" option for the gesture trigger button (#38); and a CLAUDE.md cleanup (#36).
 - Tagged on GitHub as [`v1.5.2`](https://github.com/testerjp/miniGestures/releases/tag/v1.5.2) and published as a GitHub Release.
