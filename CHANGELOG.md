@@ -2,6 +2,12 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#49](https://github.com/testerjp/miniGestures/pull/49) Update CLAUDE.md to match the current implementation
+- `CLAUDE.md` "Key Implementation Details" still described a `suppress` counter for context-menu suppression, but [#37](https://github.com/testerjp/miniGestures/pull/37) replaced it with the `cancelGesture()` helper and the `menuArmed` flag. Rewrote the bullet to describe the current Windows/Linux `oncontextmenu` logic.
+- The "Message passing" and "Settings storage" bullets listed only four of the six storage keys / async responses, omitting `opacity` ([#7](https://github.com/testerjp/miniGestures/pull/7)) and `gestureButton` ([#3](https://github.com/testerjp/miniGestures/pull/3), [#38](https://github.com/testerjp/miniGestures/pull/38)). Added both.
+- Added a "Localization" bullet: the options-page i18n introduced in [#40](https://github.com/testerjp/miniGestures/pull/40) (`_locales/<locale>/messages.json`, 27 locales, `default_locale: "en"`) was undocumented.
+- The Project Overview and the `mouseTrack.js` / `options.js` architecture descriptions mentioned only right-click; updated them to cover the middle ([#3](https://github.com/testerjp/miniGestures/pull/3)) and left ([#38](https://github.com/testerjp/miniGestures/pull/38)) trigger buttons and trail opacity.
+
 ## 2026-05-17 — [#48](https://github.com/testerjp/miniGestures/pull/48) Change the default trail color, width, and opacity
 - The default gesture trail was red, width 3, opacity 100%.
 - Changed the defaults to pastel blue (`#AEC6CF`), width 7, opacity 75%. Updated the fallbacks in `options.js` `loadInfo()` and `mouseTrack.js` (`myColor`/`myWidth`/`myOpacity`), and the matching static `value`/`selected` attributes and display labels in `options.html`.

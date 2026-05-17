@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-miniGestures is a Chrome browser extension (Manifest V3) that enables mouse gesture-based tab and browser navigation. Users hold right-click and draw gestures to trigger actions like back/forward, new tab, close tab, etc.
+miniGestures is a Chrome browser extension (Manifest V3) that enables mouse gesture-based tab and browser navigation. Users hold the trigger button (right-click by default; middle or left are also selectable) and draw gestures to trigger actions like back/forward, new tab, close tab, etc.
 
 ## Loading the Extension
 
@@ -19,18 +19,19 @@ To package as `.crx`: use Chrome's "Pack extension" button on the extensions pag
 
 Three main scripts communicate via Chrome's message passing:
 
-- **`mouseTrack.js`** — Content script injected into every page (`document_start`, `all_frames`). Handles right-click events, draws the gesture trail on a canvas overlay (z-index 10000), detects gesture direction sequences using `Math.atan2`, and sends recognized gestures to the background script.
+- **`mouseTrack.js`** — Content script injected into every page (`document_start`, `all_frames`). Tracks the configured trigger button (right, middle, or left, via the `BUTTON_WHICH` table), draws the gesture trail on a canvas overlay (z-index 10000), detects gesture direction sequences using `Math.atan2`, and sends recognized gestures to the background script.
 
 - **`background.js`** — Service worker that receives messages from `mouseTrack.js` and executes tab/browser actions (open tab, close tab, navigate back/forward, etc.) via the `chrome.tabs` and `chrome.runtime` APIs. Also manages configuration persistence in `chrome.storage.local` and tracks the last closed tab URL for the "reopen closed tab" feature.
 
-- **`options.js` + `options.html`** — Settings page where users configure trail color/width, the trigger button, and customize gesture-to-action mappings. Settings are saved to `chrome.storage.local`.
+- **`options.js` + `options.html`** — Settings page where users configure the trigger button, the trail color/width/opacity, and the gesture-to-action mappings. Settings are saved to `chrome.storage.local`. The page is localized via Chrome's built-in i18n (`_locales/<locale>/messages.json`).
 
 ## Key Implementation Details
 
 - **Gesture recognition:** Movement vectors are bucketed into U/D/L/R using `Math.atan2` angle thresholds. Sequences like "L", "LU", "DR" map to actions.
-- **Context menu suppression:** A `suppress` counter prevents the right-click context menu from appearing during gesture tracking.
-- **Message passing:** Uses `chrome.runtime.sendMessage` / `chrome.runtime.onMessage` (Manifest V3). Async responses (colorCode, width, gests, trail) require `return true` in the listener to keep the channel open.
-- **Settings storage:** All settings (`colorCode`, `width`, `trail`, gesture mappings) are stored in `chrome.storage.local`. `SYSTEM_KEYS` in both `background.js` and `options.js` identifies non-gesture keys so gesture mappings can be extracted from the flat storage object. Values are stored as their native types (booleans as `true`/`false`, not strings).
+- **Context menu suppression:** In right-button mode, `mouseTrack.js`'s `oncontextmenu` handler decides whether to show the native menu. Windows fires `contextmenu` after `mouseup`, so `moved` distinguishes a gesture from a plain right-click. Linux fires it on `mousedown`, so the press is suppressed and a `menuArmed` flag lets the *next* right-click bring the menu up. `cancelGesture()` resets in-progress gesture state when the menu is allowed to open (the menu swallows the gesture's `mouseup`, which would otherwise leave the trail stuck).
+- **Message passing:** Uses `chrome.runtime.sendMessage` / `chrome.runtime.onMessage` (Manifest V3). Async responses (colorCode, width, opacity, gests, trail, gestureButton) require `return true` in the listener to keep the channel open.
+- **Settings storage:** All settings (`colorCode`, `width`, `opacity`, `trail`, `gestureButton`, gesture mappings) are stored in `chrome.storage.local`. `SYSTEM_KEYS` in both `background.js` and `options.js` identifies non-gesture keys so gesture mappings can be extracted from the flat storage object. Values are stored as their native types (booleans as `true`/`false`, not strings).
+- **Localization:** The options page is translated through Chrome's i18n. `options.js` swaps the text of every `[data-i18n]` element on load from `_locales/<locale>/messages.json` (27 locales, with `default_locale: "en"` as the fallback). Gesture-table rows store the action's command code in a `data-cmd` attribute so saving still works once the labels are localized.
 
 ## Git Workflow
 
