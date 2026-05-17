@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#39](https://github.com/testerjp/miniGestures/pull/39) Bump version to 1.5.2
+- Bumped `manifest.json` from `1.5.1` to `1.5.2` to mark a patch release bundling the post-`v1.5.1` batch (PRs [#35](https://github.com/testerjp/miniGestures/pull/35)–[#38](https://github.com/testerjp/miniGestures/pull/38)): a single Chrome-clean `manifest.json` that loads warning-free (#35); a fix for the stuck right-button gesture after the native context menu on Linux (#37); a new "Left" option for the gesture trigger button (#38); and a CLAUDE.md cleanup (#36).
+- Tagged on GitHub as [`v1.5.2`](https://github.com/testerjp/miniGestures/releases/tag/v1.5.2) and published as a GitHub Release.
+
 ## 2026-05-17 — [#38](https://github.com/testerjp/miniGestures/pull/38) Add left mouse button as a gesture trigger
 - Added "Left" to the Gesture Button dropdown on the options page, alongside the existing "Right" and "Middle". `mouseTrack.js` now maps the selected button to its `event.which` code (left→1, middle→2, right→3) through a `BUTTON_WHICH` table instead of the old `middle ? 2 : 3` ternary.
 - A left-drag is normally text selection or a native image/link drag, and a left press+release is a click. While the left trigger button is held, `mouseTrack.js` now suppresses `selectstart` and `dragstart` so the gesture tracks cleanly, and swallows the trailing `click` (capture phase) so a gesture can't also activate the link or button it started on. All three handlers are gated on `gestureButton === "left"`, so right- and middle-button behavior is unchanged.

@@ -14,7 +14,7 @@
     }
   ],
   "minimum_chrome_version": "121",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "options_page": "options.html",
   "description": "a very simple mouse gestures program",
   "browser_specific_settings": {
