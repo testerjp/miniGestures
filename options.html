@@ -1,89 +1,89 @@
-<!-- 
-/*   
+<!--
+/*
  *  Copyright (C) 2013  AJ Ribeiro
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/ 
+*/
 -->
 
 <html>
 <head>
-    <title>miniGestures Options</title>
+    <title data-i18n="optionsTitle">miniGestures Options</title>
 </head>
 
-<h1>Configuration page for miniGestures</h1>
-<h2>Note: valid gestures are U (up), D (down), L (left), R (right)</h2>
-<h2>Note: miniGestures is free and ad-free, the Paypal button at the bottom is for optional donations</h2>
+<h1 data-i18n="pageHeading">Configuration page for miniGestures</h1>
+<h2 data-i18n="noteGestures">Note: valid gestures are U (up), D (down), L (left), R (right)</h2>
+<h2 data-i18n="noteDonation">Note: miniGestures is free and ad-free, the Paypal button at the bottom is for optional donations</h2>
 
 <body>
 <table id="optsTab" border="3">
     <tr>
-        <th colspan=1>Show Gesture Trails:</th>
+        <th colspan=1 data-i18n="showTrails">Show Gesture Trails:</th>
         <td>
             <input type='checkbox' id='trail' checked='true'></input>
         </td>
     </tr>
 
     <tr>
-        <th colspan=1>Gesture Button:</th>
+        <th colspan=1 data-i18n="gestureButtonLabel">Gesture Button:</th>
         <td>
             <select id="gestureButton">
-                <option value="right" selected>Right</option>
-                <option value="middle">Middle</option>
-                <option value="left">Left</option>
+                <option value="right" selected data-i18n="buttonRight">Right</option>
+                <option value="middle" data-i18n="buttonMiddle">Middle</option>
+                <option value="left" data-i18n="buttonLeft">Left</option>
             </select>
         </td>
     </tr>
 
     <tr>
-        <th colspan=1>Gesture Color:</th>
+        <th colspan=1 data-i18n="gestureColor">Gesture Color:</th>
         <td>
             <select id="color">
-                <option value="red" selected>red</option>
-                <option value="green">green</option>
-                <option value="blue">blue</option>
-                <option value="yellow">yellow</option>
-                <option value="pastel pink">pastel pink</option>
-                <option value="pastel blue">pastel blue</option>
-                <option value="pastel green">pastel green</option>
-                <option value="pastel yellow">pastel yellow</option>
-                <option value="pastel purple">pastel purple</option>
-                <option value="pastel orange">pastel orange</option>
-                <option value="custom">custom</option>
+                <option value="red" selected data-i18n="colorRed">red</option>
+                <option value="green" data-i18n="colorGreen">green</option>
+                <option value="blue" data-i18n="colorBlue">blue</option>
+                <option value="yellow" data-i18n="colorYellow">yellow</option>
+                <option value="pastel pink" data-i18n="colorPastelPink">pastel pink</option>
+                <option value="pastel blue" data-i18n="colorPastelBlue">pastel blue</option>
+                <option value="pastel green" data-i18n="colorPastelGreen">pastel green</option>
+                <option value="pastel yellow" data-i18n="colorPastelYellow">pastel yellow</option>
+                <option value="pastel purple" data-i18n="colorPastelPurple">pastel purple</option>
+                <option value="pastel orange" data-i18n="colorPastelOrange">pastel orange</option>
+                <option value="custom" data-i18n="colorCustom">custom</option>
             </select>
             <input type="text" id="colorCode" placeholder="#rrggbb" maxlength="7" size="9">
             <span id="colorPreview" style="display:inline-block;width:1em;height:1em;border:1px solid #888;vertical-align:middle;"></span>
         </td>
     </tr>
     <tr>
-        <th colspan=1>Gesture Width:</th>
+        <th colspan=1 data-i18n="gestureWidth">Gesture Width:</th>
         <td>
             <input type="range" id="width" min="1" max="20" value="3">
             <span id="widthValue">3</span>
         </td>
     </tr>
     <tr>
-        <th colspan=1>Gesture Opacity:</th>
+        <th colspan=1 data-i18n="gestureOpacity">Gesture Opacity:</th>
         <td>
             <input type="range" id="opacity" min="5" max="100" step="5" value="100">
             <span id="opacityValue">100</span>%
         </td>
     </tr>
-    <tr><th colspan=2 align='center'>Gestures</th></tr>
+    <tr><th colspan=2 align='center' data-i18n="gesturesHeading">Gestures</th></tr>
     <tr>
-        <th>Action</th>
-        <th>Gesture</th>
+        <th data-i18n="columnAction">Action</th>
+        <th data-i18n="columnGesture">Gesture</th>
     </tr>
 </table>
 
@@ -91,7 +91,7 @@
 
 <br>
 <div id="status"></div>
-<button id="save">Save Configuration</button>
+<button id="save" data-i18n="saveButton">Save Configuration</button>
 </body>
 
 
@@ -99,7 +99,7 @@
 
 <table>
 <tr>
-<h2>If you like this, feel free to donate!</h2>
+<h2 data-i18n="donateHeading">If you like this, feel free to donate!</h2>
 <tr>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
@@ -121,4 +121,3 @@
 </table>
 
 </html>
-
