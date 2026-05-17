@@ -2,6 +2,11 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#38](https://github.com/testerjp/miniGestures/pull/38) Add left mouse button as a gesture trigger
+- Added "Left" to the Gesture Button dropdown on the options page, alongside the existing "Right" and "Middle". `mouseTrack.js` now maps the selected button to its `event.which` code (left→1, middle→2, right→3) through a `BUTTON_WHICH` table instead of the old `middle ? 2 : 3` ternary.
+- A left-drag is normally text selection or a native image/link drag, and a left press+release is a click. While the left trigger button is held, `mouseTrack.js` now suppresses `selectstart` and `dragstart` so the gesture tracks cleanly, and swallows the trailing `click` (capture phase) so a gesture can't also activate the link or button it started on. All three handlers are gated on `gestureButton === "left"`, so right- and middle-button behavior is unchanged.
+- Plain left-clicks (press and release with no drag) fire none of those events and are unaffected. Documented the left-button selection/drag caveat in the README "Install on Chrome" section.
+
 ## 2026-05-17 — [#37](https://github.com/testerjp/miniGestures/pull/37) Fix stuck right-button gesture after the context menu on Linux
 - In right-button gesture mode on Linux, dismissing the native context menu (e.g. with a left-click) left the gesture "live": moving the mouse afterwards kept drawing the trail. The `contextmenu` event fires on `mousedown` on Linux but after `mouseup` on Windows, and the menu opening swallows the gesture-button `mouseup`, so `mouseTrack.js` could be left with `rmousedown` stuck `true` and the trail canvas attached.
 - The old `suppress` counter assumed the Windows event order, so on Linux it desynced — the native menu only appeared on every other right-click and the stale-state cleanup never ran.
