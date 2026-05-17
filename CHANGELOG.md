@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#47](https://github.com/testerjp/miniGestures/pull/47) Change the default gesture mappings
+- The `defaultGests` in `options.js` (used to pre-fill the gesture table when no configuration is saved yet) was `U → New Tab`, `R → Forward`, `L → Back`, `UD → Close Current Tab`.
+- Changed the defaults to `L → History Back`, `R → History Forward`, `DR → Close Current Tab`, `U → Scroll to Top`, `D → Scroll to Bottom`. All other actions now default to no gesture.
+
 ## 2026-05-17 — [#46](https://github.com/testerjp/miniGestures/pull/46) Note that settings must be saved
 - The options page gave no hint that changing a control does nothing until the "Save Configuration" button is clicked.
 - Added a `noteSave` note directly above the settings table in `options.html`, translated in all 27 `_locales/<locale>/messages.json` files, telling users to click "Save Configuration" to apply a changed setting.
