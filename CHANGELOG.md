@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#51](https://github.com/testerjp/miniGestures/pull/51) Release 1.5.3
+- Bumped `manifest.json` `version` from `1.5.2` to `1.5.3`.
+- Release covering the 11 PRs merged since v1.5.2 ([#40](https://github.com/testerjp/miniGestures/pull/40)–[#50](https://github.com/testerjp/miniGestures/pull/50)): options-page localization (27 locales), left/middle trigger-button support, trail opacity, new default gestures and trail style, and the `CLAUDE.md` / `SECURITY_REVIEW.md` documentation refresh.
+
 ## 2026-05-17 — [#50](https://github.com/testerjp/miniGestures/pull/50) Re-anchor the security review to current HEAD
 - `SECURITY_REVIEW.md` was still anchored to commit `554763b` (2026-05-12, just after the PR [#23](https://github.com/testerjp/miniGestures/pull/23) cleanup); PRs [#24](https://github.com/testerjp/miniGestures/pull/24)–[#48](https://github.com/testerjp/miniGestures/pull/48) had since shifted every code line reference it cites.
 - Re-anchored the `Commit reviewed` / `Date` header to `master` HEAD `10aac4f`, and corrected the `mouseTrack.js`, `options.js`, and `options.html` line numbers in §5, §6, and §7.
