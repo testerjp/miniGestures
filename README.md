@@ -24,7 +24,7 @@ Minimum supported browser versions: **Chrome 121+** and **Firefox 121+**. These 
 3. Click **Load unpacked** and select the repository folder.
 4. Right-click-drag on any page to draw a gesture. Adjust colors, width, opacity, trigger button, and mappings from the options page.
 
-After loading, `chrome://extensions/` shows a warning about the `background.scripts` key in `manifest.json`. The key is kept for Firefox compatibility and Chrome ignores it at runtime, so the extension works fine. To silence the warning, delete the `"scripts": ["background.js"]` line.
+`manifest.json` ships configured for Chrome, so it loads without warnings.
 
 ## Package for Chrome
 
@@ -32,12 +32,20 @@ Open `chrome://extensions/`, enable **Developer mode**, and click **Pack extensi
 
 ## Install on Firefox
 
-Slightly more involved because the build is not signed for AMO.
+Slightly more involved because Firefox needs a different background entry than Chrome, and the build is not signed for AMO.
 
-1. Open `about:debugging#/runtime/this-firefox`.
-2. Click **Load Temporary Add-on...** and select `manifest.json` in the repository folder.
-3. The add-on persists only until Firefox restarts — re-load after each restart, or sign/publish on AMO for a permanent install.
-4. Usage is the same as on Chrome.
+1. `manifest.json` ships configured for Chrome. Firefox does not support `background.service_worker`, so first replace the `service_worker` entry in the `background` object with `scripts`:
+
+   ```json
+   "background": {
+     "scripts": ["background.js"]
+   }
+   ```
+
+2. Open `about:debugging#/runtime/this-firefox`.
+3. Click **Load Temporary Add-on...** and select `manifest.json` in the repository folder.
+4. The add-on persists only until Firefox restarts — re-load after each restart, or sign/publish on AMO for a permanent install.
+5. Usage is the same as on Chrome.
 
 ## Package for Firefox
 
