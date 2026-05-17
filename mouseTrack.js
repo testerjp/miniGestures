@@ -28,7 +28,7 @@ var pi =3.14159
 // native menu.
 var menuArmed=false
 var canvas, myGests, ginv
-var link, ls, myColor="red", myWidth=3, myOpacity=100
+var link, ls, myColor="AEC6CF", myWidth=7, myOpacity=75
 var loaded=false
 var link=null
 
