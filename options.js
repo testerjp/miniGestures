@@ -236,7 +236,7 @@ function loadInfo()
 
         var code_input = document.getElementById("colorCode");
         var storedHex = normalizeHex(items.colorCode);
-        if(!storedHex) storedHex = colorCodes["red"];
+        if(!storedHex) storedHex = colorCodes["pastel blue"];
         code_input.value = "#" + storedHex;
         updateColorPreview();
 
@@ -246,7 +246,7 @@ function loadInfo()
 
         var width_input = document.getElementById("width");
         value = items.width;
-        if(!value) value = 3;
+        if(!value) value = 7;
         width_input.value = value;
         document.getElementById("widthValue").textContent = width_input.value;
         width_input.addEventListener('input', function() {
@@ -255,7 +255,7 @@ function loadInfo()
 
         var opacity_input = document.getElementById("opacity");
         value = items.opacity;
-        if(!value) value = 100;
+        if(!value) value = 75;
         opacity_input.value = value;
         document.getElementById("opacityValue").textContent = opacity_input.value;
         opacity_input.addEventListener('input', function() {
