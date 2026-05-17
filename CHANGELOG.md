@@ -2,6 +2,13 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-17 — [#37](https://github.com/testerjp/miniGestures/pull/37) Fix stuck right-button gesture after the context menu on Linux
+- In right-button gesture mode on Linux, dismissing the native context menu (e.g. with a left-click) left the gesture "live": moving the mouse afterwards kept drawing the trail. The `contextmenu` event fires on `mousedown` on Linux but after `mouseup` on Windows, and the menu opening swallows the gesture-button `mouseup`, so `mouseTrack.js` could be left with `rmousedown` stuck `true` and the trail canvas attached.
+- The old `suppress` counter assumed the Windows event order, so on Linux it desynced — the native menu only appeared on every other right-click and the stale-state cleanup never ran.
+- Replaced the `suppress` counter with a `cancelGesture()` helper and a `menuArmed` flag. `oncontextmenu` now infers the event order from `rmousedown`: on Windows it shows the menu only when no gesture was drawn; on Linux it suppresses the press, and a plain right-click arms the *next* one so a second right-click still brings up the menu. When the menu is allowed to open, `cancelGesture()` resets the gesture state up front so it can never get stuck.
+- Windows behavior is unchanged. On Linux the native menu still appears (on the second right-click) and consecutive gestures both work; a gesture made immediately after a plain right-click still opens the menu instead — an unavoidable limit of right-button gestures on Linux, where `middle` remains the friction-free choice.
+- Documented the Linux right-button double-click caveat in the README "Install on Chrome" section, recommending the middle button there.
+
 ## 2026-05-17 — [#36](https://github.com/testerjp/miniGestures/pull/36) Remove stale `AGENTS.md` note from CLAUDE.md
 - `CLAUDE.md` "Key Implementation Details" ended with a bullet stating that `AGENTS.md` in the repo root "is unrelated to this project — it documents a different codebase and can be ignored." No `AGENTS.md` has ever existed in the repository (`git log --all --full-history` for the path is empty), so the bullet pointed at a non-existent file from the first commit that added `CLAUDE.md` ([#1](https://github.com/testerjp/miniGestures/pull/1)).
 - The note misled readers into believing an `AGENTS.md` was present and had to be reasoned about. Removed it; same intent as the earlier `CLAUDE.md` cleanups in [#28](https://github.com/testerjp/miniGestures/pull/28) and [#30](https://github.com/testerjp/miniGestures/pull/30).
