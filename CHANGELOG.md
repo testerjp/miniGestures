@@ -6,6 +6,7 @@ All notable changes to miniGestures, one entry per pull request (newest first). 
 - Both options tables (`optsTab`, `gestureTab`) used the `border="3"` attribute, which renders the dated, beveled, doubled per-cell borders of an unstyled table.
 - Removed the `border="3"` attributes and added scoped CSS: `border-collapse: collapse` plus a single `1px solid #d9d9d9` border on every cell, so each cell is separated by one thin flat line. Cell padding (`4px 8px`) was added for a compact but readable layout.
 - The `th.trailSub` indentation rule was re-scoped to `#optsTab th.trailSub` so it keeps higher specificity than the new `#optsTab th` padding rule and the subsection labels stay indented.
+- The settings table's first column holds row labels, so it is now left-aligned (`#optsTab th { text-align: left; }`) instead of the default centered `<th>` alignment.
 
 ## 2026-05-17 — [#43](https://github.com/testerjp/miniGestures/pull/43) Split the options page into a settings table and a gestures table
 - The options page previously rendered everything in one table: the gesture button, the trail-display settings, and the gesture-to-action mappings. The button and trail settings are a different category from the gesture mappings, so they are now two separate tables.
