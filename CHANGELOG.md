@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-17 — [#PR](url) Remove stale `AGENTS.md` note from CLAUDE.md
+## 2026-05-17 — [#36](https://github.com/testerjp/miniGestures/pull/36) Remove stale `AGENTS.md` note from CLAUDE.md
 - `CLAUDE.md` "Key Implementation Details" ended with a bullet stating that `AGENTS.md` in the repo root "is unrelated to this project — it documents a different codebase and can be ignored." No `AGENTS.md` has ever existed in the repository (`git log --all --full-history` for the path is empty), so the bullet pointed at a non-existent file from the first commit that added `CLAUDE.md` ([#1](https://github.com/testerjp/miniGestures/pull/1)).
 - The note misled readers into believing an `AGENTS.md` was present and had to be reasoned about. Removed it; same intent as the earlier `CLAUDE.md` cleanups in [#28](https://github.com/testerjp/miniGestures/pull/28) and [#30](https://github.com/testerjp/miniGestures/pull/30).
 
