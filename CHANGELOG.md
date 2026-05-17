@@ -4,7 +4,7 @@ All notable changes to miniGestures, one entry per pull request (newest first). 
 
 ## 2026-05-17 — [#46](https://github.com/testerjp/miniGestures/pull/46) Note that settings must be saved
 - The options page gave no hint that changing a control does nothing until the "Save Configuration" button is clicked.
-- Added a `noteSave` note above the save button in `options.html`, translated in all 27 `_locales/<locale>/messages.json` files, telling users to click "Save Configuration" to apply a changed setting.
+- Added a `noteSave` note directly above the settings table in `options.html`, translated in all 27 `_locales/<locale>/messages.json` files, telling users to click "Save Configuration" to apply a changed setting.
 
 ## 2026-05-17 — [#45](https://github.com/testerjp/miniGestures/pull/45) Darken the options table cell borders
 - The cell borders on both options tables (`optsTab`, `gestureTab`) used `#d9d9d9`, which was too faint to clearly separate the cells.
