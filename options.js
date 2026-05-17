@@ -26,7 +26,7 @@ colorNames={"ff3300":"red","008000":"green","00008B":"blue",
                             "B5EAD7":"pastel green","FDFD96":"pastel yellow",
                             "C3B1E1":"pastel purple","FFB347":"pastel orange"}
 
-defaultGests={"U":"newtab","R":"forward","L":"back","UD":"closetab"}
+defaultGests={"L":"back","R":"forward","DR":"closetab","U":"scrolltop","D":"scrollbottom"}
 
 // Ordered list of gesture actions. `cmd` is the stable storage/message key
 // used by background.js; `msg` is the i18n key for the displayed label.
