@@ -17,6 +17,8 @@
 
 var rmousedown=false, moved=false
 var trail=false, gestureButton="right"
+// event.which codes for each selectable trigger button.
+var BUTTON_WHICH = {left:1, middle:2, right:3}
 var mx,my,nx,ny,lx,ly,phi
 var move="", omove=""
 var pi =3.14159
@@ -110,7 +112,7 @@ function cancelGesture()
 }
 
 document.onmousedown = function(event){
-    var gestureWhich = gestureButton === "middle" ? 2 : 3;
+    var gestureWhich = BUTTON_WHICH[gestureButton] || 3;
 
     if(event.which != gestureWhich) return;
 
@@ -196,7 +198,7 @@ document.onmousemove = function(event)
 
 document.onmouseup = function(event)
 {
-    var gestureWhich = gestureButton === "middle" ? 2 : 3;
+    var gestureWhich = BUTTON_WHICH[gestureButton] || 3;
 
     //gesture button release
     if(event.which == gestureWhich){
@@ -331,6 +333,34 @@ document.oncontextmenu = function()
 document.addEventListener('auxclick', function(event){
     if(event.which == 2 && gestureButton === "middle" && moved){
         event.preventDefault()
+    }
+}, true);
+
+// Left-button gesture mode: a left-drag is a gesture, so while the left
+// trigger button is held the browser's text selection and native image/link
+// dragging are suppressed — otherwise selection extends under the trail and a
+// drag on an image/link hijacks the move events so the gesture never tracks.
+// A plain left-click (press and release with no drag) fires neither event, so
+// ordinary clicking is unaffected. Gated on "left" so right/middle are unchanged.
+document.addEventListener('selectstart', function(event){
+    if(rmousedown && gestureButton === "left")
+        event.preventDefault()
+}, true);
+
+document.addEventListener('dragstart', function(event){
+    if(rmousedown && gestureButton === "left")
+        event.preventDefault()
+}, true);
+
+document.addEventListener('click', function(event){
+    // A left-button gesture ends with a mouseup the browser pairs into a click;
+    // swallow it (capture phase) so the gesture can't also activate the link or
+    // button it started on. `moved` stays true from the gesture's mouseup until
+    // the next mousedown clears it, so a plain click (moved===false) is never
+    // affected.
+    if(gestureButton === "left" && moved){
+        event.preventDefault()
+        event.stopPropagation()
     }
 }, true);
 
