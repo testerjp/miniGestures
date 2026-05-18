@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-18 — [#54](https://github.com/testerjp/miniGestures/pull/54) Add the `-y` flag to the chrome-devtools MCP launch command
+- The `chrome-devtools` MCP server in `.mcp.json` launched via `npx chrome-devtools-mcp@latest` without the `-y` flag, so `npx` could prompt to confirm installing the package on first run — unlike the sibling `context7` entry, which already passes `-y`.
+- Added `-y` to the `chrome-devtools` `args` for consistency and to keep the non-interactive launch prompt-free.
+
 ## 2026-05-18 — [#53](https://github.com/testerjp/miniGestures/pull/53) Add the missing terminal punctuation to the donation note
 - `noteDonation` was the only `note*` options-page message missing its sentence-terminal punctuation; every sibling note (`noteGestures`, `noteGestureExamples`, `noteSave`) already ends with one.
 - Appended the locale-appropriate mark to `noteDonation` in 26 locales (`。` for ja/zh_CN/zh_TW, `।` for hi, `.` for the rest) and to the English fallback text in `options.html`. Thai (`th`) is left unchanged — it uses no terminal punctuation by convention, consistent with its other notes.
