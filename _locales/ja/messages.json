@@ -5,7 +5,7 @@
   "noteGestures": { "message": "ジェスチャーは方向の組み合わせで指定します。使用できる方向は U（上）、D（下）、L（左）、R（右）です。" },
   "noteGestureExamples": { "message": "例えば「一番下までスクロール」のジェスチャー欄に D と入力すると、下方向のジェスチャーでそのアクションが実行されます。「現在のタブを閉じる」に DR と入力すると、下→右のジェスチャーで実行されます。" },
   "noteSave": { "message": "設定を変更したら、下の「設定を保存」ボタンを押して反映してください。" },
-  "noteDonation": { "message": "miniGestures は無料・広告なしです。下の PayPal ボタンは任意の寄付用です" },
+  "noteDonation": { "message": "miniGestures は無料・広告なしです。下の PayPal ボタンは任意の寄付用です。" },
   "showTrails": { "message": "ジェスチャーの軌跡を表示" },
   "gestureButtonLabel": { "message": "ジェスチャーボタン" },
   "buttonRight": { "message": "右" },
