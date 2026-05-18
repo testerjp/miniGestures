@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-18 — [#PR](url) Enable the chrome-devtools MCP extension tools
+- The `chrome-devtools` MCP server only exposes its extension tools (`install_extension`, `list_extensions`, `reload_extension`, …) when launched with `--category-extensions`; without the flag an unpacked extension cannot be loaded into the MCP-controlled Chrome.
+- Added `--category-extensions` to the `chrome-devtools` `args` in `.mcp.json` so the miniGestures extension can be loaded and exercised end-to-end through the MCP server.
+
 ## 2026-05-18 — [#54](https://github.com/testerjp/miniGestures/pull/54) Add the `-y` flag to the chrome-devtools MCP launch command
 - The `chrome-devtools` MCP server in `.mcp.json` launched via `npx chrome-devtools-mcp@latest` without the `-y` flag, so `npx` could prompt to confirm installing the package on first run — unlike the sibling `context7` entry, which already passes `-y`.
 - Added `-y` to the `chrome-devtools` `args` for consistency and to keep the non-interactive launch prompt-free.
