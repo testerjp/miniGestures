@@ -5,7 +5,7 @@
   "noteGestures": { "message": "手势是方向的组合。可用的方向为 U（上）、D（下）、L（左）、R（右）。" },
   "noteGestureExamples": { "message": "例如，在“滚动到底部”的手势框中输入 D，即可通过向下滑动来触发该操作；在“关闭当前标签页”中输入 DR，即可通过先向下再向右的手势来触发。" },
   "noteSave": { "message": "更改设置后，请点击下方的“保存配置”按钮以应用更改。" },
-  "noteDonation": { "message": "miniGestures 免费且无广告，下方的 PayPal 按钮用于自愿捐赠" },
+  "noteDonation": { "message": "miniGestures 免费且无广告，下方的 PayPal 按钮用于自愿捐赠。" },
   "showTrails": { "message": "显示手势轨迹" },
   "gestureButtonLabel": { "message": "手势按键" },
   "buttonRight": { "message": "右键" },

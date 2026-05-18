@@ -5,7 +5,7 @@
   "noteGestures": { "message": "手勢是方向的組合。可用的方向為 U（上）、D（下）、L（左）、R（右）。" },
   "noteGestureExamples": { "message": "例如，在「捲動至底端」的手勢欄中輸入 D，即可透過向下滑動來觸發該動作；在「關閉目前分頁」中輸入 DR，即可透過先向下再向右的手勢來觸發。" },
   "noteSave": { "message": "變更設定後，請點選下方的「儲存設定」按鈕以套用變更。" },
-  "noteDonation": { "message": "miniGestures 免費且無廣告，下方的 PayPal 按鈕用於自願捐款" },
+  "noteDonation": { "message": "miniGestures 免費且無廣告，下方的 PayPal 按鈕用於自願捐款。" },
   "showTrails": { "message": "顯示手勢軌跡" },
   "gestureButtonLabel": { "message": "手勢按鍵" },
   "buttonRight": { "message": "右鍵" },
