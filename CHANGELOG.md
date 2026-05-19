@@ -2,6 +2,12 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-19 — [#56](https://github.com/testerjp/miniGestures/pull/56) Auto-save the options page
+- The options page required clicking "Save Configuration" to persist any change; modern settings UIs save automatically without a save button.
+- Settings now save automatically a short moment after the last change — a 400 ms debounce (`scheduleSave()`) coalesces slider drags and typing into a single `chrome.storage.local` write. Every control is wired via `wireAutoSave()` (gesture button, trail toggle, color, width, opacity) and per-row in `fillTableRows()` (the 14 gesture mappings).
+- Removed the "Save Configuration" button and the now-obsolete `noteSave` instruction heading, along with their `saveButton` / `noteSave` message-catalog keys in all 27 locales.
+- `save_options()` no longer aborts the whole save when the color field is mid-edit: an invalid hex now just skips the `colorCode` write (keeping the previously stored color) while the other settings still persist. Save feedback is shown via `showStatus()` using `textContent` ("Configuration Saved", or the invalid-color hint).
+
 ## 2026-05-18 — [#55](https://github.com/testerjp/miniGestures/pull/55) Enable the chrome-devtools MCP extension tools
 - The `chrome-devtools` MCP server only exposes its extension tools (`install_extension`, `list_extensions`, `reload_extension`, …) when launched with `--category-extensions`; without the flag an unpacked extension cannot be loaded into the MCP-controlled Chrome.
 - Added `--category-extensions` to the `chrome-devtools` `args` in `.mcp.json` so the miniGestures extension can be loaded and exercised end-to-end through the MCP server.
