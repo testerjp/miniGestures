@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "Gebare" },
   "columnAction": { "message": "Aksie" },
   "columnGesture": { "message": "Gebaar" },
-  "statusSaved": { "message": "Konfigurasie gestoor" },
   "statusInvalidColor": { "message": "Ongeldige kleurkode: gebruik #rgb of #rrggbb" },
   "actionBack": { "message": "Terug" },
   "actionForward": { "message": "Vorentoe" },

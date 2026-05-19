@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "जेस्चर" },
   "columnAction": { "message": "क्रिया" },
   "columnGesture": { "message": "जेस्चर" },
-  "statusSaved": { "message": "कॉन्फ़िगरेशन सहेजा गया" },
   "statusInvalidColor": { "message": "अमान्य रंग कोड: #rgb या #rrggbb का उपयोग करें" },
   "actionBack": { "message": "पीछे जाएँ" },
   "actionForward": { "message": "आगे जाएँ" },

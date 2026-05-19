@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "Gestos" },
   "columnAction": { "message": "Ação" },
   "columnGesture": { "message": "Gesto" },
-  "statusSaved": { "message": "Configuração guardada" },
   "statusInvalidColor": { "message": "Código de cor inválido: utilize #rgb ou #rrggbb" },
   "actionBack": { "message": "Recuar" },
   "actionForward": { "message": "Avançar" },

@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "제스처" },
   "columnAction": { "message": "동작" },
   "columnGesture": { "message": "제스처" },
-  "statusSaved": { "message": "설정이 저장되었습니다" },
   "statusInvalidColor": { "message": "잘못된 색상 코드입니다: #rgb 또는 #rrggbb를 사용하세요" },
   "actionBack": { "message": "뒤로 가기" },
   "actionForward": { "message": "앞으로 가기" },

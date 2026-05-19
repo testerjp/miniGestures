@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "Ishara" },
   "columnAction": { "message": "Kitendo" },
   "columnGesture": { "message": "Ishara" },
-  "statusSaved": { "message": "Usanidi umehifadhiwa" },
   "statusInvalidColor": { "message": "Msimbo wa rangi si sahihi: tumia #rgb au #rrggbb" },
   "actionBack": { "message": "Rudi nyuma" },
   "actionForward": { "message": "Nenda mbele" },

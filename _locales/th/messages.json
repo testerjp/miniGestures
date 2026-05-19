@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "ท่าทาง" },
   "columnAction": { "message": "การกระทำ" },
   "columnGesture": { "message": "ท่าทาง" },
-  "statusSaved": { "message": "บันทึกการตั้งค่าแล้ว" },
   "statusInvalidColor": { "message": "รหัสสีไม่ถูกต้อง: ใช้ #rgb หรือ #rrggbb" },
   "actionBack": { "message": "ย้อนกลับ" },
   "actionForward": { "message": "ไปข้างหน้า" },

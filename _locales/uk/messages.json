@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "Жести" },
   "columnAction": { "message": "Дія" },
   "columnGesture": { "message": "Жест" },
-  "statusSaved": { "message": "Налаштування збережено" },
   "statusInvalidColor": { "message": "Неправильний код кольору: використовуйте #rgb або #rrggbb" },
   "actionBack": { "message": "Назад" },
   "actionForward": { "message": "Уперед" },

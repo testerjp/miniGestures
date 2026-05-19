@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "Hareketler" },
   "columnAction": { "message": "Eylem" },
   "columnGesture": { "message": "Hareket" },
-  "statusSaved": { "message": "Yapılandırma kaydedildi" },
   "statusInvalidColor": { "message": "Geçersiz renk kodu: #rgb veya #rrggbb kullanın" },
   "actionBack": { "message": "Geri" },
   "actionForward": { "message": "İleri" },

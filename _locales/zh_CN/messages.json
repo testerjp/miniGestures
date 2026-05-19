@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "手势" },
   "columnAction": { "message": "操作" },
   "columnGesture": { "message": "手势" },
-  "statusSaved": { "message": "配置已保存" },
   "statusInvalidColor": { "message": "无效的颜色代码：请使用 #rgb 或 #rrggbb" },
   "actionBack": { "message": "后退" },
   "actionForward": { "message": "前进" },

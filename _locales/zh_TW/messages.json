@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "手勢" },
   "columnAction": { "message": "動作" },
   "columnGesture": { "message": "手勢" },
-  "statusSaved": { "message": "設定已儲存" },
   "statusInvalidColor": { "message": "無效的顏色代碼：請使用 #rgb 或 #rrggbb" },
   "actionBack": { "message": "上一頁" },
   "actionForward": { "message": "下一頁" },

@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "ジェスチャー" },
   "columnAction": { "message": "アクション" },
   "columnGesture": { "message": "ジェスチャー" },
-  "statusSaved": { "message": "設定を保存しました" },
   "statusInvalidColor": { "message": "無効なカラーコードです: #rgb または #rrggbb を使用してください" },
   "actionBack": { "message": "戻る" },
   "actionForward": { "message": "進む" },

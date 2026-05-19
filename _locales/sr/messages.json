@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "Покрети" },
   "columnAction": { "message": "Радња" },
   "columnGesture": { "message": "Покрет" },
-  "statusSaved": { "message": "Подешавања су сачувана" },
   "statusInvalidColor": { "message": "Неважећи код боје: користите #rgb или #rrggbb" },
   "actionBack": { "message": "Назад" },
   "actionForward": { "message": "Напред" },

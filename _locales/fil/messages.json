@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "Mga Galaw" },
   "columnAction": { "message": "Aksyon" },
   "columnGesture": { "message": "Galaw" },
-  "statusSaved": { "message": "Na-save ang pagsasaayos" },
   "statusInvalidColor": { "message": "Hindi wastong color code: gumamit ng #rgb o #rrggbb" },
   "actionBack": { "message": "Bumalik" },
   "actionForward": { "message": "Sumulong" },

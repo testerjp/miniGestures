@@ -142,15 +142,18 @@ function scheduleSave()
 
 var statusTimer = null;
 
-// Briefly show a status message under the settings, then clear it. Uses
+// Show a status message under the settings, then clear it after a moment.
+// A successful auto-save is silent -- this is used only for the invalid-color
+// warning. Passing an empty string clears the line immediately. Uses
 // textContent so message-catalog strings are always rendered as plain text.
 function showStatus(text)
 {
     var status = document.getElementById("status");
     if(!status) return;
-    status.textContent = text;
     if(statusTimer) clearTimeout(statusTimer);
-    statusTimer = setTimeout(function() { status.textContent = ""; }, 1500);
+    status.textContent = text || "";
+    if(text)
+        statusTimer = setTimeout(function() { status.textContent = ""; }, 1500);
 }
 
 function save_options()
@@ -188,7 +191,8 @@ function save_options()
     }
 
     chrome.storage.local.set(data, function() {
-        showStatus(hex ? msg("statusSaved") : msg("statusInvalidColor"));
+        // A successful save is silent; only an unusable color is surfaced.
+        showStatus(hex ? "" : msg("statusInvalidColor"));
     });
 
     if(toRemove.length > 0)

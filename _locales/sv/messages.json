@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "Gester" },
   "columnAction": { "message": "Åtgärd" },
   "columnGesture": { "message": "Gest" },
-  "statusSaved": { "message": "Konfiguration sparad" },
   "statusInvalidColor": { "message": "Ogiltig färgkod: använd #rgb eller #rrggbb" },
   "actionBack": { "message": "Bakåt" },
   "actionForward": { "message": "Framåt" },

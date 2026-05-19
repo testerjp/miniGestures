@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "الإيماءات" },
   "columnAction": { "message": "الإجراء" },
   "columnGesture": { "message": "الإيماءة" },
-  "statusSaved": { "message": "تم حفظ الإعدادات" },
   "statusInvalidColor": { "message": "رمز لون غير صالح: استخدم ‎#rgb‎ أو ‎#rrggbb" },
   "actionBack": { "message": "رجوع" },
   "actionForward": { "message": "تقدم" },

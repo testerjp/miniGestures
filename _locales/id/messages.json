@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "Gerakan" },
   "columnAction": { "message": "Tindakan" },
   "columnGesture": { "message": "Gerakan" },
-  "statusSaved": { "message": "Konfigurasi disimpan" },
   "statusInvalidColor": { "message": "Kode warna tidak valid: gunakan #rgb atau #rrggbb" },
   "actionBack": { "message": "Kembali" },
   "actionForward": { "message": "Maju" },

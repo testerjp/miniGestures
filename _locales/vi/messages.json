@@ -27,7 +27,6 @@
   "gesturesHeading": { "message": "Cử chỉ" },
   "columnAction": { "message": "Hành động" },
   "columnGesture": { "message": "Cử chỉ" },
-  "statusSaved": { "message": "Đã lưu cấu hình" },
   "statusInvalidColor": { "message": "Mã màu không hợp lệ: hãy dùng #rgb hoặc #rrggbb" },
   "actionBack": { "message": "Quay lại" },
   "actionForward": { "message": "Tiến tới" },
