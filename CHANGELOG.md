@@ -2,6 +2,9 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-19 — [#59](https://github.com/testerjp/miniGestures/pull/59) Show the gesture-field hint without mouse movement
+- The available-directions hint on each gesture field was a native `title` tooltip, which the browser reveals only after the pointer moves onto the field. Typing an invalid character with the mouse already over the field showed the red `:invalid` shadow but no hint, so there was no clue as to what was wrong.
+- The `title` is replaced with a custom hint element — reusing the same localized `noteGestures` note that names the available directions — shown by CSS while the field is both `:invalid` and focused. It appears the instant the value is wrong with no mouse movement needed (typing focuses the field) and stays hidden for empty or valid fields. Pairing `:focus` with `:invalid` keeps it to a single hint for the field being edited, since several fields can be `:invalid` at once (each still keeps its own red shadow). `aria-describedby` links the field to the hint for screen readers in place of the removed `title`.
 ## 2026-05-19 — [#58](https://github.com/testerjp/miniGestures/pull/58) Flag invalid characters in gesture fields
 - The gesture-mapping fields on the options page accepted any character, but only the four direction letters are meaningful (`U`/`D`/`L`/`R`); typing `x`, a digit, or a space gave no feedback and saved an entry that silently never matched a real gesture.
 - Each gesture field now carries a `[UDLRudlr]*` `pattern`, so a value containing any other character matches `:invalid` and keeps a red `box-shadow` until corrected. The typed character stays visible, and the field's `title` shows the available directions (reusing the localized `noteGestures` note) on hover. Lower-case `u`/`d`/`l`/`r` are still accepted — `save_options()` upper-cases them on write.

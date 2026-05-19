@@ -119,18 +119,31 @@ function fillTableRows(gests)
         // Restrict the field to the four direction letters: a value with any
         // other character fails this pattern, so the field matches :invalid
         // and CSS keeps a red shadow on it. The character stays visible -- it
-        // is just not saved (see save_options()). The title shows the
-        // available directions on hover.
+        // is just not saved (see save_options()).
         inp.pattern = '[UDLRudlr]*'
-        inp.title = msg('noteGestures')
         // Show any previously stored gesture upper-cased, so an entry saved as
         // lower-case displays consistently with how it is matched at runtime.
         if(gests[action.cmd])
             inp.value = String(gests[action.cmd]).toUpperCase()
         inp.addEventListener('input', scheduleSave)
+        // Hint naming the available directions, shown by CSS while the field
+        // is both :invalid and focused. Several fields can be :invalid at once
+        // (each keeps its own red shadow), so pairing :focus with :invalid
+        // keeps this to a single hint -- the one for the field being edited.
+        // It needs no mouse movement: typing into a field focuses it, so the
+        // hint appears the instant the value is wrong. It reuses the localized
+        // `noteGestures` note, so the text is translated in every locale.
+        // aria-describedby links it for screen readers in place of the
+        // removed title.
+        var hint = document.createElement('span')
+        hint.className = 'gestureHint'
+        hint.id = 'gestureHint-' + action.cmd
+        hint.textContent = msg('noteGestures')
+        inp.setAttribute('aria-describedby', hint.id)
         td.align = 'center'
         tr.appendChild(td)
         td.appendChild(inp)
+        td.appendChild(hint)
     }
 }
 
