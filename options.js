@@ -100,6 +100,40 @@ function updateColorPreview()
     preview.style.backgroundColor = hex ? "#"+hex : "transparent"
 }
 
+// Gesture fields accept only the four direction letters, U/D/L/R in either
+// case (save_options() upper-cases them on write). Anything else is dropped.
+var GESTURE_INVALID = /[^UDLRudlr]/g;
+
+// Restart the red-shadow flash even if a previous one is still playing:
+// removing the class, forcing a reflow, then re-adding it re-triggers the
+// CSS animation from the start.
+function flashGestureReject(el)
+{
+    el.classList.remove('gestureReject');
+    void el.offsetWidth;
+    el.classList.add('gestureReject');
+}
+
+// input handler for a gesture field: strip any non-direction characters,
+// flash the field red if something was stripped, keep the caret sensible,
+// and schedule the debounced auto-save.
+function onGestureInput()
+{
+    var raw = this.value;
+    var clean = raw.replace(GESTURE_INVALID, '');
+    if(clean !== raw)
+    {
+        // New caret position = count of accepted characters before the
+        // old caret.
+        var caret = this.selectionStart;
+        var keptBefore = raw.slice(0, caret).replace(GESTURE_INVALID, '').length;
+        this.value = clean;
+        this.setSelectionRange(keptBefore, keptBefore);
+        flashGestureReject(this);
+    }
+    scheduleSave();
+}
+
 function fillTableRows(gests)
 {
     var div = document.getElementById("gestureTab")
@@ -120,6 +154,11 @@ function fillTableRows(gests)
         // lower-case displays consistently with how it is matched at runtime.
         if(gests[action.cmd])
             inp.value = String(gests[action.cmd]).toUpperCase()
+        inp.addEventListener('input', onGestureInput)
+        // Drop the flash class once the animation finishes so the DOM stays tidy.
+        inp.addEventListener('animationend', function() {
+            this.classList.remove('gestureReject')
+        })
         td.align = 'center'
         tr.appendChild(td)
         td.appendChild(inp)
