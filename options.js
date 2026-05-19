@@ -100,40 +100,6 @@ function updateColorPreview()
     preview.style.backgroundColor = hex ? "#"+hex : "transparent"
 }
 
-// Gesture fields accept only the four direction letters, U/D/L/R in either
-// case (save_options() upper-cases them on write). Anything else is dropped.
-var GESTURE_INVALID = /[^UDLRudlr]/g;
-
-// Restart the red-shadow flash even if a previous one is still playing:
-// removing the class, forcing a reflow, then re-adding it re-triggers the
-// CSS animation from the start.
-function flashGestureReject(el)
-{
-    el.classList.remove('gestureReject');
-    void el.offsetWidth;
-    el.classList.add('gestureReject');
-}
-
-// input handler for a gesture field: strip any non-direction characters,
-// flash the field red if something was stripped, keep the caret sensible,
-// and schedule the debounced auto-save.
-function onGestureInput()
-{
-    var raw = this.value;
-    var clean = raw.replace(GESTURE_INVALID, '');
-    if(clean !== raw)
-    {
-        // New caret position = count of accepted characters before the
-        // old caret.
-        var caret = this.selectionStart;
-        var keptBefore = raw.slice(0, caret).replace(GESTURE_INVALID, '').length;
-        this.value = clean;
-        this.setSelectionRange(keptBefore, keptBefore);
-        flashGestureReject(this);
-    }
-    scheduleSave();
-}
-
 function fillTableRows(gests)
 {
     var div = document.getElementById("gestureTab")
@@ -150,15 +116,18 @@ function fillTableRows(gests)
         td = document.createElement('td')
         var inp = document.createElement('input')
         inp.type = 'text'
+        // Restrict the field to the four direction letters: a value with any
+        // other character fails this pattern, so the field matches :invalid
+        // and CSS keeps a red shadow on it. The character stays visible -- it
+        // is just not saved (see save_options()). The title shows the
+        // available directions on hover.
+        inp.pattern = '[UDLRudlr]*'
+        inp.title = msg('noteGestures')
         // Show any previously stored gesture upper-cased, so an entry saved as
         // lower-case displays consistently with how it is matched at runtime.
         if(gests[action.cmd])
             inp.value = String(gests[action.cmd]).toUpperCase()
-        inp.addEventListener('input', onGestureInput)
-        // Drop the flash class once the animation finishes so the DOM stays tidy.
-        inp.addEventListener('animationend', function() {
-            this.classList.remove('gestureReject')
-        })
+        inp.addEventListener('input', scheduleSave)
         td.align = 'center'
         tr.appendChild(td)
         td.appendChild(inp)
@@ -228,7 +197,13 @@ function save_options()
         // recognizer in mouseTrack.js only emits upper-case direction letters,
         // so a lower-cased entry would otherwise never match.
         if(inputs[i].value.length > 0)
-            data[cmdKey] = inputs[i].value.toUpperCase();
+        {
+            // A field holding a character outside U/D/L/R fails its pattern;
+            // like an invalid color it skips only its own write, keeping the
+            // previously stored mapping, while the other settings still save.
+            if(!inputs[i].validity.patternMismatch)
+                data[cmdKey] = inputs[i].value.toUpperCase();
+        }
         else
             toRemove.push(cmdKey);
     }

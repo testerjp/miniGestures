@@ -40,14 +40,13 @@
         tr.trailSub.disabled th,
         tr.trailSub.disabled td { opacity: 0.4; }
         /* Gesture fields accept only the four direction letters (U/D/L/R, any
-           case). A different character is dropped and the field flashes a red
-           shadow to show the keystroke was rejected. */
-        @keyframes gestureReject {
-            0%   { box-shadow: 0 0 0 0 rgba(204, 0, 0, 0); }
-            25%  { box-shadow: 0 0 5px 2px rgba(204, 0, 0, 0.85); }
-            100% { box-shadow: 0 0 0 0 rgba(204, 0, 0, 0); }
+           case). A value containing anything else fails the field's pattern,
+           so it matches :invalid and keeps a red shadow until corrected. The
+           transition fades the shadow in and out as the value changes. */
+        #gestureTab input { transition: box-shadow 0.15s ease-out; }
+        #gestureTab input:invalid {
+            box-shadow: 0 0 5px 2px rgba(204, 0, 0, 0.85);
         }
-        input.gestureReject { animation: gestureReject 0.45s ease-out; }
     </style>
 </head>
 
