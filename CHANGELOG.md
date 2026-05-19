@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-19 — [#57](https://github.com/testerjp/miniGestures/pull/57) Make gesture entries case-insensitive
+- The options page stored each gesture string verbatim, while the recognizer in `mouseTrack.js` only ever emits upper-case direction letters (`U`/`D`/`L`/`R`); a mapping entered in lower case (e.g. `dr`) was saved as-is and silently never matched.
+- `save_options()` now upper-cases each gesture string before writing it to `chrome.storage.local`, and `fillTableRows()` displays stored gestures upper-cased so an existing lower-case entry shows consistently.
+- `invertHash()` in `mouseTrack.js` builds the gesture→action lookup with upper-cased keys, so a gesture already stored in lower case is still matched at runtime.
 ## 2026-05-19 — [#56](https://github.com/testerjp/miniGestures/pull/56) Auto-save the options page
 - The options page required clicking "Save Configuration" to persist any change; modern settings UIs save automatically without a save button.
 - Settings now save automatically a short moment after the last change — a 400 ms debounce (`scheduleSave()`) coalesces slider drags and typing into a single `chrome.storage.local` write. Every control is wired via `wireAutoSave()` (gesture button, trail toggle, color, width, opacity) and per-row in `fillTableRows()` (the 14 gesture mappings).

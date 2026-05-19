@@ -36,7 +36,10 @@ function invertHash(hash)
 {
     inv = {}
     for(key in hash)
-        inv[hash[key]] = key
+        // Upper-case the gesture string so a mapping saved as lower-case (e.g.
+        // "dr") still matches: the recognizer only ever emits upper-case
+        // direction letters, so the lookup key must be upper-case too.
+        inv[String(hash[key]).toUpperCase()] = key
     return inv
 }
 

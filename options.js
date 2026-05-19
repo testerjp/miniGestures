@@ -116,9 +116,10 @@ function fillTableRows(gests)
         td = document.createElement('td')
         var inp = document.createElement('input')
         inp.type = 'text'
+        // Show any previously stored gesture upper-cased, so an entry saved as
+        // lower-case displays consistently with how it is matched at runtime.
         if(gests[action.cmd])
-            inp.value = gests[action.cmd]
-        inp.addEventListener('input', scheduleSave)
+            inp.value = String(gests[action.cmd]).toUpperCase()
         td.align = 'center'
         tr.appendChild(td)
         td.appendChild(inp)
@@ -184,8 +185,11 @@ function save_options()
         var row = inputs[i].parentElement ? inputs[i].parentElement.parentElement : null;
         var cmdKey = (row && row.dataset) ? row.dataset.cmd : null;
         if(!cmdKey) continue;
+        // Gesture strings are stored upper-cased so case is irrelevant: the
+        // recognizer in mouseTrack.js only emits upper-case direction letters,
+        // so a lower-cased entry would otherwise never match.
         if(inputs[i].value.length > 0)
-            data[cmdKey] = inputs[i].value;
+            data[cmdKey] = inputs[i].value.toUpperCase();
         else
             toRemove.push(cmdKey);
     }
