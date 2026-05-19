@@ -47,34 +47,6 @@
         #gestureTab input:invalid {
             box-shadow: 0 0 5px 2px rgba(204, 0, 0, 0.85);
         }
-        /* Hint listing the available directions, shown while the field both
-           holds an invalid character and has focus. Several fields can be
-           :invalid at once (each keeps its own red shadow), so pairing :focus
-           with :invalid keeps this to a single hint -- the one for the field
-           being edited. It still needs no mouse movement: typing into a field
-           focuses it, so the hint appears the instant the value is wrong. */
-        #gestureTab td { position: relative; }
-        .gestureHint {
-            display: none;
-            position: absolute;
-            left: 50%;
-            top: 100%;
-            transform: translateX(-50%);
-            margin-top: 4px;
-            z-index: 1;
-            width: max-content;
-            max-width: 240px;
-            padding: 4px 8px;
-            background: #333333;
-            color: #ffffff;
-            border-radius: 4px;
-            font-size: 12px;
-            text-align: left;
-            /* The hint overlays the neighbouring row; never let it block a
-               click on the field beneath it. */
-            pointer-events: none;
-        }
-        #gestureTab input:invalid:focus ~ .gestureHint { display: block; }
     </style>
 </head>
 
