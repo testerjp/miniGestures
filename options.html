@@ -39,6 +39,14 @@
            whole row is dimmed (the inputs are also disabled from options.js). */
         tr.trailSub.disabled th,
         tr.trailSub.disabled td { opacity: 0.4; }
+        /* Gesture fields accept only the four direction letters (U/D/L/R, any
+           case). A value containing anything else fails the field's pattern,
+           so it matches :invalid and keeps a red shadow until corrected. The
+           transition fades the shadow in and out as the value changes. */
+        #gestureTab input { transition: box-shadow 0.15s ease-out; }
+        #gestureTab input:invalid {
+            box-shadow: 0 0 5px 2px rgba(204, 0, 0, 0.85);
+        }
     </style>
 </head>
 

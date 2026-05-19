@@ -2,6 +2,11 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-19 — [#58](https://github.com/testerjp/miniGestures/pull/58) Flag invalid characters in gesture fields
+- The gesture-mapping fields on the options page accepted any character, but only the four direction letters are meaningful (`U`/`D`/`L`/`R`); typing `x`, a digit, or a space gave no feedback and saved an entry that silently never matched a real gesture.
+- Each gesture field now carries a `[UDLRudlr]*` `pattern`, so a value containing any other character matches `:invalid` and keeps a red `box-shadow` until corrected. The typed character stays visible, and the field's `title` shows the available directions (reusing the localized `noteGestures` note) on hover. Lower-case `u`/`d`/`l`/`r` are still accepted — `save_options()` upper-cases them on write.
+- `save_options()` no longer persists a gesture field that holds an invalid character: like an invalid color code it skips only that field's write, keeping the previously stored mapping, while the other settings still save.
+- Restored the per-row auto-save wiring: `f38cc5b` added `scheduleSave` to each gesture input, but the line was dropped in the #57 merge, so mapping changes had stopped persisting. The inputs are wired to `scheduleSave` again, matching what the `wireAutoSave()` comment already documents.
 ## 2026-05-19 — [#57](https://github.com/testerjp/miniGestures/pull/57) Make gesture entries case-insensitive
 - The options page stored each gesture string verbatim, while the recognizer in `mouseTrack.js` only ever emits upper-case direction letters (`U`/`D`/`L`/`R`); a mapping entered in lower case (e.g. `dr`) was saved as-is and silently never matched.
 - `save_options()` now upper-cases each gesture string before writing it to `chrome.storage.local`, and `fillTableRows()` displays stored gestures upper-cased so an existing lower-case entry shows consistently.

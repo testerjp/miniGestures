@@ -116,10 +116,18 @@ function fillTableRows(gests)
         td = document.createElement('td')
         var inp = document.createElement('input')
         inp.type = 'text'
+        // Restrict the field to the four direction letters: a value with any
+        // other character fails this pattern, so the field matches :invalid
+        // and CSS keeps a red shadow on it. The character stays visible -- it
+        // is just not saved (see save_options()). The title shows the
+        // available directions on hover.
+        inp.pattern = '[UDLRudlr]*'
+        inp.title = msg('noteGestures')
         // Show any previously stored gesture upper-cased, so an entry saved as
         // lower-case displays consistently with how it is matched at runtime.
         if(gests[action.cmd])
             inp.value = String(gests[action.cmd]).toUpperCase()
+        inp.addEventListener('input', scheduleSave)
         td.align = 'center'
         tr.appendChild(td)
         td.appendChild(inp)
@@ -189,7 +197,13 @@ function save_options()
         // recognizer in mouseTrack.js only emits upper-case direction letters,
         // so a lower-cased entry would otherwise never match.
         if(inputs[i].value.length > 0)
-            data[cmdKey] = inputs[i].value.toUpperCase();
+        {
+            // A field holding a character outside U/D/L/R fails its pattern;
+            // like an invalid color it skips only its own write, keeping the
+            // previously stored mapping, while the other settings still save.
+            if(!inputs[i].validity.patternMismatch)
+                data[cmdKey] = inputs[i].value.toUpperCase();
+        }
         else
             toRemove.push(cmdKey);
     }
