@@ -126,30 +126,57 @@ function fillTableRows(gests)
     }
 }
 
-function save_options()
+// Auto-save: settings are persisted automatically a short moment after the
+// last change, so there is no save button to press. The debounce coalesces
+// rapid changes (slider drags, typing) into a single storage write.
+var SAVE_DELAY_MS = 400;
+var saveTimer = null;
+
+function scheduleSave()
+{
+    if(saveTimer) clearTimeout(saveTimer);
+    saveTimer = setTimeout(function() {
+        saveTimer = null;
+        save_options();
+    }, SAVE_DELAY_MS);
+}
+
+var statusTimer = null;
+
+// Show a status message under the settings, then clear it after a moment.
+// A successful auto-save is silent -- this is used only for the invalid-color
+// warning. Passing an empty string clears the line immediately. Uses
+// textContent so message-catalog strings are always rendered as plain text.
+function showStatus(text)
 {
     var status = document.getElementById("status");
+    if(!status) return;
+    if(statusTimer) clearTimeout(statusTimer);
+    status.textContent = text || "";
+    if(text)
+        statusTimer = setTimeout(function() { status.textContent = ""; }, 1500);
+}
 
-    var code_input = document.getElementById("colorCode");
-    var hex = normalizeHex(code_input.value);
-    if(!hex) {
-        status.innerHTML = msg("statusInvalidColor");
-        setTimeout(function() { status.innerHTML = ""; }, 2000);
-        return;
-    }
-
+function save_options()
+{
     var width_input = document.getElementById("width");
     var opacity_input = document.getElementById("opacity");
-
     var gb_select = document.getElementById("gestureButton");
 
     var data = {
-        colorCode: hex,
         width: width_input.value,
         opacity: opacity_input.value,
         trail: document.getElementById('trail').checked,
         gestureButton: gb_select.children[gb_select.selectedIndex].value
     };
+
+    // The trail color is only written once it parses to a valid hex code.
+    // While the field is mid-edit it is often incomplete, so the previously
+    // stored color is kept rather than overwritten -- the other settings
+    // still save regardless.
+    var hex = normalizeHex(document.getElementById("colorCode").value);
+    if(hex)
+        data.colorCode = hex;
 
     var toRemove = [];
     var inputs = document.getElementsByTagName('input');
@@ -168,12 +195,28 @@ function save_options()
     }
 
     chrome.storage.local.set(data, function() {
-        status.innerHTML = msg("statusSaved");
-        setTimeout(function() { status.innerHTML = ""; }, 750);
+        // A successful save is silent; only an unusable color is surfaced.
+        showStatus(hex ? "" : msg("statusInvalidColor"));
     });
 
     if(toRemove.length > 0)
         chrome.storage.local.remove(toRemove);
+}
+
+// Attach the debounced auto-save to every settings control. <select> and
+// checkbox inputs settle on 'change'; text and range inputs stream updates
+// on 'input'. Listening for both on every control is harmless -- the debounce
+// coalesces the events into one save. Gesture-row inputs are wired separately
+// in fillTableRows() as each row is created.
+function wireAutoSave()
+{
+    var ids = ["gestureButton", "trail", "color", "colorCode", "width", "opacity"];
+    for(var i = 0; i < ids.length; i++) {
+        var el = document.getElementById(ids[i]);
+        if(!el) continue;
+        el.addEventListener('change', scheduleSave);
+        el.addEventListener('input', scheduleSave);
+    }
 }
 
 function lookupColorName(hex)
@@ -235,6 +278,7 @@ function loadInfo()
 {
     localizeHtml();
     wireColorControls();
+    wireAutoSave();
 
     chrome.storage.local.get(null, function(items) {
         var select, value, i, child;
@@ -293,4 +337,3 @@ function loadInfo()
 }
 
 document.addEventListener('DOMContentLoaded', loadInfo);
-document.querySelector('#save').addEventListener('click', save_options);

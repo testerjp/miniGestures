@@ -6,6 +6,12 @@ All notable changes to miniGestures, one entry per pull request (newest first). 
 - The options page stored each gesture string verbatim, while the recognizer in `mouseTrack.js` only ever emits upper-case direction letters (`U`/`D`/`L`/`R`); a mapping entered in lower case (e.g. `dr`) was saved as-is and silently never matched.
 - `save_options()` now upper-cases each gesture string before writing it to `chrome.storage.local`, and `fillTableRows()` displays stored gestures upper-cased so an existing lower-case entry shows consistently.
 - `invertHash()` in `mouseTrack.js` builds the gesture→action lookup with upper-cased keys, so a gesture already stored in lower case is still matched at runtime.
+## 2026-05-19 — [#56](https://github.com/testerjp/miniGestures/pull/56) Auto-save the options page
+- The options page required clicking "Save Configuration" to persist any change; modern settings UIs save automatically without a save button.
+- Settings now save automatically a short moment after the last change — a 400 ms debounce (`scheduleSave()`) coalesces slider drags and typing into a single `chrome.storage.local` write. Every control is wired via `wireAutoSave()` (gesture button, trail toggle, color, width, opacity) and per-row in `fillTableRows()` (the 14 gesture mappings).
+- Removed the "Save Configuration" button and the now-obsolete `noteSave` instruction heading, along with their `saveButton` / `noteSave` message-catalog keys in all 27 locales.
+- A successful save is silent, matching typical auto-save UIs — there is no "Configuration Saved" confirmation, and the `statusSaved` message-catalog key is removed from all 27 locales.
+- `save_options()` no longer aborts the whole save when the color field is mid-edit: an invalid hex skips only the `colorCode` write (keeping the previously stored color) while the other settings still persist. The invalid-color hint is the one remaining status message, shown via `showStatus()` using `textContent`.
 
 ## 2026-05-18 — [#55](https://github.com/testerjp/miniGestures/pull/55) Enable the chrome-devtools MCP extension tools
 - The `chrome-devtools` MCP server only exposes its extension tools (`install_extension`, `list_extensions`, `reload_extension`, …) when launched with `--category-extensions`; without the flag an unpacked extension cannot be loaded into the MCP-controlled Chrome.
