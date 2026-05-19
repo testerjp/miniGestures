@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-19 — [#PR](url) Reject invalid characters in gesture fields
+## 2026-05-19 — [#58](https://github.com/testerjp/miniGestures/pull/58) Reject invalid characters in gesture fields
 - The gesture-mapping fields on the options page accepted any character, but only the four direction letters are meaningful (`U`/`D`/`L`/`R`); typing `x`, a digit, or a space gave no feedback and saved an entry that silently never matched a real gesture.
 - Each gesture field now drops any non-direction character as it is typed or pasted, keeping the caret in place, and flashes a red `box-shadow` (`gestureReject` keyframe / `onGestureInput()`) to signal the rejected keystroke. Lower-case `u`/`d`/`l`/`r` are still accepted — `save_options()` upper-cases them on write.
 - Restored the per-row auto-save wiring: `f38cc5b` added `scheduleSave` to each gesture input, but the line was dropped in the #57 merge, so mapping changes had stopped persisting. The new `onGestureInput()` handler calls `scheduleSave()`, matching what the `wireAutoSave()` comment already documents.
