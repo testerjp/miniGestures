@@ -2,6 +2,11 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-19 — [#57](https://github.com/testerjp/miniGestures/pull/57) Make gesture entries case-insensitive
+- The options page stored each gesture string verbatim, while the recognizer in `mouseTrack.js` only ever emits upper-case direction letters (`U`/`D`/`L`/`R`); a mapping entered in lower case (e.g. `dr`) was saved as-is and silently never matched.
+- `save_options()` now upper-cases each gesture string before writing it to `chrome.storage.local`, and `fillTableRows()` displays stored gestures upper-cased so an existing lower-case entry shows consistently.
+- `invertHash()` in `mouseTrack.js` builds the gesture→action lookup with upper-cased keys, so a gesture already stored in lower case is still matched at runtime.
+
 ## 2026-05-18 — [#55](https://github.com/testerjp/miniGestures/pull/55) Enable the chrome-devtools MCP extension tools
 - The `chrome-devtools` MCP server only exposes its extension tools (`install_extension`, `list_extensions`, `reload_extension`, …) when launched with `--category-extensions`; without the flag an unpacked extension cannot be loaded into the MCP-controlled Chrome.
 - Added `--category-extensions` to the `chrome-devtools` `args` in `.mcp.json` so the miniGestures extension can be loaded and exercised end-to-end through the MCP server.
