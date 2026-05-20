@@ -2,6 +2,11 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-20 — [#PR](https://github.com/testerjp/miniGestures/pull/PR) Tune the invalid gesture-field shadow
+- After PR #62 the red `:invalid` `box-shadow` read slightly pale and thin; this entry bumps both width and saturation while staying under the alpha that re-introduces the PR #62 focus/blur perception bug.
+- `options.html`: changed `box-shadow: 0 0 5px 2px rgba(204, 0, 0, 0.4)` to `0 0 7px 3px rgba(204, 0, 0, 0.6)`. Spread `2px`→`3px` is the biggest visible lift (thicker red band before the blur kicks in); blur `5px`→`7px` widens the halo a touch; alpha `0.4`→`0.6` makes the red noticeably more saturated. Hue is unchanged at `rgba(204, 0, 0, …)`.
+- Rewrote the "kept light (low alpha)" sentence in the same `<style>` block to reflect the new alpha: the shadow's alpha is held under the level at which the focus outline visibly changes its apparent darkness, with `0.6` picked empirically as the visible-but-stable point.
+
 ## 2026-05-20 — [#62](https://github.com/testerjp/miniGestures/pull/62) Stabilise the gesture-field frame across focus and validity
 - Two related visual nits with the gesture-field invalid state from [#58](https://github.com/testerjp/miniGestures/pull/58): the red `:invalid` `box-shadow` shifted darker after the field lost focus, and the field's own border read distinctly darker when unfocused — most visibly on an invalid field where the red glow framed it.
 - Softened the shadow: lowered its alpha from `0.85` to `0.4`. The shadow declaration is identical between focused and unfocused; previously, the focus outline overlaid its inner edge and visually washed it out, while after blur the outline was gone and the full saturation came through as "darker". A lighter glow keeps that overlay difference below the perception threshold.
