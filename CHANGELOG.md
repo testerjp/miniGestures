@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-20 — [#PR](https://github.com/testerjp/miniGestures/pull/PR) Release 1.5.4
+- Bumped `manifest.json` `version` from `1.5.3` to `1.5.4`.
+- Release covering the 12 PRs merged since v1.5.3 ([#52](https://github.com/testerjp/miniGestures/pull/52)–[#63](https://github.com/testerjp/miniGestures/pull/63)): options page now auto-saves on change (#56), gesture entries are case-insensitive (#57), and gesture fields flag invalid characters with a red `:invalid` `box-shadow` (#58) that was iterated to a stable, visible style (#59–#63). README/i18n polish (#52, #53). The MCP / chrome-devtools config changes (#54, #55) are developer-tooling only and do not affect the shipped extension.
+
 ## 2026-05-20 — [#63](https://github.com/testerjp/miniGestures/pull/63) Tune the invalid gesture-field shadow
 - After PR #62 the red `:invalid` `box-shadow` read slightly pale and thin; this entry bumps both width and saturation while staying under the alpha that re-introduces the PR #62 focus/blur perception bug.
 - `options.html`: changed `box-shadow: 0 0 5px 2px rgba(204, 0, 0, 0.4)` to `0 0 7px 3px rgba(204, 0, 0, 0.6)`. Spread `2px`→`3px` is the biggest visible lift (thicker red band before the blur kicks in); blur `5px`→`7px` widens the halo a touch; alpha `0.4`→`0.6` makes the red noticeably more saturated. Hue is unchanged at `rgba(204, 0, 0, …)`.
