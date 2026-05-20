@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-20 — [#PR](https://github.com/testerjp/miniGestures/pull/PR) Stabilise the gesture-field frame across focus and validity
+## 2026-05-20 — [#62](https://github.com/testerjp/miniGestures/pull/62) Stabilise the gesture-field frame across focus and validity
 - Two related visual nits with the gesture-field invalid state from [#58](https://github.com/testerjp/miniGestures/pull/58): the red `:invalid` `box-shadow` shifted darker after the field lost focus, and the field's own border read distinctly darker when unfocused — most visibly on an invalid field where the red glow framed it.
 - Softened the shadow: lowered its alpha from `0.85` to `0.4`. The shadow declaration is identical between focused and unfocused; previously, the focus outline overlaid its inner edge and visually washed it out, while after blur the outline was gone and the full saturation came through as "darker". A lighter glow keeps that overlay difference below the perception threshold.
 - Stabilised the border: set `#gestureTab input { border: 1px solid #888 }`, replacing the UA default `2px inset` border which (on Linux at least) reads visibly darker when unfocused. The same flat border now applies to both valid and invalid gesture fields, so an invalid field's frame matches the frame of a valid one and does not shift on focus / blur.
