@@ -48,3 +48,7 @@ Three main scripts communicate via Chrome's message passing:
 ## Code Style
 
 - All comments must be written in English.
+
+## Implementation Principles
+
+- Keep the implementation simple. Prefer the smallest change that solves the problem; reuse what the platform already provides (browser-native validation messages, built-in i18n, etc.) instead of building a parallel mechanism. If a custom UI would duplicate something the browser already shows, drop the custom UI.
