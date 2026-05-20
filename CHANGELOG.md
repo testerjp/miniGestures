@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-20 — [#PR](https://github.com/testerjp/miniGestures/pull/PR) Drop the duplicate gesture-field hint
+## 2026-05-20 — [#61](https://github.com/testerjp/miniGestures/pull/61) Drop the duplicate gesture-field hint
 - Typing an invalid character into a gesture field surfaced two overlapping popups: the custom `.gestureHint` tooltip added in [#59](https://github.com/testerjp/miniGestures/pull/59) (reusing the localized `noteGestures` note) and the browser's own pattern-mismatch validation message ("Please match the requested format" / 「指定されている形式で入力してください。」). Two popups for the same condition are noise.
 - Removed the custom hint: deleted the `.gestureHint` span and `aria-describedby` from `options.js` `fillTableRows()`, and removed the `#gestureTab td { position: relative }`, `.gestureHint { ... }`, and `#gestureTab input:invalid:focus ~ .gestureHint` rules from `options.html`. The red `:invalid` shadow from [#58](https://github.com/testerjp/miniGestures/pull/58) stays, and the page-level `noteGestures` `<h2>` heading still names the four directions. Screen readers get the same feedback through the browser's native `ValidityState`/validation-message channel.
 - Added an "Implementation Principles" section to `CLAUDE.md` recording the policy this change applies: keep the implementation simple, and drop custom UI that duplicates something the browser already shows.
