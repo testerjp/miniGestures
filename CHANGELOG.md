@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-22 — [#PR](url) Release 1.5.5
+## 2026-05-22 — [#67](https://github.com/testerjp/miniGestures/pull/67) Release 1.5.5
 - Bumped `manifest.json` `version` from `1.5.4` to `1.5.5`.
 - Release covering the 2 PRs merged since v1.5.4 ([#65](https://github.com/testerjp/miniGestures/pull/65), [#66](https://github.com/testerjp/miniGestures/pull/66)): open tabs now apply settings changes live without a reload (#65), and the gesture-mapping fields are capped at 8 characters (#66).
 
