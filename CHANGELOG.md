@@ -2,6 +2,10 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
+## 2026-05-22 — [#PR](url) Release 1.5.5
+- Bumped `manifest.json` `version` from `1.5.4` to `1.5.5`.
+- Release covering the 2 PRs merged since v1.5.4 ([#65](https://github.com/testerjp/miniGestures/pull/65), [#66](https://github.com/testerjp/miniGestures/pull/66)): open tabs now apply settings changes live without a reload (#65), and the gesture-mapping fields are capped at 8 characters (#66).
+
 ## 2026-05-22 — [#66](https://github.com/testerjp/miniGestures/pull/66) Limit gesture input to 8 characters
 - The gesture-mapping fields on the options page had no length limit: the `[UDLRudlr]*` `pattern` restricted the character set but not the length, and the field had no `maxlength` (unlike the colorCode field). A pasted multi-megabyte string would be saved verbatim and could exhaust the ~10 MB `chrome.storage.local` quota (the extension has no `unlimitedStorage` permission), and that write would fail silently because `save_options()` does not check `chrome.runtime.lastError` for the gesture write. Not remotely exploitable — only the user can write to the options field — but worth bounding.
 - `options.js` (`fillTableRows()`): added `inp.maxLength = 8` so the browser truncates over-long typing/pasting natively, and tightened the pattern from `[UDLRudlr]*` to `[UDLRudlr]{0,8}`. The bounded pattern closes the one gap `maxLength` leaves — a value set programmatically via `.value` (e.g. an over-long entry already in storage) is not truncated, but the `{0,8}` bound now makes it `:invalid`, so the existing `validity.patternMismatch` check in `save_options()` skips re-saving it. No new mechanism added; 8 is comfortably longer than any real gesture (the longest default is `DR`).
