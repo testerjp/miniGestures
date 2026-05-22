@@ -410,3 +410,23 @@ function loadOptions(name)
 }
 
 document.addEventListener('DOMContentLoaded', loadOptions);
+
+// Settings saved on the options page must reach tabs that are already open. The
+// content script caches the gesture map (ginv) and trail/button settings on
+// first load, so without this a remapped gesture only takes effect after the tab
+// is reloaded. Re-read the options whenever storage changes -- but ignore the
+// background script's own bookkeeping writes (per-tab URL entries keyed by a
+// numeric tab id, and "lasturl") so ordinary browsing does not refresh on every
+// navigation. The relevant-key test mirrors the gests filter in background.js.
+chrome.storage.onChanged.addListener(function(changes, area)
+{
+    if(area !== "local") return
+    for(var key in changes)
+    {
+        if(key !== "lasturl" && !/^\d+$/.test(key))
+        {
+            loadOptions()
+            return
+        }
+    }
+});
