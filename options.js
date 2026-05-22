@@ -116,11 +116,20 @@ function fillTableRows(gests)
         td = document.createElement('td')
         var inp = document.createElement('input')
         inp.type = 'text'
-        // Restrict the field to the four direction letters: a value with any
-        // other character fails this pattern, so the field matches :invalid
-        // and CSS keeps a red shadow on it. The character stays visible -- it
-        // is just not saved (see save_options()).
-        inp.pattern = '[UDLRudlr]*'
+        // Cap the field at 8 characters -- comfortably longer than any real
+        // gesture -- so an over-long paste cannot bloat the stored value. The
+        // browser enforces this natively on typing and pasting, like the
+        // colorCode field's maxlength.
+        inp.maxLength = 8
+        // Restrict the field to the four direction letters, max 8 of them: a
+        // value with any other character -- or more than 8 -- fails this
+        // pattern, so the field matches :invalid and CSS keeps a red shadow on
+        // it. maxLength blocks over-long *user* input, but a value set
+        // programmatically (e.g. an over-long entry already in storage) is not
+        // truncated, so the {0,8} bound makes such a value :invalid and the
+        // patternMismatch check in save_options() skips re-saving it. The
+        // character stays visible -- it is just not saved (see save_options()).
+        inp.pattern = '[UDLRudlr]{0,8}'
         // Show any previously stored gesture upper-cased, so an entry saved as
         // lower-case displays consistently with how it is matched at runtime.
         if(gests[action.cmd])
