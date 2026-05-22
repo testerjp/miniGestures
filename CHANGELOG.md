@@ -2,7 +2,7 @@
 
 All notable changes to miniGestures, one entry per pull request (newest first). Pre-PR history is preserved at the bottom.
 
-## 2026-05-22 — [#PR](https://github.com/testerjp/miniGestures/pull/PR) Apply settings changes to already-open tabs
+## 2026-05-22 — [#65](https://github.com/testerjp/miniGestures/pull/65) Apply settings changes to already-open tabs
 - Remapping a gesture (e.g. assigning "next tab" / "previous tab") had no effect on tabs that were already open: the content script read the options once on first load and cached the gesture map (`ginv`), so the change only took hold after the tab was reloaded or the browser restarted. Until then, open tabs ran a stale mapping — which is what made "next tab" appear to bounce between the next and previous tab, as some tabs ran the new mapping and others the old.
 - `mouseTrack.js`: added a `chrome.storage.onChanged` listener that re-runs the existing `loadOptions()` whenever a relevant `local` key changes, so remapped gestures and the trail color/width/opacity, trail toggle, and trigger button all apply live without a reload. The listener ignores `background.js`'s own bookkeeping writes (the per-tab URL entries keyed by a numeric tab id, and `lasturl`) so ordinary browsing does not trigger a refresh on every navigation; the relevant-key test mirrors the `gests` filter in `background.js`.
 
